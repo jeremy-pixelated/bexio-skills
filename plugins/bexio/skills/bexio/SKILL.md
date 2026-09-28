@@ -28,6 +28,7 @@ description: 'Use when any request touches Bexio through a bexio_* connector: lo
 - Gated = §3.1 only. Tool descriptions carry no gate information; this table is the only source.
 - Write not in §3.1 (e.g. create a contact, book a bill, delete a note) → call directly: no dry run, no preview, no question → report Bexio id (+ doc nr) + status. Segment skill checks on it → run before the call, finding = report line, no question.
 - Ungated write returns `needs_ok` (connector flag, nothing written: closed period, VAT period filed, likely duplicate, amount over limit …) → show only the flag(s), connector `message` verbatim → one yes → re-call once with the same arguments + `acknowledge_flags` = the codes of that `needs_ok` (all, as returned) → report. No yes → nothing written. Re-call returns `needs_ok` again → only the new flag(s) → one yes → re-call.
+- User asks to see an ungated write first ("nur als Vorschau", "zeig mir zuerst", "noch nicht ausführen") → no call, no `dry_run`: show the planned call (tool.action + key arguments) as text → execute only on a later explicit go.
 - Write in §3.1 → §3.2: dry run first, then preview + one question. Never question → dry run → question.
 - Missing optional details → dry run with what is known, gaps listed in the preview · ask before the dry run only if a REQUIRED field is unknown.
 - Read → call.

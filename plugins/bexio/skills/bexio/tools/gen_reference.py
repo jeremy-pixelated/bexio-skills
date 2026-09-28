@@ -62,8 +62,18 @@ CONNECTOR_REQUIRED = {
 }
 # Payload-dependent gates (skills/bexio/SKILL.md §3.1 "Also gated"): tool.action -> extra gate label.
 CONDITIONAL_GATE = {
-    "bexio_bills.create": "**OK** payment order with `payment`",
-    "bexio_bills.update": "**OK** payment order with `payment`",
+    "bexio_bills.create": "**OK** payment with `payment`",
+    "bexio_bills.update": "**OK** payment with `payment`",
+}
+# Gate class per gated tool.action (skills/bexio/SKILL.md §3.1). Must equal the `confirm` lists in op-map.json.
+GATE_CLASS = {
+    "bexio_quotes.send": "send", "bexio_invoices.send": "send", "bexio_invoice_reminders.send": "send",
+    "bexio_outgoing_payments.create": "payment", "bexio_outgoing_payments.update": "payment",
+    "bexio_banking_payments.create": "payment", "bexio_banking_payments.update": "payment",
+    "bexio_quotes.delete": "final delete", "bexio_orders.delete": "final delete",
+    "bexio_invoices.delete": "final delete", "bexio_invoice_reminders.delete": "final delete",
+    "bexio_bills.delete": "final delete",
+    "bexio_accounting.delete": "tax rate",
 }
 METHODS = ("get", "post", "put", "patch", "delete")
 ENUM_MAX = 14
@@ -258,17 +268,7 @@ def scopes_of(op, spec):
 def gate_of(tool_meta, tool, action):
     meta = tool_meta.get(tool, {})
     if action in meta.get("confirm", []):
-        if action == "send":
-            cls = "send"
-        elif action == "cancel":
-            cls = "cancel"
-        elif action in meta.get("destructive", []):
-            cls = "delete"
-        elif tool in ("bexio_banking_payments", "bexio_outgoing_payments"):
-            cls = "payment order"
-        else:
-            cls = "posting"
-        return "**OK** %s" % cls
+        return "**OK** %s" % GATE_CLASS["%s.%s" % (tool, action)]
     if action in meta.get("write", []):
         return "write"
     return "read"
@@ -285,6 +285,9 @@ def esc(text):
 def build(spec, opmap, fetched):
     r = Resolver(spec)
     tool_meta = opmap.get("tools", {})
+    confirm = {"%s.%s" % (t, a) for t, m in tool_meta.items() for a in m.get("confirm", [])}
+    if confirm != set(GATE_CLASS):
+        sys.exit("gate drift op-map confirm vs GATE_CLASS: %s" % sorted(confirm ^ set(GATE_CLASS)))
     ops_map = opmap.get("ops", {})
     by_skill = {}
     tag_order = []
@@ -353,7 +356,7 @@ def build(spec, opmap, fetched):
             "Source: https://docs.bexio.com/ OpenAPI %s (info.version %s), fetched %s, spec sha256 `%s` (canonical JSON, x-codeSamples stripped). MCP mapping: `skills/bexio/tools/op-map.json` (operationId → connector tool.action)."
             % (spec.get("openapi"), spec.get("info", {}).get("version"), fetched, sha),
             "",
-            "Legend: gate `**OK** <class>` = dry run + one preview + one yes (core §3) · `write` = do + report id · `read` = no gate · tool `—` = not reachable via MCP · required: `a{b,c}` nested, `x[]{y}` array items, `q:` required query · `→field` = enum in the response · scopes = API scopes the op declares.",
+            "Legend: gate `**OK** <class>` = dry run + one preview + one yes (core §3.1, 13 actions) · `write` = do + report id; connector flag (`needs_ok`) → one yes (core §3) · `read` = no gate · tool `—` = not reachable via MCP · required: `a{b,c}` nested, `x[]{y}` array items, `q:` required query · `→field` = enum in the response · scopes = API scopes the op declares.",
             "",
             "%d operations, %d tags." % (n, len(tags)),
             "",

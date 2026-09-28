@@ -14,9 +14,9 @@ Core `bexio` first (router, gate, flags). All 30 ops: `reference.md`.
 ## Tools
 | Tool | Actions | Gated |
 |---|---|---|
-| `bexio_projects` | list, search, get, create, update, delete, archive, unarchive, list_statuses, list_types | delete |
-| `bexio_project_planning` (`resource`: milestones, work_packages) | list, get, create, update, delete | delete |
-| `bexio_timesheets` | list, search, get, create, update, delete, list_statuses | delete |
+| `bexio_projects` | list, search, get, create, update, delete, archive, unarchive, list_statuses, list_types | – |
+| `bexio_project_planning` (`resource`: milestones, work_packages) | list, get, create, update, delete | – |
+| `bexio_timesheets` | list, search, get, create, update, delete, list_statuses | – |
 | `bexio_master_data` (`resource: business_activities`; tool owned by `bexio-admin`) | list, search, create | – (business activities have no delete endpoint) |
 - Scopes: projects + planning `project_show` / `project_edit`; timesheets `monitoring_show` / `monitoring_edit`; statuses, types, business activities: user rights only [D:v2CreateProject], [D:v2CreateTimesheet], [D:v2CreateBusinessActivity].
 
@@ -41,12 +41,13 @@ Core `bexio` first (router, gate, flags). All 30 ops: `reference.md`.
 ## Business activities (`bexio_master_data`, `resource: business_activities`)
 - list, search (`name`), create (`name` required; `default_is_billable`, `default_price_per_hour`, `account_id`). No get, edit or delete endpoint [D:v2CreateBusinessActivity].
 
-## Gate rows (core §3.2: dry run → one preview → one yes → call with the dry run's `acknowledge_flags`)
-| Row | Class | Preview (`pre_image` + `would_send`) | Skill pre-check |
-|---|---|---|---|
-| `bexio_projects.delete` | delete | id, `nr`, name, customer, status; "permanent, `archive` keeps it" | `bexio_timesheets.search` `pr_project_id` → linked → ⚑ timesheets linked |
-| `bexio_project_planning.delete` | delete | project name, resource (milestone / work package), id, name, hours (work package); "permanent" | – |
-| `bexio_timesheets.delete` | delete | id, user, date, duration, project, business activity, billable flag; "permanent" | – |
+## Gate
+- No gated action here (core §3.1). All writes run directly, deletes included.
+
+## Direct writes with a skill check (core §3: checked before the call, finding = report line, no question)
+| Action | Check → report line |
+|---|---|
+| `bexio_projects.delete` | `bexio_timesheets.search` `pr_project_id` → linked → "<n> timesheets were linked" |
 
 ## Gotchas
 1. Edit verbs differ (projects / milestones POST, work packages PATCH).

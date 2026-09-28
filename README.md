@@ -4,7 +4,7 @@ Claude skills for working with Bexio accounting through an MCP connector that ex
 
 - `bexio`: core skill, load first. Routes the request and runs the confirmation gate.
 - 9 segment skills: contacts, sales, purchase, accounting, banking, items, projects, files, admin. Each ships a generated per-operation reference from the official Bexio OpenAPI spec.
-- Gated actions (send, delete, cancel, payment order, posting): one preview, one explicit yes, then execute.
+- Gated actions (13: send, payment, final delete, tax-rate delete; plus a supplier bill carrying a payment): one preview, one explicit yes, then execute. Every other write runs directly and is reported; a connector warning (`needs_ok`: closed period, VAT period filed, likely duplicate, amount over limit) still gets one yes before the write.
 - `plugins/bexio/freigaben/`: human-readable overview of which actions run directly and which need a yes (German).
 
 The skills contain no credentials, no addresses and no connector code. They work with a Bexio MCP connector that exposes the `bexio_*` tools they reference.

@@ -12,9 +12,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_contact_relations": {
    "write": [
@@ -25,9 +23,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_contact_groups": {
    "write": [
@@ -38,9 +34,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_contact_sectors": {
    "write": [],
@@ -56,9 +50,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_quotes": {
    "write": [
@@ -99,8 +91,7 @@
     "delete_repetition"
    ],
    "confirm": [
-    "delete",
-    "delete_repetition"
+    "delete"
    ]
   },
   "bexio_deliveries": {
@@ -127,9 +118,6 @@
    ],
    "confirm": [
     "delete",
-    "issue",
-    "revert_issue",
-    "cancel",
     "send"
    ]
   },
@@ -141,10 +129,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "create",
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_invoice_reminders": {
    "write": [
@@ -171,9 +156,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_document_comments": {
    "write": [
@@ -199,8 +182,7 @@
     "delete"
    ],
    "confirm": [
-    "delete",
-    "update_status"
+    "delete"
    ]
   },
   "bexio_expenses": {
@@ -214,10 +196,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete",
-    "update_status"
-   ]
+   "confirm": []
   },
   "bexio_purchase_orders": {
    "write": [
@@ -228,9 +207,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_outgoing_payments": {
    "write": [
@@ -243,8 +220,7 @@
    ],
    "confirm": [
     "create",
-    "update",
-    "delete"
+    "update"
    ]
   },
   "bexio_accounting": {
@@ -256,7 +232,6 @@
     "delete"
    ],
    "confirm": [
-    "create",
     "delete"
    ]
   },
@@ -269,9 +244,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_manual_entries": {
    "write": [
@@ -285,12 +258,7 @@
     "delete",
     "delete_file"
    ],
-   "confirm": [
-    "create",
-    "update",
-    "delete",
-    "delete_file"
-   ]
+   "confirm": []
   },
   "bexio_bank_accounts": {
    "write": [],
@@ -309,9 +277,7 @@
    ],
    "confirm": [
     "create",
-    "update",
-    "cancel",
-    "delete"
+    "update"
    ]
   },
   "bexio_items": {
@@ -323,9 +289,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_stock": {
    "write": [],
@@ -343,9 +307,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_project_planning": {
    "write": [
@@ -356,9 +318,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_timesheets": {
    "write": [
@@ -369,9 +329,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_files": {
    "write": [
@@ -382,9 +340,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_master_data": {
    "write": [
@@ -395,9 +351,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_company_profile": {
    "write": [],
@@ -413,9 +367,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_tasks": {
    "write": [
@@ -426,9 +378,7 @@
    "destructive": [
     "delete"
    ],
-   "confirm": [
-    "delete"
-   ]
+   "confirm": []
   },
   "bexio_users": {
    "write": [
@@ -439,9 +389,7 @@
    "destructive": [
     "delete_fictional"
    ],
-   "confirm": [
-    "delete_fictional"
-   ]
+   "confirm": []
   }
  },
  "ops": {

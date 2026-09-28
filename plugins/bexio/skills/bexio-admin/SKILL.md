@@ -14,11 +14,11 @@ Core `bexio` first (router, gate, flags). All 55 ops: `reference.md`.
 ## Tools
 | Tool | Actions | Gated |
 |---|---|---|
-| `bexio_users` | list, get, me, list_fictional, get_fictional, create_fictional, update_fictional, delete_fictional, permissions | delete_fictional |
-| `bexio_notes` | list, search, get, create, update, delete | delete |
-| `bexio_tasks` | list, search, get, create, update, delete, list_priorities, list_statuses | delete |
+| `bexio_users` | list, get, me, list_fictional, get_fictional, create_fictional, update_fictional, delete_fictional, permissions | – |
+| `bexio_notes` | list, search, get, create, update, delete | – |
+| `bexio_tasks` | list, search, get, create, update, delete, list_priorities, list_statuses | – |
 | `bexio_company_profile` | list, get | – (read-only) |
-| `bexio_master_data` (`resource`: salutations, titles, units, countries, languages, payment_types, communication_types, business_activities) | list, search, get, create, update, delete | delete |
+| `bexio_master_data` (`resource`: salutations, titles, units, countries, languages, payment_types, communication_types, business_activities) | list, search, get, create, update, delete | – |
 - Scopes: notes `note_*`, tasks `task_*` · rest: user rights only [D:v3ListUsers], [D:v2CreateNote] · spec `general` = not requestable [D§Authentication/API-Scopes].
 
 ## Users + permissions
@@ -46,13 +46,8 @@ Core `bexio` first (router, gate, flags). All 55 ops: `reference.md`.
 - Sources: [D:v2CreateSalutation], [D:v2CreateCountry], [D:v2ListLanguages], [D:v2ListPaymentTypes], [D:v2ListCommunicationTypes].
 - Language records: `decimal_point`, `thousands_separator`, `date_format_id` (1 = `DD.MM.YYYY`).
 
-## Gate rows (core §3.2: dry run → one preview → one yes → call with the dry run's `acknowledge_flags`)
-| Row | Class | Preview (`pre_image` + `would_send`) | Skill pre-check |
-|---|---|---|---|
-| `bexio_master_data.delete` | delete | resource, id, name (+ country codes); "permanent" | use by contacts / items not checkable in one call; effect on referencing records n.d. → ⚑ always |
-| `bexio_notes.delete` | delete | id, subject, `event_start`, linked contact / project; "permanent" | – |
-| `bexio_tasks.delete` | delete | id, subject, assignee, due (`finish_date`), status; "permanent" | – |
-| `bexio_users.delete_fictional` | delete | id, name, email; "permanent" | – |
+## Gate
+- No gated action here (core §3.1). All writes run directly, deletes included (master data, notes, tasks, fictional users) → report id + name.
 
 ## Gotchas
 1. No requestable `general` scope; access = user rights.

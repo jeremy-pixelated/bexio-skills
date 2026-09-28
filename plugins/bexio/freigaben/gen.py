@@ -1,6 +1,6 @@
-"""Build freigaben.html: Bexio write actions, gate, flow chart (German).
+"""Build freigaben.html: Bexio write actions and their gate (German, static page).
 Inputs (this folder): write-actions.json (connector action list), texte_de.py (one German sentence per action), template.html.
-Guard: gated set must equal core skill §3.1, every action needs a German text. Run: python3 gen.py [--check]"""
+Guard: gated set + classes must equal core skill §3.1 (13 rows + the bills-with-payment line), every action needs a German text. Run: python3 gen.py [--check]"""
 import json, html, re, sys, pathlib
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -8,10 +8,20 @@ import texte_de
 w = json.load(open(HERE / 'write-actions.json'))
 core = (HERE.parent / 'skills' / 'bexio' / 'SKILL.md').read_text()
 sec = core[core.index('### 3.1'):core.index('### 3.2')]
-skill_gated = set(re.findall(r'^\| `(bexio_[a-z_]+\.[a-z_]+)` \|', sec, re.M))
-data_gated = {f"{r['tool']}.{r['action']}" for r in w if r['gate'] == 'confirm'}
-if skill_gated != data_gated or len(data_gated) != 46:
+N_GATED = 13
+skill_rows = dict(re.findall(r'^\| `(bexio_[a-z_]+\.[a-z_]+)` \| ([a-z ]+) \|$', sec, re.M))
+skill_gated = set(skill_rows)
+data_cls = {f"{r['tool']}.{r['action']}": r['cls'] for r in w if r['gate'] == 'confirm'}
+data_gated = set(data_cls)
+if skill_gated != data_gated or len(data_gated) != N_GATED or len(skill_rows) != len(re.findall(r'^\| `bexio_', sec, re.M)):
     sys.exit(f'gate drift: only skill {sorted(skill_gated - data_gated)} only data {sorted(data_gated - skill_gated)} n={len(data_gated)}')
+cls_drift = sorted(k for k in data_gated if skill_rows[k] != data_cls[k])
+if cls_drift:
+    sys.exit(f'class drift vs core §3.1: {[(k, skill_rows[k], data_cls[k]) for k in cls_drift]}')
+if not re.search(r'^- Also gated, class payment: `bexio_bills\.create` / `bexio_bills\.update` with a `payment` object', sec, re.M):
+    sys.exit('core §3.1 lacks the bills-with-payment line (special case row on the page)')
+if set(data_cls.values()) - set(texte_de.CLS_DE):
+    sys.exit(f'no German class name: {sorted(set(data_cls.values()) - set(texte_de.CLS_DE))}')
 missing = [(r['tool'], r['action']) for r in w if (r['tool'], r['action']) not in texte_de.DE]
 if missing:
     sys.exit(f'no German text: {missing}')
@@ -19,7 +29,7 @@ skill = lambda g: 'bexio-admin' if g == 'misc' else 'bexio-' + g
 ORDER = ['bexio-sales', 'bexio-purchase', 'bexio-banking', 'bexio-accounting', 'bexio-contacts', 'bexio-items', 'bexio-projects', 'bexio-files', 'bexio-admin']
 rows = [dict(t=r['tool'], a=r['action'], s=skill(r['group']), g=int(r['gate'] == 'confirm'),
              c=r['cls'] if r['gate'] == 'confirm' else 'write', de=texte_de.DE[(r['tool'], r['action'])]) for r in w]
-rows.append(dict(t='bexio_bills', a='create / update + payment', s='bexio-purchase', g=1, c='payment order',
+rows.append(dict(t='bexio_bills', a='create / update + payment', s='bexio-purchase', g=1, c='payment',
                  de=texte_de.DE[('bexio_bills', 'create / update + payment')]))
 rows.sort(key=lambda r: (-r['g'], ORDER.index(r['s']), r['t'], r['a']))
 n_yes = len(data_gated)

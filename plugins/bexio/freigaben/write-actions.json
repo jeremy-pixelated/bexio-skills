@@ -17,8 +17,8 @@
   "tool": "bexio_contacts",
   "group": "contacts",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_contacts",
@@ -52,8 +52,8 @@
   "tool": "bexio_contact_relations",
   "group": "contacts",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_contact_groups",
@@ -73,8 +73,8 @@
   "tool": "bexio_contact_groups",
   "group": "contacts",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_additional_addresses",
@@ -94,8 +94,8 @@
   "tool": "bexio_additional_addresses",
   "group": "contacts",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_quotes",
@@ -115,7 +115,7 @@
   "tool": "bexio_quotes",
   "group": "sales",
   "action": "delete",
-  "cls": "delete",
+  "cls": "final delete",
   "gate": "confirm"
  },
  {
@@ -206,7 +206,7 @@
   "tool": "bexio_orders",
   "group": "sales",
   "action": "delete",
-  "cls": "delete",
+  "cls": "final delete",
   "gate": "confirm"
  },
  {
@@ -220,8 +220,8 @@
   "tool": "bexio_orders",
   "group": "sales",
   "action": "delete_repetition",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_orders",
@@ -262,29 +262,29 @@
   "tool": "bexio_invoices",
   "group": "sales",
   "action": "delete",
-  "cls": "delete",
+  "cls": "final delete",
   "gate": "confirm"
  },
  {
   "tool": "bexio_invoices",
   "group": "sales",
   "action": "issue",
-  "cls": "posting",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_invoices",
   "group": "sales",
   "action": "revert_issue",
-  "cls": "posting",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_invoices",
   "group": "sales",
   "action": "cancel",
-  "cls": "cancel",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_invoices",
@@ -311,15 +311,15 @@
   "tool": "bexio_invoice_payments",
   "group": "sales",
   "action": "create",
-  "cls": "posting",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_invoice_payments",
   "group": "sales",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_invoice_reminders",
@@ -332,7 +332,7 @@
   "tool": "bexio_invoice_reminders",
   "group": "sales",
   "action": "delete",
-  "cls": "delete",
+  "cls": "final delete",
   "gate": "confirm"
  },
  {
@@ -374,8 +374,8 @@
   "tool": "bexio_document_positions",
   "group": "sales",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_document_comments",
@@ -402,7 +402,7 @@
   "tool": "bexio_bills",
   "group": "purchase",
   "action": "delete",
-  "cls": "delete",
+  "cls": "final delete",
   "gate": "confirm"
  },
  {
@@ -416,8 +416,8 @@
   "tool": "bexio_bills",
   "group": "purchase",
   "action": "update_status",
-  "cls": "posting",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_expenses",
@@ -437,8 +437,8 @@
   "tool": "bexio_expenses",
   "group": "purchase",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_expenses",
@@ -451,8 +451,8 @@
   "tool": "bexio_expenses",
   "group": "purchase",
   "action": "update_status",
-  "cls": "posting",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_purchase_orders",
@@ -472,42 +472,42 @@
   "tool": "bexio_purchase_orders",
   "group": "purchase",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_outgoing_payments",
   "group": "purchase",
   "action": "create",
-  "cls": "payment order",
+  "cls": "payment",
   "gate": "confirm"
  },
  {
   "tool": "bexio_outgoing_payments",
   "group": "purchase",
   "action": "update",
-  "cls": "payment order",
+  "cls": "payment",
   "gate": "confirm"
  },
  {
   "tool": "bexio_outgoing_payments",
   "group": "purchase",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_accounting",
   "group": "accounting",
   "action": "create",
-  "cls": "posting",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_accounting",
   "group": "accounting",
   "action": "delete",
-  "cls": "delete",
+  "cls": "tax rate",
   "gate": "confirm"
  },
  {
@@ -528,29 +528,29 @@
   "tool": "bexio_currencies",
   "group": "accounting",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_manual_entries",
   "group": "accounting",
   "action": "create",
-  "cls": "posting",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_manual_entries",
   "group": "accounting",
   "action": "update",
-  "cls": "posting",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_manual_entries",
   "group": "accounting",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_manual_entries",
@@ -563,36 +563,36 @@
   "tool": "bexio_manual_entries",
   "group": "accounting",
   "action": "delete_file",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_banking_payments",
   "group": "banking",
   "action": "create",
-  "cls": "payment order",
+  "cls": "payment",
   "gate": "confirm"
  },
  {
   "tool": "bexio_banking_payments",
   "group": "banking",
   "action": "update",
-  "cls": "payment order",
+  "cls": "payment",
   "gate": "confirm"
  },
  {
   "tool": "bexio_banking_payments",
   "group": "banking",
   "action": "cancel",
-  "cls": "cancel",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_banking_payments",
   "group": "banking",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_items",
@@ -612,8 +612,8 @@
   "tool": "bexio_items",
   "group": "items",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_projects",
@@ -633,8 +633,8 @@
   "tool": "bexio_projects",
   "group": "projects",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_projects",
@@ -668,8 +668,8 @@
   "tool": "bexio_project_planning",
   "group": "projects",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_timesheets",
@@ -689,8 +689,8 @@
   "tool": "bexio_timesheets",
   "group": "projects",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_files",
@@ -710,8 +710,8 @@
   "tool": "bexio_files",
   "group": "files",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_master_data",
@@ -731,8 +731,8 @@
   "tool": "bexio_master_data",
   "group": "misc",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_notes",
@@ -752,8 +752,8 @@
   "tool": "bexio_notes",
   "group": "misc",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_tasks",
@@ -773,8 +773,8 @@
   "tool": "bexio_tasks",
   "group": "misc",
   "action": "delete",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  },
  {
   "tool": "bexio_users",
@@ -794,7 +794,7 @@
   "tool": "bexio_users",
   "group": "misc",
   "action": "delete_fictional",
-  "cls": "delete",
-  "gate": "confirm"
+  "cls": "write",
+  "gate": "–"
  }
 ]

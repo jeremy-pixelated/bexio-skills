@@ -14,11 +14,11 @@ Customers + suppliers = one contact master. Core `bexio` first (router, gate, fl
 ## Tools
 | Tool | Actions | Gated |
 |---|---|---|
-| `bexio_contacts` | list, search, get, create, update, delete, bulk_create, restore | delete |
-| `bexio_contact_relations` | list, search, get, create, update, delete | delete |
-| `bexio_contact_groups` | list, search, get, create, update, delete | delete |
+| `bexio_contacts` | list, search, get, create, update, delete, bulk_create, restore | – |
+| `bexio_contact_relations` | list, search, get, create, update, delete | – |
+| `bexio_contact_groups` | list, search, get, create, update, delete | – |
 | `bexio_contact_sectors` | list, search | – (read-only) |
-| `bexio_additional_addresses` | list, search, get, create, update, delete | delete |
+| `bexio_additional_addresses` | list, search, get, create, update, delete | – |
 - Scopes: contacts, relations, additional addresses `contact_show` / `contact_edit`; groups + sectors: no requestable scope (user rights) [D:v2CreateContact], [D:v2CreateContactGroup].
 
 ## Contacts (`/2.0/contact`, integer ids)
@@ -26,7 +26,7 @@ Customers + suppliers = one contact master. Core `bexio` first (router, gate, fl
 - Optional: `nr` (null = auto; numeric), `name_2` (company addition / first name), `street_name` + `house_number` + `address_addition`, `postcode`, `city`, `country_id`, `mail`, `phone_fixed`, `phone_mobile`, `language_id`, `remarks`, `contact_group_ids` + `contact_branch_ids` as comma strings (`"1,2"`).
 - Address: structured street fields · single-line `address`: deprecated in requests since 2025-12-09, still in responses [D§Changelog].
 - Update = `update` with changed fields only (POST, partial).
-- Delete = soft: marked deleted, findable with `show_archived: true`; `restore` → back [D:v2DeleteContact], [D:v2RestoreContact]. Still gated.
+- Delete = soft: marked deleted, findable with `show_archived: true`; `restore` → back [D:v2DeleteContact], [D:v2RestoreContact]. Ungated (core §3): delete on the user's request, report id.
 - `bulk_create`: `contacts` (array of create payloads) [D:v2BulkCreateContacts]; duplicate refusal n.d. → search each first.
 - Search fields: id, name_1, name_2, nr, address, mail, mail_second, postcode, city, country_id, contact_group_ids, contact_type_id, updated_at, user_id, phone_fixed, phone_mobile, fax. `order_by`: id, nr, name_1, updated_at [D:v2SearchContact].
 
@@ -36,13 +36,14 @@ Customers + suppliers = one contact master. Core `bexio` first (router, gate, fl
 - Sectors (`contact_branch`): list + search on `name` only [D:v2ListContactSectors].
 - Additional addresses (need `contact_id`): `name`, `name_addition`, structured street fields, `postcode`, `city`, `country_id`, `subject`, `description`. Delete permanent [D:v2CreateAdditionalAddress].
 
-## Gate rows (core §3.2: dry run → one preview → one yes → call with the dry run's `acknowledge_flags`)
-| Row | Class | Preview (`pre_image` + `would_send`) | Skill pre-check |
-|---|---|---|---|
-| `bexio_contacts.delete` | delete | id, `nr`, name_1 / name_2, type; "soft delete, `restore` possible" | open documents referencing it (`bexio_invoices.search` `contact_id`, `bexio_bills.list` by supplier) → ⚑ still referenced |
-| `bexio_contact_relations.delete` | delete | relation id, both contacts' names; "permanent" | – |
-| `bexio_contact_groups.delete` | delete | group id + name; "permanent" | contacts carrying it (`bexio_contacts.search` `contact_group_ids`) → ⚑ group in use |
-| `bexio_additional_addresses.delete` | delete | contact name, address id, full address; "permanent" | – |
+## Gate
+- No gated action here (core §3.1). All writes run directly, deletes included.
+
+## Direct writes with a skill check (core §3: checked before the call, finding = report line, no question)
+| Action | Check → report line |
+|---|---|
+| `bexio_contacts.delete` | open documents referencing it (`bexio_invoices.search` `contact_id`, `bexio_bills.list` by supplier) → "still referenced by <docs>; `restore` undoes the delete" |
+| `bexio_contact_groups.delete` | contacts carrying it (`bexio_contacts.search` `contact_group_ids`) → "group was in use on <n> contacts" |
 
 ## Resolve the counterparty
 1. `bexio_contacts.search` `nr` `=` (numbers) or `name_1` `like`.

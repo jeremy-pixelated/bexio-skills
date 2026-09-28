@@ -14,7 +14,7 @@ Core `bexio` first (router, gate, flags). All 10 ops: `reference.md`.
 ## Tools
 | Tool | Actions | Gated |
 |---|---|---|
-| `bexio_items` | list, search, get, create, update, delete | delete |
+| `bexio_items` | list, search, get, create, update, delete | – |
 | `bexio_stock` | list_locations, search_locations, list_areas, search_areas | – (read-only) |
 - Scopes: items `article_show` / `article_edit`; `bexio_stock` needs `stock_edit` even to read [D:v2ListStockLocations].
 
@@ -30,10 +30,8 @@ Core `bexio` first (router, gate, flags). All 10 ops: `reference.md`.
 ## Stock locations + areas (read-only)
 - `list_locations` / `search_locations` (`name`), `list_areas` / `search_areas` (`name`, `stock_id`). No write endpoints [D:v2ListStockLocations], [D:v2ListStockAreas].
 
-## Gate row (core §3.2: dry run → one preview → one yes → call with the dry run's `acknowledge_flags`)
-| Row | Class | Preview (`pre_image` + `would_send`) | Skill pre-check |
-|---|---|---|---|
-| `bexio_items.delete` | delete | id, `intern_code`, `intern_name`, type, sale / purchase price; "permanent" | use on open documents not checkable in one call → ⚑ always |
+## Gate
+- No gated action here (core §3.1). `bexio_items.delete` runs directly on the user's request → report id, `intern_code`, `intern_name`.
 
 ## Gotchas
 1. Stock locations: read needs `stock_edit`.

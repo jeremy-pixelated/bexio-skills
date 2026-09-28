@@ -1,5 +1,5 @@
 # Header line; bump by hand on every text change (see gen.py)
-STAND = 'Stand 2026-09-27 · v5'
+STAND = 'Stand 2026-09-28 · v6'
 # (tool, action) -> German "Was passiert" text, one plain sentence (or two)
 DE = {
 ('bexio_contacts','create'):'Legt einen neuen Kontakt an (Kunde, Lieferant oder Person).',
@@ -118,4 +118,4 @@ DE = {
 ('bexio_users','delete_fictional'):'Löscht einen fiktiven Benutzer.',
 ('bexio_bills','create / update + payment'):'Lieferantenrechnung mit Zahlung: löst eine Zahlung aus. Darum wie ein Zahlungsauftrag behandelt.',
 }
-CLS_DE = {'send':'Versand','delete':'Löschen','cancel':'Storno','payment order':'Zahlung','posting':'Buchung','write':'direkt'}
+CLS_DE = {'send':'Versand','payment':'Zahlung','final delete':'endgültig löschen','tax rate':'Steuersatz löschen','write':'direkt'}

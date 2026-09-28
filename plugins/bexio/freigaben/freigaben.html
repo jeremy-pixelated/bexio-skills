@@ -32,13 +32,11 @@ code{font-family:var(--mono);font-size:.86em}
 .chip.yes{background:var(--yes-bg);color:var(--yes-fg)}
 .chip.dir{background:var(--dir-bg);color:var(--dir-fg)}
 section{display:flex;flex-direction:column;gap:14px}
-ol.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-ol.flow li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
-ol.flow .n{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:500}
-ol.flow b{font-weight:600}
-ol.flow span{color:var(--muted);font-size:14px}
-.rules{margin:0;padding-left:18px;color:var(--muted);display:flex;flex-direction:column;gap:4px;font-size:14.5px}
-.rules b{color:var(--ink);font-weight:600}
+ol.how{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ol.how li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+ol.how li.yes{border-color:var(--yes-fg)}
+ol.how b{font-weight:600;min-width:9ch}
+ol.how span{color:var(--muted)}
 .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .tools input{flex:1 1 240px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 12px}
 .tools input:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -69,57 +67,6 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
 .xlink:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
-:root{--node:#ffffff;--node-line:#cfd9d6;--edge:#b9c6c3;--dec:#eef6f4;--dec-line:#9cc5bf;--stop-fg:#a2332b;--stop-bg:#fbe9e7;--glow:rgba(14,110,106,.16)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--node:#172428;--node-line:#2c3f43;--edge:#3a4f53;--dec:#132a2a;--dec-line:#2f6a64;--stop-fg:#f08a80;--stop-bg:#3a1c19;--glow:rgba(82,195,185,.18)}}
-:root[data-theme="dark"]{--node:#172428;--node-line:#2c3f43;--edge:#3a4f53;--dec:#132a2a;--dec-line:#2f6a64;--stop-fg:#f08a80;--stop-bg:#3a1c19;--glow:rgba(82,195,185,.18)}
-.fc{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}
-.fc-chart{flex:1 1 520px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;overflow-x:auto}
-.fc-chart svg{display:block;width:100%;min-width:560px;height:auto}
-.fc-side{flex:1 1 260px;max-width:100%;display:flex;flex-direction:column;gap:12px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
-.scen{display:flex;flex-wrap:wrap;gap:6px}
-.scen button{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;transition:border-color .15s,background .15s}
-.scen button:hover{border-color:var(--accent)}
-.scen button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:600}
-.scen button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.tally{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.tally div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column}
-.tn{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1;transition:color .2s}
-.tn.bump{color:var(--accent)}
-.tl{font-size:12px;color:var(--muted)}
-.detail{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.detail h3{margin:0 0 4px;font-size:16px;font-weight:600}
-.detail p{margin:0;font-size:14px;color:var(--muted)}
-.detail .eyebrow{margin:0 0 4px}
-.log{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:13.5px;counter-reset:s}
-.log li{counter-increment:s;display:flex;gap:8px;color:var(--muted)}
-.log li::before{content:counter(s);font-family:var(--mono);font-size:11.5px;color:var(--accent);min-width:16px;padding-top:2px}
-.log li.cur{color:var(--ink)}
-/* chart */
-#fc .edge{fill:none;stroke:var(--edge);stroke-width:1.6;transition:stroke .25s}
-#fc .ar{fill:var(--edge)}
-#fc .ar-on{fill:var(--accent)}
-#fc .edge.on{stroke:var(--accent);stroke-width:2.4}
-#fc .elab{font:500 13px var(--mono);fill:var(--muted)}
-#fc .elab.on{fill:var(--accent)}
-#fc .elab-bg{fill:var(--surface)}
-#fc .node{cursor:pointer;outline:none}
-#fc .node rect{fill:var(--node);stroke:var(--node-line);stroke-width:1.3;transition:fill .25s,stroke .25s}
-#fc .node.dec rect{fill:var(--dec);stroke:var(--dec-line);stroke-dasharray:5 4}
-#fc .node.term rect{rx:27}
-#fc .node.stop rect{fill:var(--stop-bg);stroke:var(--stop-fg)}
-#fc .node.flag rect{fill:var(--yes-bg);stroke:var(--yes-fg)}
-#fc .node text{font:600 17px var(--sans);fill:var(--ink);pointer-events:none}
-#fc .node .tag{font:500 12px var(--mono);fill:var(--muted);letter-spacing:.06em}
-#fc .node:hover rect,#fc .node:focus-visible rect{stroke:var(--accent);stroke-width:2}
-#fc .node.on rect{stroke:var(--accent);stroke-width:2;stroke-dasharray:none}
-#fc .node.cur rect{fill:var(--accent);stroke:var(--accent)}
-#fc .node.cur text{fill:var(--surface)}
-#fc .node.cur .tag{fill:var(--surface);opacity:.8}
-#fc .node.sel rect{stroke:var(--accent);stroke-width:2.4}
-#fc .halo{fill:var(--glow);opacity:0;transition:opacity .25s}
-#fc .node.cur .halo{opacity:1}
-@media (prefers-reduced-motion:reduce){#fc *{transition:none!important}}
-@media (max-width:700px){.fc-side{position:static}}
 </style>
 </head>
 <body>
@@ -131,48 +78,21 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
   <h1>Bexio Freigaben</h1>
   <p class="lede">Was Claude in Bexio sofort erledigt und wofür es zuerst Dein Ja braucht. Lesen braucht nie eine Freigabe. Lohnbuchhaltung ist nicht verfügbar.</p>
   <div class="counts">
-    <span><span class="chip yes">braucht Ja</span> <b>46</b> Aktionen</span>
-    <span><span class="chip dir">läuft direkt</span> <b>68</b> Schreib-Aktionen</span>
+    <span><span class="chip yes">braucht Ja</span> <b>13</b> Aktionen (+ Lieferantenrechnung mit Zahlung)</span>
+    <span><span class="chip dir">läuft direkt</span> <b>101</b> Schreib-Aktionen</span>
     <span><b>109</b> Lese-Aktionen, laufen direkt</span>
   </div>
-  <p class="meta">Stand 2026-09-27 · v5</p>
+  <p class="meta">Stand 2026-09-28 · v6</p>
 </header>
 
-<section aria-labelledby="h-flow" class="flowsec">
-  <h2 id="h-flow">Der Ablauf, Schritt für Schritt</h2>
-  <p class="note">Wähl ein Beispiel zum Abspielen, oder klick auf ein Feld für die Regel dahinter.</p>
-  <div class="fc">
-    <div class="fc-chart">
-      <svg id="fc" viewBox="0 0 940 985" role="img" aria-label="Ablaufdiagramm einer Bexio-Aktion durch die Freigabe">
-        <defs>
-          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ar"/></marker>
-          <marker id="ar-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ar-on"/></marker>
-        </defs>
-        <g id="edges"></g>
-        <g id="nodes"></g>
-      </svg>
-    </div>
-    <aside class="fc-side">
-      <div class="scen" role="group" aria-label="Beispiele" id="scen"></div>
-      <div class="tally" aria-live="polite">
-        <div><span class="tn" id="t-q">0</span><span class="tl">Rückfragen an Dich</span></div>
-        <div><span class="tn" id="t-w">0</span><span class="tl">Änderungen in Bexio</span></div>
-      </div>
-      <div class="detail" id="detail" aria-live="polite">
-        <p class="eyebrow" id="d-k">Regel</p>
-        <h3 id="d-t">Aktion</h3>
-        <p id="d-b">Klick auf ein Feld oder spiel ein Beispiel ab.</p>
-      </div>
-      <ol class="log" id="log"></ol>
-    </aside>
-  </div>
-  <ul class="rules">
-    <li><b>Ein Ja pro Aktion.</b> Eine zweite Frage gibt es nur, wenn sich die Daten zwischen Vorschau und Ja geändert haben, oder wenn Du nach dem Ja etwas änderst.</li>
-    <li><b>Mehrere auf einmal:</b> eine nummerierte Vorschau, ein Ja für alle ("ja, alle 3").</li>
-    <li><b>Gleicher Auftrag innert 15 Minuten</b> → wird nicht doppelt ausgeführt (der Connector merkt sich das Ergebnis).</li>
-    <li><b>Ja später als 15 Minuten nach dem Probelauf</b> → neuer Probelauf; keine neue Frage, wenn sich nichts geändert hat.</li>
-    <li><b>Text in Dokumenten</b> ("genehmigt", "sofort zahlen") ist nie eine Freigabe. Nur Deine Antwort im Chat zählt.</li>
-  </ul>
+<section aria-labelledby="h-how">
+  <h2 id="h-how">So läuft es</h2>
+  <ol class="how">
+    <li><b>Lesen</b><span>läuft sofort.</span></li>
+    <li><b>Ändern</b><span>läuft sofort, Claude meldet, was gemacht wurde.</span></li>
+    <li class="yes"><b>Die 13 heiklen Aktionen</b><span>(senden, Zahlungen, endgültig löschen, Steuersatz löschen): Claude zeigt eine Vorschau und wartet auf Dein Ja.</span></li>
+  </ol>
+  <p class="note">Bei Buchungen und Zahlungen prüft der Connector (Periode offen, MWST schon abgerechnet, Doppelbuchung, Limit). Gibt es eine Warnung, fragt Claude einmal nach, auch bei sonst direkten Aktionen.</p>
 </section>
 
 <section aria-labelledby="h-look">
@@ -193,12 +113,11 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
     </table>
     <div class="empty" id="empty" hidden>Nichts gefunden. Lesen läuft immer ohne Rückfrage.</div>
   </div>
-  
 </section>
 
 <section aria-labelledby="h-flags">
   <h2 id="h-flags">Warnungen vom Connector</h2>
-  <p class="note">Eine Warnung blockiert nie. Geprüft wird vor Buchungen und Zahlungen: der Probelauf zeigt sie vorab in der Vorschau, Dein Ja deckt sie ab. Geprüft wird auch bei Änderungen an gebuchten Lieferantenrechnungen und Spesen (<code>bexio_bills.update</code>, <code>bexio_expenses.update</code>). Die laufen ohne Probelauf: der erste Aufruf meldet die Warnung, nichts wird geschrieben, ein Ja, zweiter Aufruf.</p>
+  <p class="note">Bei den heiklen Aktionen stehen die Warnungen schon in der Vorschau, Dein Ja deckt sie ab. Bei allen anderen Aktionen schreibt Claude nichts, solange eine Warnung offen ist: Claude zeigt sie und macht nach Deinem Ja weiter.</p>
   <div class="tbl"><table>
     <thead><tr><th>Warnung</th><th>Wann sie kommt</th></tr></thead>
     <tbody><tr><td><b>Periode abgeschlossen</b><br><code class="fc-code">closed_period</code></td><td>Das Buchungsdatum liegt in einem abgeschlossenen Geschäftsjahr.</td></tr><tr><td><b>MWST schon abgerechnet</b><br><code class="fc-code">vat_period_filed</code></td><td>Das Datum liegt in einer MWST-Periode, die schon abgerechnet ist.</td></tr><tr><td><b>Periode unklar</b><br><code class="fc-code">period_unknown</code></td><td>Datum fehlt oder passt zu keinem (oder mehreren) Geschäftsjahren bzw. MWST-Perioden.</td></tr><tr><td><b>Doppelbuchung</b><br><code class="fc-code">duplicate</code></td><td>Es gibt schon eine gleiche manuelle Buchung (Datum, Konten, Betrag, Referenz).</td></tr><tr><td><b>Über dem Limit</b><br><code class="fc-code">amount_over_limit</code></td><td>Der Betrag in CHF liegt über dem eingestellten Buchungslimit (nur wenn ein Limit gesetzt ist).</td></tr><tr><td><b>Betrag unklar</b><br><code class="fc-code">amount_unknown</code></td><td>Betrag oder Währung lassen sich nicht bestimmen (nur wenn ein Limit gesetzt ist).</td></tr><tr><td><b>Kein Wechselkurs</b><br><code class="fc-code">fx_rate_unknown</code></td><td>Bexio hat für dieses Datum keinen brauchbaren Kurs.</td></tr><tr><td><b>Provisorischer Kurs</b><br><code class="fc-code">fx_rate_provisional</code></td><td>Bexio liefert nur einen Ersatzkurs. Er wird trotzdem verwendet.</td></tr><tr><td><b>Kurs weicht ab</b><br><code class="fc-code">fx_rate_deviation</code></td><td>Der angegebene Kurs weicht mehr als 2 % vom Bexio-Kurs ab.</td></tr><tr><td><b>Felder werden ignoriert</b><br><code class="fc-code">non_draft_fields_ignored</code></td><td>Änderung an einer schon gebuchten Lieferantenrechnung oder Spese: Bexio übernimmt nur einen Teil.</td></tr><tr><td><b>Prüfung nicht möglich</b><br><code class="fc-code">check_unavailable</code></td><td>Eine Prüfung konnte ihre Daten nicht lesen. Wird nie als &quot;in Ordnung&quot; angenommen.</td></tr></tbody>
@@ -213,7 +132,7 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
 </div>
 
 <script>
-const D={"rows": [{"t": "bexio_document_positions", "a": "delete", "s": "bexio-sales", "g": 1, "c": "delete", "de": "Entfernt eine Position aus einem Dokument."}, {"t": "bexio_invoice_payments", "a": "create", "s": "bexio-sales", "g": 1, "c": "posting", "de": "Erfasst einen Zahlungseingang auf einer Rechnung und verbucht ihn."}, {"t": "bexio_invoice_payments", "a": "delete", "s": "bexio-sales", "g": 1, "c": "delete", "de": "Löscht einen erfassten Zahlungseingang samt Buchung."}, {"t": "bexio_invoice_reminders", "a": "delete", "s": "bexio-sales", "g": 1, "c": "delete", "de": "Löscht eine Mahnung."}, {"t": "bexio_invoice_reminders", "a": "send", "s": "bexio-sales", "g": 1, "c": "send", "de": "Bexio schickt die Mahnung per E-Mail an den Kunden. Nicht rückholbar."}, {"t": "bexio_invoices", "a": "cancel", "s": "bexio-sales", "g": 1, "c": "cancel", "de": "Storniert eine ausgestellte Rechnung. Sie bleibt als storniert sichtbar."}, {"t": "bexio_invoices", "a": "delete", "s": "bexio-sales", "g": 1, "c": "delete", "de": "Löscht eine Rechnung endgültig. Nur Entwürfe."}, {"t": "bexio_invoices", "a": "issue", "s": "bexio-sales", "g": 1, "c": "posting", "de": "Stellt die Rechnung aus: sie wird verbucht und ist offen."}, {"t": "bexio_invoices", "a": "revert_issue", "s": "bexio-sales", "g": 1, "c": "posting", "de": "Nimmt die Ausstellung zurück: Rechnung wieder Entwurf, Buchung wird entfernt."}, {"t": "bexio_invoices", "a": "send", "s": "bexio-sales", "g": 1, "c": "send", "de": "Bexio schickt die Rechnung per E-Mail an den Kunden. Nicht rückholbar."}, {"t": "bexio_orders", "a": "delete", "s": "bexio-sales", "g": 1, "c": "delete", "de": "Löscht einen Auftrag endgültig."}, {"t": "bexio_orders", "a": "delete_repetition", "s": "bexio-sales", "g": 1, "c": "delete", "de": "Stoppt die automatische Wiederholung eines Auftrags."}, {"t": "bexio_quotes", "a": "delete", "s": "bexio-sales", "g": 1, "c": "delete", "de": "Löscht eine Offerte endgültig."}, {"t": "bexio_quotes", "a": "send", "s": "bexio-sales", "g": 1, "c": "send", "de": "Bexio schickt die Offerte per E-Mail an den Kunden. Nicht rückholbar."}, {"t": "bexio_bills", "a": "create / update + payment", "s": "bexio-purchase", "g": 1, "c": "payment order", "de": "Lieferantenrechnung mit Zahlung: löst eine Zahlung aus. Darum wie ein Zahlungsauftrag behandelt."}, {"t": "bexio_bills", "a": "delete", "s": "bexio-purchase", "g": 1, "c": "delete", "de": "Löscht eine Lieferantenrechnung."}, {"t": "bexio_bills", "a": "update_status", "s": "bexio-purchase", "g": 1, "c": "posting", "de": "Bucht eine Lieferantenrechnung (Entwurf → gebucht) oder nimmt das zurück."}, {"t": "bexio_expenses", "a": "delete", "s": "bexio-purchase", "g": 1, "c": "delete", "de": "Löscht eine Spese."}, {"t": "bexio_expenses", "a": "update_status", "s": "bexio-purchase", "g": 1, "c": "posting", "de": "Bucht eine Spese (Entwurf → erledigt) oder nimmt das zurück."}, {"t": "bexio_outgoing_payments", "a": "create", "s": "bexio-purchase", "g": 1, "c": "payment order", "de": "Erstellt eine Zahlung an den Lieferanten zu einer Lieferantenrechnung. Geld fliesst erst nach Freigabe im E-Banking."}, {"t": "bexio_outgoing_payments", "a": "delete", "s": "bexio-purchase", "g": 1, "c": "delete", "de": "Löscht eine Lieferantenzahlung."}, {"t": "bexio_outgoing_payments", "a": "update", "s": "bexio-purchase", "g": 1, "c": "payment order", "de": "Ändert eine Lieferantenzahlung, z.B. Betrag oder Datum."}, {"t": "bexio_purchase_orders", "a": "delete", "s": "bexio-purchase", "g": 1, "c": "delete", "de": "Löscht eine Bestellung."}, {"t": "bexio_banking_payments", "a": "cancel", "s": "bexio-banking", "g": 1, "c": "cancel", "de": "Storniert einen Zahlungsauftrag."}, {"t": "bexio_banking_payments", "a": "create", "s": "bexio-banking", "g": 1, "c": "payment order", "de": "Erstellt einen Zahlungsauftrag. Geld fliesst erst, wenn er in Bexio ans E-Banking übermittelt ist."}, {"t": "bexio_banking_payments", "a": "delete", "s": "bexio-banking", "g": 1, "c": "delete", "de": "Löscht einen Zahlungsauftrag."}, {"t": "bexio_banking_payments", "a": "update", "s": "bexio-banking", "g": 1, "c": "payment order", "de": "Ändert einen offenen Zahlungsauftrag, z.B. Betrag, IBAN oder Datum."}, {"t": "bexio_accounting", "a": "create", "s": "bexio-accounting", "g": 1, "c": "posting", "de": "Legt ein neues Kalenderjahr in der Buchhaltung an (auch alle Jahre dazwischen)."}, {"t": "bexio_accounting", "a": "delete", "s": "bexio-accounting", "g": 1, "c": "delete", "de": "Löscht einen Steuersatz endgültig."}, {"t": "bexio_currencies", "a": "delete", "s": "bexio-accounting", "g": 1, "c": "delete", "de": "Löscht eine Fremdwährung."}, {"t": "bexio_manual_entries", "a": "create", "s": "bexio-accounting", "g": 1, "c": "posting", "de": "Bucht eine manuelle Buchung ins Journal."}, {"t": "bexio_manual_entries", "a": "delete", "s": "bexio-accounting", "g": 1, "c": "delete", "de": "Löscht eine manuelle Buchung aus dem Journal."}, {"t": "bexio_manual_entries", "a": "delete_file", "s": "bexio-accounting", "g": 1, "c": "delete", "de": "Entfernt einen Beleg von einer manuellen Buchung."}, {"t": "bexio_manual_entries", "a": "update", "s": "bexio-accounting", "g": 1, "c": "posting", "de": "Ändert eine bestehende manuelle Buchung."}, {"t": "bexio_additional_addresses", "a": "delete", "s": "bexio-contacts", "g": 1, "c": "delete", "de": "Löscht eine Zusatzadresse eines Kontakts."}, {"t": "bexio_contact_groups", "a": "delete", "s": "bexio-contacts", "g": 1, "c": "delete", "de": "Löscht eine Kontaktgruppe. Die Kontakte bleiben."}, {"t": "bexio_contact_relations", "a": "delete", "s": "bexio-contacts", "g": 1, "c": "delete", "de": "Löscht die Verknüpfung zwischen zwei Kontakten. Die Kontakte bleiben."}, {"t": "bexio_contacts", "a": "delete", "s": "bexio-contacts", "g": 1, "c": "delete", "de": "Löscht einen Kontakt. Nur kurz danach wiederherstellbar."}, {"t": "bexio_items", "a": "delete", "s": "bexio-items", "g": 1, "c": "delete", "de": "Löscht einen Artikel."}, {"t": "bexio_project_planning", "a": "delete", "s": "bexio-projects", "g": 1, "c": "delete", "de": "Löscht einen Meilenstein oder ein Arbeitspaket."}, {"t": "bexio_projects", "a": "delete", "s": "bexio-projects", "g": 1, "c": "delete", "de": "Löscht ein Projekt."}, {"t": "bexio_timesheets", "a": "delete", "s": "bexio-projects", "g": 1, "c": "delete", "de": "Löscht einen Zeiteintrag."}, {"t": "bexio_files", "a": "delete", "s": "bexio-files", "g": 1, "c": "delete", "de": "Löscht eine Datei aus Bexio."}, {"t": "bexio_master_data", "a": "delete", "s": "bexio-admin", "g": 1, "c": "delete", "de": "Löscht einen Stammdaten-Eintrag."}, {"t": "bexio_notes", "a": "delete", "s": "bexio-admin", "g": 1, "c": "delete", "de": "Löscht eine Notiz."}, {"t": "bexio_tasks", "a": "delete", "s": "bexio-admin", "g": 1, "c": "delete", "de": "Löscht eine Aufgabe."}, {"t": "bexio_users", "a": "delete_fictional", "s": "bexio-admin", "g": 1, "c": "delete", "de": "Löscht einen fiktiven Benutzer."}, {"t": "bexio_deliveries", "a": "issue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Setzt einen Lieferschein von Entwurf auf \"ausgeliefert\"."}, {"t": "bexio_document_comments", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Schreibt einen Kommentar an ein Dokument."}, {"t": "bexio_document_positions", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Fügt einer Offerte, einem Auftrag oder einer Rechnung eine Position hinzu."}, {"t": "bexio_document_positions", "a": "update", "s": "bexio-sales", "g": 0, "c": "write", "de": "Ändert eine Position, z.B. Menge oder Preis."}, {"t": "bexio_invoice_reminders", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt eine Mahnung zu einer offenen Rechnung."}, {"t": "bexio_invoice_reminders", "a": "mark_as_sent", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Mahnung als verschickt. Es geht keine E-Mail raus."}, {"t": "bexio_invoice_reminders", "a": "mark_as_unsent", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Mahnung wieder als nicht verschickt."}, {"t": "bexio_invoices", "a": "copy", "s": "bexio-sales", "g": 0, "c": "write", "de": "Kopiert eine Rechnung in einen neuen Entwurf."}, {"t": "bexio_invoices", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Legt eine neue Rechnung als Entwurf an."}, {"t": "bexio_invoices", "a": "mark_as_sent", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Rechnung als verschickt. Es geht keine E-Mail raus."}, {"t": "bexio_invoices", "a": "update", "s": "bexio-sales", "g": 0, "c": "write", "de": "Ändert eine Rechnung (nur als Entwurf voll möglich)."}, {"t": "bexio_orders", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Legt einen neuen Auftrag an."}, {"t": "bexio_orders", "a": "create_delivery", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt aus einem Auftrag einen Lieferschein."}, {"t": "bexio_orders", "a": "create_invoice", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt aus einem Auftrag eine Rechnung als Entwurf."}, {"t": "bexio_orders", "a": "edit_repetition", "s": "bexio-sales", "g": 0, "c": "write", "de": "Richtet die automatische Wiederholung eines Auftrags ein oder ändert sie."}, {"t": "bexio_orders", "a": "update", "s": "bexio-sales", "g": 0, "c": "write", "de": "Ändert einen Auftrag."}, {"t": "bexio_quotes", "a": "accept", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Offerte als vom Kunden angenommen."}, {"t": "bexio_quotes", "a": "copy", "s": "bexio-sales", "g": 0, "c": "write", "de": "Kopiert eine Offerte in einen neuen Entwurf."}, {"t": "bexio_quotes", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Legt eine neue Offerte als Entwurf an."}, {"t": "bexio_quotes", "a": "create_invoice", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt aus einer Offerte eine Rechnung als Entwurf."}, {"t": "bexio_quotes", "a": "create_order", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt aus einer Offerte einen Auftrag."}, {"t": "bexio_quotes", "a": "decline", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Offerte als vom Kunden abgelehnt."}, {"t": "bexio_quotes", "a": "issue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Setzt eine Offerte von Entwurf auf \"offen\"."}, {"t": "bexio_quotes", "a": "mark_as_sent", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Offerte als verschickt. Es geht keine E-Mail raus."}, {"t": "bexio_quotes", "a": "reissue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Öffnet eine angenommene oder abgelehnte Offerte wieder."}, {"t": "bexio_quotes", "a": "revert_issue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Setzt eine offene Offerte zurück auf Entwurf."}, {"t": "bexio_quotes", "a": "update", "s": "bexio-sales", "g": 0, "c": "write", "de": "Ändert eine Offerte."}, {"t": "bexio_bills", "a": "create", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Erfasst eine neue Lieferantenrechnung als Entwurf."}, {"t": "bexio_bills", "a": "execute_action", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Kopiert eine Lieferantenrechnung in einen neuen Entwurf."}, {"t": "bexio_bills", "a": "update", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Ändert eine Lieferantenrechnung (voll nur als Entwurf)."}, {"t": "bexio_expenses", "a": "create", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Erfasst eine neue Spese als Entwurf."}, {"t": "bexio_expenses", "a": "execute_action", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Kopiert eine Spese in einen neuen Entwurf."}, {"t": "bexio_expenses", "a": "update", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Ändert eine Spese (voll nur als Entwurf)."}, {"t": "bexio_purchase_orders", "a": "create", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Legt eine neue Bestellung an einen Lieferanten an."}, {"t": "bexio_purchase_orders", "a": "update", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Ändert eine Bestellung."}, {"t": "bexio_currencies", "a": "create", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Fügt eine Fremdwährung hinzu."}, {"t": "bexio_currencies", "a": "update", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Ändert eine Fremdwährung."}, {"t": "bexio_manual_entries", "a": "add_file", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Hängt einen Beleg an eine manuelle Buchung."}, {"t": "bexio_additional_addresses", "a": "create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Fügt einem Kontakt eine weitere Adresse hinzu."}, {"t": "bexio_additional_addresses", "a": "update", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Ändert eine Zusatzadresse eines Kontakts."}, {"t": "bexio_contact_groups", "a": "create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Legt eine neue Kontaktgruppe an."}, {"t": "bexio_contact_groups", "a": "update", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Benennt eine Kontaktgruppe um."}, {"t": "bexio_contact_relations", "a": "create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Verknüpft zwei Kontakte, z.B. Person mit Firma."}, {"t": "bexio_contact_relations", "a": "update", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Ändert eine Verknüpfung zwischen zwei Kontakten."}, {"t": "bexio_contacts", "a": "bulk_create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Legt mehrere Kontakte auf einmal an."}, {"t": "bexio_contacts", "a": "create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Legt einen neuen Kontakt an (Kunde, Lieferant oder Person)."}, {"t": "bexio_contacts", "a": "restore", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Holt einen eben gelöschten Kontakt zurück."}, {"t": "bexio_contacts", "a": "update", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Ändert Angaben eines Kontakts, z.B. Adresse, E-Mail oder IBAN."}, {"t": "bexio_items", "a": "create", "s": "bexio-items", "g": 0, "c": "write", "de": "Legt einen neuen Artikel oder eine Dienstleistung an."}, {"t": "bexio_items", "a": "update", "s": "bexio-items", "g": 0, "c": "write", "de": "Ändert einen Artikel, z.B. Preis oder Konto."}, {"t": "bexio_project_planning", "a": "create", "s": "bexio-projects", "g": 0, "c": "write", "de": "Legt einen Meilenstein oder ein Arbeitspaket an."}, {"t": "bexio_project_planning", "a": "update", "s": "bexio-projects", "g": 0, "c": "write", "de": "Ändert einen Meilenstein oder ein Arbeitspaket."}, {"t": "bexio_projects", "a": "archive", "s": "bexio-projects", "g": 0, "c": "write", "de": "Archiviert ein Projekt."}, {"t": "bexio_projects", "a": "create", "s": "bexio-projects", "g": 0, "c": "write", "de": "Legt ein neues Projekt an."}, {"t": "bexio_projects", "a": "unarchive", "s": "bexio-projects", "g": 0, "c": "write", "de": "Holt ein Projekt aus dem Archiv zurück."}, {"t": "bexio_projects", "a": "update", "s": "bexio-projects", "g": 0, "c": "write", "de": "Ändert ein Projekt."}, {"t": "bexio_timesheets", "a": "create", "s": "bexio-projects", "g": 0, "c": "write", "de": "Erfasst einen Zeiteintrag."}, {"t": "bexio_timesheets", "a": "update", "s": "bexio-projects", "g": 0, "c": "write", "de": "Ändert einen Zeiteintrag."}, {"t": "bexio_files", "a": "update", "s": "bexio-files", "g": 0, "c": "write", "de": "Benennt eine Datei um oder archiviert sie."}, {"t": "bexio_files", "a": "upload", "s": "bexio-files", "g": 0, "c": "write", "de": "Lädt eine Datei in die Bexio-Inbox hoch, z.B. einen Beleg."}, {"t": "bexio_master_data", "a": "create", "s": "bexio-admin", "g": 0, "c": "write", "de": "Legt einen Stammdaten-Eintrag an, z.B. eine Einheit oder Anrede."}, {"t": "bexio_master_data", "a": "update", "s": "bexio-admin", "g": 0, "c": "write", "de": "Ändert einen Stammdaten-Eintrag."}, {"t": "bexio_notes", "a": "create", "s": "bexio-admin", "g": 0, "c": "write", "de": "Legt eine Notiz an."}, {"t": "bexio_notes", "a": "update", "s": "bexio-admin", "g": 0, "c": "write", "de": "Ändert eine Notiz."}, {"t": "bexio_tasks", "a": "create", "s": "bexio-admin", "g": 0, "c": "write", "de": "Legt eine Aufgabe an."}, {"t": "bexio_tasks", "a": "update", "s": "bexio-admin", "g": 0, "c": "write", "de": "Ändert eine Aufgabe, z.B. Status oder Termin."}, {"t": "bexio_users", "a": "create_fictional", "s": "bexio-admin", "g": 0, "c": "write", "de": "Legt einen fiktiven Benutzer an (ohne Login, z.B. für Zeiterfassung)."}, {"t": "bexio_users", "a": "update_fictional", "s": "bexio-admin", "g": 0, "c": "write", "de": "Ändert einen fiktiven Benutzer."}], "cls": {"send": "Versand", "delete": "Löschen", "cancel": "Storno", "payment order": "Zahlung", "posting": "Buchung", "write": "direkt"}};
+const D={"rows": [{"t": "bexio_invoice_reminders", "a": "delete", "s": "bexio-sales", "g": 1, "c": "final delete", "de": "Löscht eine Mahnung."}, {"t": "bexio_invoice_reminders", "a": "send", "s": "bexio-sales", "g": 1, "c": "send", "de": "Bexio schickt die Mahnung per E-Mail an den Kunden. Nicht rückholbar."}, {"t": "bexio_invoices", "a": "delete", "s": "bexio-sales", "g": 1, "c": "final delete", "de": "Löscht eine Rechnung endgültig. Nur Entwürfe."}, {"t": "bexio_invoices", "a": "send", "s": "bexio-sales", "g": 1, "c": "send", "de": "Bexio schickt die Rechnung per E-Mail an den Kunden. Nicht rückholbar."}, {"t": "bexio_orders", "a": "delete", "s": "bexio-sales", "g": 1, "c": "final delete", "de": "Löscht einen Auftrag endgültig."}, {"t": "bexio_quotes", "a": "delete", "s": "bexio-sales", "g": 1, "c": "final delete", "de": "Löscht eine Offerte endgültig."}, {"t": "bexio_quotes", "a": "send", "s": "bexio-sales", "g": 1, "c": "send", "de": "Bexio schickt die Offerte per E-Mail an den Kunden. Nicht rückholbar."}, {"t": "bexio_bills", "a": "create / update + payment", "s": "bexio-purchase", "g": 1, "c": "payment", "de": "Lieferantenrechnung mit Zahlung: löst eine Zahlung aus. Darum wie ein Zahlungsauftrag behandelt."}, {"t": "bexio_bills", "a": "delete", "s": "bexio-purchase", "g": 1, "c": "final delete", "de": "Löscht eine Lieferantenrechnung."}, {"t": "bexio_outgoing_payments", "a": "create", "s": "bexio-purchase", "g": 1, "c": "payment", "de": "Erstellt eine Zahlung an den Lieferanten zu einer Lieferantenrechnung. Geld fliesst erst nach Freigabe im E-Banking."}, {"t": "bexio_outgoing_payments", "a": "update", "s": "bexio-purchase", "g": 1, "c": "payment", "de": "Ändert eine Lieferantenzahlung, z.B. Betrag oder Datum."}, {"t": "bexio_banking_payments", "a": "create", "s": "bexio-banking", "g": 1, "c": "payment", "de": "Erstellt einen Zahlungsauftrag. Geld fliesst erst, wenn er in Bexio ans E-Banking übermittelt ist."}, {"t": "bexio_banking_payments", "a": "update", "s": "bexio-banking", "g": 1, "c": "payment", "de": "Ändert einen offenen Zahlungsauftrag, z.B. Betrag, IBAN oder Datum."}, {"t": "bexio_accounting", "a": "delete", "s": "bexio-accounting", "g": 1, "c": "tax rate", "de": "Löscht einen Steuersatz endgültig."}, {"t": "bexio_deliveries", "a": "issue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Setzt einen Lieferschein von Entwurf auf \"ausgeliefert\"."}, {"t": "bexio_document_comments", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Schreibt einen Kommentar an ein Dokument."}, {"t": "bexio_document_positions", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Fügt einer Offerte, einem Auftrag oder einer Rechnung eine Position hinzu."}, {"t": "bexio_document_positions", "a": "delete", "s": "bexio-sales", "g": 0, "c": "write", "de": "Entfernt eine Position aus einem Dokument."}, {"t": "bexio_document_positions", "a": "update", "s": "bexio-sales", "g": 0, "c": "write", "de": "Ändert eine Position, z.B. Menge oder Preis."}, {"t": "bexio_invoice_payments", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erfasst einen Zahlungseingang auf einer Rechnung und verbucht ihn."}, {"t": "bexio_invoice_payments", "a": "delete", "s": "bexio-sales", "g": 0, "c": "write", "de": "Löscht einen erfassten Zahlungseingang samt Buchung."}, {"t": "bexio_invoice_reminders", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt eine Mahnung zu einer offenen Rechnung."}, {"t": "bexio_invoice_reminders", "a": "mark_as_sent", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Mahnung als verschickt. Es geht keine E-Mail raus."}, {"t": "bexio_invoice_reminders", "a": "mark_as_unsent", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Mahnung wieder als nicht verschickt."}, {"t": "bexio_invoices", "a": "cancel", "s": "bexio-sales", "g": 0, "c": "write", "de": "Storniert eine ausgestellte Rechnung. Sie bleibt als storniert sichtbar."}, {"t": "bexio_invoices", "a": "copy", "s": "bexio-sales", "g": 0, "c": "write", "de": "Kopiert eine Rechnung in einen neuen Entwurf."}, {"t": "bexio_invoices", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Legt eine neue Rechnung als Entwurf an."}, {"t": "bexio_invoices", "a": "issue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Stellt die Rechnung aus: sie wird verbucht und ist offen."}, {"t": "bexio_invoices", "a": "mark_as_sent", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Rechnung als verschickt. Es geht keine E-Mail raus."}, {"t": "bexio_invoices", "a": "revert_issue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Nimmt die Ausstellung zurück: Rechnung wieder Entwurf, Buchung wird entfernt."}, {"t": "bexio_invoices", "a": "update", "s": "bexio-sales", "g": 0, "c": "write", "de": "Ändert eine Rechnung (nur als Entwurf voll möglich)."}, {"t": "bexio_orders", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Legt einen neuen Auftrag an."}, {"t": "bexio_orders", "a": "create_delivery", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt aus einem Auftrag einen Lieferschein."}, {"t": "bexio_orders", "a": "create_invoice", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt aus einem Auftrag eine Rechnung als Entwurf."}, {"t": "bexio_orders", "a": "delete_repetition", "s": "bexio-sales", "g": 0, "c": "write", "de": "Stoppt die automatische Wiederholung eines Auftrags."}, {"t": "bexio_orders", "a": "edit_repetition", "s": "bexio-sales", "g": 0, "c": "write", "de": "Richtet die automatische Wiederholung eines Auftrags ein oder ändert sie."}, {"t": "bexio_orders", "a": "update", "s": "bexio-sales", "g": 0, "c": "write", "de": "Ändert einen Auftrag."}, {"t": "bexio_quotes", "a": "accept", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Offerte als vom Kunden angenommen."}, {"t": "bexio_quotes", "a": "copy", "s": "bexio-sales", "g": 0, "c": "write", "de": "Kopiert eine Offerte in einen neuen Entwurf."}, {"t": "bexio_quotes", "a": "create", "s": "bexio-sales", "g": 0, "c": "write", "de": "Legt eine neue Offerte als Entwurf an."}, {"t": "bexio_quotes", "a": "create_invoice", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt aus einer Offerte eine Rechnung als Entwurf."}, {"t": "bexio_quotes", "a": "create_order", "s": "bexio-sales", "g": 0, "c": "write", "de": "Erstellt aus einer Offerte einen Auftrag."}, {"t": "bexio_quotes", "a": "decline", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Offerte als vom Kunden abgelehnt."}, {"t": "bexio_quotes", "a": "issue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Setzt eine Offerte von Entwurf auf \"offen\"."}, {"t": "bexio_quotes", "a": "mark_as_sent", "s": "bexio-sales", "g": 0, "c": "write", "de": "Markiert eine Offerte als verschickt. Es geht keine E-Mail raus."}, {"t": "bexio_quotes", "a": "reissue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Öffnet eine angenommene oder abgelehnte Offerte wieder."}, {"t": "bexio_quotes", "a": "revert_issue", "s": "bexio-sales", "g": 0, "c": "write", "de": "Setzt eine offene Offerte zurück auf Entwurf."}, {"t": "bexio_quotes", "a": "update", "s": "bexio-sales", "g": 0, "c": "write", "de": "Ändert eine Offerte."}, {"t": "bexio_bills", "a": "create", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Erfasst eine neue Lieferantenrechnung als Entwurf."}, {"t": "bexio_bills", "a": "execute_action", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Kopiert eine Lieferantenrechnung in einen neuen Entwurf."}, {"t": "bexio_bills", "a": "update", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Ändert eine Lieferantenrechnung (voll nur als Entwurf)."}, {"t": "bexio_bills", "a": "update_status", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Bucht eine Lieferantenrechnung (Entwurf → gebucht) oder nimmt das zurück."}, {"t": "bexio_expenses", "a": "create", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Erfasst eine neue Spese als Entwurf."}, {"t": "bexio_expenses", "a": "delete", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Löscht eine Spese."}, {"t": "bexio_expenses", "a": "execute_action", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Kopiert eine Spese in einen neuen Entwurf."}, {"t": "bexio_expenses", "a": "update", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Ändert eine Spese (voll nur als Entwurf)."}, {"t": "bexio_expenses", "a": "update_status", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Bucht eine Spese (Entwurf → erledigt) oder nimmt das zurück."}, {"t": "bexio_outgoing_payments", "a": "delete", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Löscht eine Lieferantenzahlung."}, {"t": "bexio_purchase_orders", "a": "create", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Legt eine neue Bestellung an einen Lieferanten an."}, {"t": "bexio_purchase_orders", "a": "delete", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Löscht eine Bestellung."}, {"t": "bexio_purchase_orders", "a": "update", "s": "bexio-purchase", "g": 0, "c": "write", "de": "Ändert eine Bestellung."}, {"t": "bexio_banking_payments", "a": "cancel", "s": "bexio-banking", "g": 0, "c": "write", "de": "Storniert einen Zahlungsauftrag."}, {"t": "bexio_banking_payments", "a": "delete", "s": "bexio-banking", "g": 0, "c": "write", "de": "Löscht einen Zahlungsauftrag."}, {"t": "bexio_accounting", "a": "create", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Legt ein neues Kalenderjahr in der Buchhaltung an (auch alle Jahre dazwischen)."}, {"t": "bexio_currencies", "a": "create", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Fügt eine Fremdwährung hinzu."}, {"t": "bexio_currencies", "a": "delete", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Löscht eine Fremdwährung."}, {"t": "bexio_currencies", "a": "update", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Ändert eine Fremdwährung."}, {"t": "bexio_manual_entries", "a": "add_file", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Hängt einen Beleg an eine manuelle Buchung."}, {"t": "bexio_manual_entries", "a": "create", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Bucht eine manuelle Buchung ins Journal."}, {"t": "bexio_manual_entries", "a": "delete", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Löscht eine manuelle Buchung aus dem Journal."}, {"t": "bexio_manual_entries", "a": "delete_file", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Entfernt einen Beleg von einer manuellen Buchung."}, {"t": "bexio_manual_entries", "a": "update", "s": "bexio-accounting", "g": 0, "c": "write", "de": "Ändert eine bestehende manuelle Buchung."}, {"t": "bexio_additional_addresses", "a": "create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Fügt einem Kontakt eine weitere Adresse hinzu."}, {"t": "bexio_additional_addresses", "a": "delete", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Löscht eine Zusatzadresse eines Kontakts."}, {"t": "bexio_additional_addresses", "a": "update", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Ändert eine Zusatzadresse eines Kontakts."}, {"t": "bexio_contact_groups", "a": "create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Legt eine neue Kontaktgruppe an."}, {"t": "bexio_contact_groups", "a": "delete", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Löscht eine Kontaktgruppe. Die Kontakte bleiben."}, {"t": "bexio_contact_groups", "a": "update", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Benennt eine Kontaktgruppe um."}, {"t": "bexio_contact_relations", "a": "create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Verknüpft zwei Kontakte, z.B. Person mit Firma."}, {"t": "bexio_contact_relations", "a": "delete", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Löscht die Verknüpfung zwischen zwei Kontakten. Die Kontakte bleiben."}, {"t": "bexio_contact_relations", "a": "update", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Ändert eine Verknüpfung zwischen zwei Kontakten."}, {"t": "bexio_contacts", "a": "bulk_create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Legt mehrere Kontakte auf einmal an."}, {"t": "bexio_contacts", "a": "create", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Legt einen neuen Kontakt an (Kunde, Lieferant oder Person)."}, {"t": "bexio_contacts", "a": "delete", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Löscht einen Kontakt. Nur kurz danach wiederherstellbar."}, {"t": "bexio_contacts", "a": "restore", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Holt einen eben gelöschten Kontakt zurück."}, {"t": "bexio_contacts", "a": "update", "s": "bexio-contacts", "g": 0, "c": "write", "de": "Ändert Angaben eines Kontakts, z.B. Adresse, E-Mail oder IBAN."}, {"t": "bexio_items", "a": "create", "s": "bexio-items", "g": 0, "c": "write", "de": "Legt einen neuen Artikel oder eine Dienstleistung an."}, {"t": "bexio_items", "a": "delete", "s": "bexio-items", "g": 0, "c": "write", "de": "Löscht einen Artikel."}, {"t": "bexio_items", "a": "update", "s": "bexio-items", "g": 0, "c": "write", "de": "Ändert einen Artikel, z.B. Preis oder Konto."}, {"t": "bexio_project_planning", "a": "create", "s": "bexio-projects", "g": 0, "c": "write", "de": "Legt einen Meilenstein oder ein Arbeitspaket an."}, {"t": "bexio_project_planning", "a": "delete", "s": "bexio-projects", "g": 0, "c": "write", "de": "Löscht einen Meilenstein oder ein Arbeitspaket."}, {"t": "bexio_project_planning", "a": "update", "s": "bexio-projects", "g": 0, "c": "write", "de": "Ändert einen Meilenstein oder ein Arbeitspaket."}, {"t": "bexio_projects", "a": "archive", "s": "bexio-projects", "g": 0, "c": "write", "de": "Archiviert ein Projekt."}, {"t": "bexio_projects", "a": "create", "s": "bexio-projects", "g": 0, "c": "write", "de": "Legt ein neues Projekt an."}, {"t": "bexio_projects", "a": "delete", "s": "bexio-projects", "g": 0, "c": "write", "de": "Löscht ein Projekt."}, {"t": "bexio_projects", "a": "unarchive", "s": "bexio-projects", "g": 0, "c": "write", "de": "Holt ein Projekt aus dem Archiv zurück."}, {"t": "bexio_projects", "a": "update", "s": "bexio-projects", "g": 0, "c": "write", "de": "Ändert ein Projekt."}, {"t": "bexio_timesheets", "a": "create", "s": "bexio-projects", "g": 0, "c": "write", "de": "Erfasst einen Zeiteintrag."}, {"t": "bexio_timesheets", "a": "delete", "s": "bexio-projects", "g": 0, "c": "write", "de": "Löscht einen Zeiteintrag."}, {"t": "bexio_timesheets", "a": "update", "s": "bexio-projects", "g": 0, "c": "write", "de": "Ändert einen Zeiteintrag."}, {"t": "bexio_files", "a": "delete", "s": "bexio-files", "g": 0, "c": "write", "de": "Löscht eine Datei aus Bexio."}, {"t": "bexio_files", "a": "update", "s": "bexio-files", "g": 0, "c": "write", "de": "Benennt eine Datei um oder archiviert sie."}, {"t": "bexio_files", "a": "upload", "s": "bexio-files", "g": 0, "c": "write", "de": "Lädt eine Datei in die Bexio-Inbox hoch, z.B. einen Beleg."}, {"t": "bexio_master_data", "a": "create", "s": "bexio-admin", "g": 0, "c": "write", "de": "Legt einen Stammdaten-Eintrag an, z.B. eine Einheit oder Anrede."}, {"t": "bexio_master_data", "a": "delete", "s": "bexio-admin", "g": 0, "c": "write", "de": "Löscht einen Stammdaten-Eintrag."}, {"t": "bexio_master_data", "a": "update", "s": "bexio-admin", "g": 0, "c": "write", "de": "Ändert einen Stammdaten-Eintrag."}, {"t": "bexio_notes", "a": "create", "s": "bexio-admin", "g": 0, "c": "write", "de": "Legt eine Notiz an."}, {"t": "bexio_notes", "a": "delete", "s": "bexio-admin", "g": 0, "c": "write", "de": "Löscht eine Notiz."}, {"t": "bexio_notes", "a": "update", "s": "bexio-admin", "g": 0, "c": "write", "de": "Ändert eine Notiz."}, {"t": "bexio_tasks", "a": "create", "s": "bexio-admin", "g": 0, "c": "write", "de": "Legt eine Aufgabe an."}, {"t": "bexio_tasks", "a": "delete", "s": "bexio-admin", "g": 0, "c": "write", "de": "Löscht eine Aufgabe."}, {"t": "bexio_tasks", "a": "update", "s": "bexio-admin", "g": 0, "c": "write", "de": "Ändert eine Aufgabe, z.B. Status oder Termin."}, {"t": "bexio_users", "a": "create_fictional", "s": "bexio-admin", "g": 0, "c": "write", "de": "Legt einen fiktiven Benutzer an (ohne Login, z.B. für Zeiterfassung)."}, {"t": "bexio_users", "a": "delete_fictional", "s": "bexio-admin", "g": 0, "c": "write", "de": "Löscht einen fiktiven Benutzer."}, {"t": "bexio_users", "a": "update_fictional", "s": "bexio-admin", "g": 0, "c": "write", "de": "Ändert einen fiktiven Benutzer."}], "cls": {"send": "Versand", "payment": "Zahlung", "final delete": "endgültig löschen", "tax rate": "Steuersatz löschen", "write": "direkt"}};
 const tb=document.getElementById('rows'),q=document.getElementById('q'),cnt=document.getElementById('count'),empty=document.getElementById('empty');
 let f='all';
 try{const s=localStorage.getItem('gates-f');if(s)f=s;}catch(e){}
@@ -229,127 +148,6 @@ function render(){
 document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;try{localStorage.setItem('gates-f',f);}catch(e){}render();}));
 q.addEventListener('input',render);
 render();
-</script>
-<script>
-(function(){
-const NS='http://www.w3.org/2000/svg';
-const W=230,H=54;
-const N={
- start:{x:450,y:50,t:'Aktion',k:'term',tag:'START',d:'Claude wählt ein Bexio-Werkzeug und eine Aktion, z.B. Rechnung löschen.'},
- d_read:{x:450,y:140,t:'Nur lesen?',k:'dec',tag:'PRÜFEN',d:'Anzeigen, suchen, PDF holen: 109 Lese-Aktionen. Lesen fragt nie nach.'},
- n_read:{x:160,y:140,t:'Ausführen · Antwort',k:'term',tag:'ENDE',d:'Läuft sofort. Claude antwortet mit den Daten. Keine Frage, nichts wird geändert.'},
- d_gate:{x:450,y:240,t:'Braucht es ein Ja?',k:'dec',tag:'PRÜFEN',d:'Ein Ja braucht es bei: E-Mail an Kunden, Löschen, Stornieren, Zahlungen, Buchungen. 46 Aktionen, Liste unten.'},
- n_direct:{x:160,y:240,t:'Ausführen · melden',k:'term',tag:'ENDE',d:'Die übrigen 68 Änderungen (z.B. Kontakt anlegen, Entwurf erstellen). Läuft sofort, Claude meldet Nummer und ID. Ausnahme: Änderung an gebuchter Lieferantenrechnung/Spese → mögliche Warnung → ein Ja → zweiter Aufruf.'},
- dry:{x:450,y:340,t:'Probelauf',k:'',tag:'CONNECTOR',d:'Ein Aufruf mit "Probelauf". Der Connector liest den aktuellen Stand und prüft alles: Periode offen, MWST schon abgerechnet, Doppelbuchung, Betrag, Wechselkurs. Er schreibt nichts und meldet jede Warnung.'},
- prev:{x:450,y:430,t:'Eine Vorschau',k:'',tag:'ZEIGEN',d:'Aus dem Probelauf: Aktion, Firma, Beleg und Nummer, Gegenpartei, Betrag und Währung, Datum, Konten, Empfänger, was nicht rückgängig geht, jede Warnung (⚑). Dazu prüft Claude, was der Connector nicht prüft: IBAN auf dem Beleg vs. hinterlegte IBAN, Empfänger-E-Mail vs. Kontakt.'},
- d_user:{x:450,y:530,t:'Deine Antwort',k:'dec',tag:'WARTEN',d:'Claude hält an und macht nichts, bis Du antwortest. "ja" → genau das aus der Vorschau. "nein" → Abbruch. Etwas ändern (Betrag, Konto, Empfänger) → neuer Probelauf, neue Vorschau.'},
- stop:{x:160,y:530,t:'Abbruch',k:'term stop',tag:'ENDE',d:'Nichts wird in Bexio geändert. Keine zweite Nachfrage.'},
- call:{x:450,y:630,t:'Einmal ausführen',k:'',tag:'SCHREIBEN',d:'Genau die Aktion aus der Vorschau, ein einziges Mal. Die Warnungen aus dem Probelauf sind damit bestätigt. Gilt 15 Minuten und nur für genau diese Aktion.'},
- d_srv:{x:450,y:730,t:'Connector prüft nochmals',k:'dec',tag:'CONNECTOR',d:'Der Connector prüft direkt vor dem Schreiben nochmals. Nichts Neues → wird geschrieben. Hat sich seit dem Probelauf etwas geändert → neue Warnung, nichts wird geschrieben.'},
- more:{x:760,y:730,t:'Neue Warnung · noch ein Ja',k:'flag',tag:'FRAGEN',d:'Nur wenn sich die Daten seit dem Probelauf geändert haben. Neue Warnung: Claude zeigt sie und wartet auf ein weiteres Ja. Das ist die einzige zweite Frage. Warnung schon in der Vorschau (nach Neustart): keine Frage, gleich mit Bestätigung senden.'},
- ack:{x:760,y:930,t:'Mit Bestätigung senden',k:'',tag:'SCHREIBEN',d:'Gleiche Aktion nochmals, mit Bestätigung der neuen Warnung. Keine weitere Frage.'},
- back:{x:450,y:930,t:'Melden',k:'term',tag:'ENDE',d:'Claude meldet Nummer und neuen Status aus der Antwort von Bexio. Nachlesen nur, wenn die Antwort sie nicht enthält.'}
-};
-const E=[
- ['start','d_read',[[450,77],[450,113]]],
- ['d_read','n_read',[[335,140],[275,140]],'ja'],
- ['d_read','d_gate',[[450,167],[450,213]],'nein'],
- ['d_gate','n_direct',[[335,240],[275,240]],'nein'],
- ['d_gate','dry',[[450,267],[450,313]],'ja'],
- ['dry','prev',[[450,367],[450,403]]],
- ['prev','d_user',[[450,457],[450,503]]],
- ['d_user','stop',[[335,530],[275,530]],'nein'],
- ['d_user','dry',[[565,530],[625,530],[625,340],[565,340]],'ändern'],
- ['d_user','call',[[450,557],[450,603]],'ja'],
- ['call','d_srv',[[450,657],[450,703]]],
- ['d_srv','back',[[450,757],[450,903]],'ok'],
- ['d_srv','more',[[565,730],[645,730]],'neu'],
- ['more','ack',[[760,757],[760,903]],'ja'],
- ['ack','back',[[645,930],[565,930]]]
-];
-const S=[
- {id:'read',t:'Lesen',s:[['start','Offene Rechnungen anzeigen'],['d_read','Nur lesen'],['n_read','Läuft sofort, Liste kommt']]},
- {id:'direct',t:'Kontakt anlegen',s:[['start','Neuen Kontakt anlegen'],['d_read','Ändert etwas'],['d_gate','Braucht kein Ja'],['n_direct','Läuft sofort, Claude meldet die Kontakt-ID',0,1]]},
- {id:'gated',t:'Entwurf löschen',s:[['start','Rechnungsentwurf löschen'],['d_read','Ändert etwas'],['d_gate','Löschen braucht ein Ja'],['dry','Probelauf: Entwurf, Betrag, Kunde, keine Warnung'],['prev','Vorschau: Nummer, Kunde, Betrag, nicht rückgängig'],['d_user','Du: "ja"',1],['call','Löscht einmal'],['d_srv','Nichts Neues',0,1],['back','Meldet: gelöscht']]},
- {id:'flag',t:'Mit Warnung',s:[['start','Manuelle Buchung erfassen'],['d_read','Ändert etwas'],['d_gate','Buchung braucht ein Ja'],['dry','Probelauf: ⚑ MWST-Periode schon abgerechnet'],['prev','Vorschau zeigt die Warnung'],['d_user','Du: "ja"',1],['call','Bucht einmal, Warnung bestätigt'],['d_srv','Nichts Neues',0,1],['back','Meldet die Buchung']]},
- {id:'surprise',t:'Neue Warnung',s:[['start','Manuelle Buchung erfassen'],['d_read','Ändert etwas'],['d_gate','Buchung braucht ein Ja'],['dry','Probelauf: keine Warnung'],['prev','Vorschau ohne Warnung'],['d_user','Du: "ja"',1],['call','Bucht einmal'],['d_srv','Inzwischen gebucht: ⚑ Doppelbuchung'],['more','Zeigt die Doppelbuchung. Du: "ja"',1],['ack','Sendet mit Bestätigung',0,1],['back','Meldet die Buchung']]},
- {id:'no',t:'Du sagst nein',s:[['start','Rechnung per E-Mail senden'],['d_read','Ändert etwas'],['d_gate','E-Mail an Kunden braucht ein Ja'],['dry','Probelauf: Empfänger, Betreff, Text'],['prev','Vorschau: Empfänger, Nummer, Betrag'],['d_user','Du: "nein"',1],['stop','Abbruch, nichts verschickt']]},
- {id:'changed',t:'Änderung nach Ja',s:[['start','Zahlungsauftrag erstellen'],['d_read','Ändert etwas'],['d_gate','Zahlung braucht ein Ja'],['dry','Probelauf: CHF 100.–, IBAN stimmt'],['prev',"Vorschau: CHF 100.–, IBAN, Datum"],['d_user','Du: "ja, aber 120"',1],['dry','Neuer Probelauf: CHF 120.–'],['prev',"Neue Vorschau: CHF 120.–"],['d_user','Du: "ja"',1],['call','Erstellt den Auftrag einmal'],['d_srv','Nichts Neues',0,1],['back','Meldet: offen, bis Du ihn im E-Banking freigibst']]}
-];
-const svg=document.getElementById('fc'),gE=document.getElementById('edges'),gN=document.getElementById('nodes');
-const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
-const edgeEl={};
-E.forEach(([a,b,pts,lab])=>{
-  const p=el('polyline',{points:pts.map(p=>p.join(',')).join(' '),class:'edge','marker-end':'url(#ar)'});
-  gE.appendChild(p);
-  let lt=null;
-  if(lab){
-    const [x1,y1]=pts[0],[x2,y2]=pts[1];
-    let lx=(x1+x2)/2,ly=(y1+y2)/2;
-    if(pts.length>2){lx=pts[1][0];ly=(pts[1][1]+pts[2][1])/2;}
-    const vert=pts.length>2?true:(x1===x2);
-    const w=lab.length*7+10;
-    const bx=vert?lx+6:lx-w/2, by=vert?ly-9:ly-22;
-    gE.appendChild(el('rect',{x:bx,y:by,width:w,height:17,rx:4,class:'elab-bg'}));
-    lt=el('text',{x:bx+5,y:by+12.5,class:'elab'});lt.textContent=lab;gE.appendChild(lt);
-  }
-  edgeEl[a+'>'+b]={p,lt};
-});
-const nodeEl={};
-Object.entries(N).forEach(([id,n])=>{
-  const g=el('g',{class:'node '+n.k,tabindex:0,role:'button','aria-label':n.t+'. '+n.d,'data-id':id,transform:`translate(${n.x-W/2},${n.y-H/2})`});
-  g.appendChild(el('rect',{class:'halo',x:-6,y:-6,width:W+12,height:H+12,rx:n.k.includes('term')?33:14}));
-  g.appendChild(el('rect',{width:W,height:H,rx:n.k.includes('term')?27:9}));
-  const tg=el('text',{class:'tag',x:W/2,y:19,'text-anchor':'middle'});tg.textContent=n.tag;g.appendChild(tg);
-  const tx=el('text',{x:W/2,y:38,'text-anchor':'middle'});tx.textContent=n.t;g.appendChild(tx);
-  g.addEventListener('click',()=>show(id));
-  g.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();show(id);}});
-  gN.appendChild(g);nodeEl[id]=g;
-});
-const dk=document.getElementById('d-k'),dt=document.getElementById('d-t'),db=document.getElementById('d-b');
-function show(id){
-  Object.values(nodeEl).forEach(g=>g.classList.remove('sel'));
-  nodeEl[id].classList.add('sel');
-  const n=N[id];dk.textContent=n.tag;dt.textContent=n.t;db.textContent=n.d;
-}
-const log=document.getElementById('log'),tq=document.getElementById('t-q'),tw=document.getElementById('t-w');
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let timer=null,run=0;
-function clear(){
-  Object.values(nodeEl).forEach(g=>g.classList.remove('on','cur'));
-  Object.values(edgeEl).forEach(({p,lt})=>{p.classList.remove('on');p.setAttribute('marker-end','url(#ar)');lt&&lt.classList.remove('on');});
-  log.innerHTML='';tq.textContent='0';tw.textContent='0';
-}
-function bump(e,v){e.textContent=String(+e.textContent+v);e.classList.add('bump');setTimeout(()=>e.classList.remove('bump'),400);}
-function play(sc){
-  clearTimeout(timer);const my=++run;clear();
-  document.querySelectorAll('#scen button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===sc.id));
-  let i=0;
-  const step=()=>{
-    if(my!==run)return;
-    const [id,line,q,w]=sc.s[i];
-    Object.values(nodeEl).forEach(g=>g.classList.remove('cur'));
-    nodeEl[id].classList.add('on','cur');
-    if(i>0){const e=edgeEl[sc.s[i-1][0]+'>'+id];if(e){e.p.classList.add('on');e.p.setAttribute('marker-end','url(#ar-on)');e.lt&&e.lt.classList.add('on');}}
-    log.querySelectorAll('li').forEach(l=>l.classList.remove('cur'));
-    const li=document.createElement('li');li.textContent=line;li.className='cur';log.appendChild(li);
-    if(q)bump(tq,q);if(w)bump(tw,w);
-    show(id);
-    i++;if(i<sc.s.length)timer=setTimeout(step,reduce?0:750);
-  };
-  step();
-}
-const sb=document.getElementById('scen');
-S.forEach(sc=>{const b=document.createElement('button');b.type='button';b.textContent=sc.t;b.dataset.s=sc.id;b.id='sc-'+sc.id;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>play(sc));sb.appendChild(b);});
-// resting state: show the full gated path lit
-(function rest(){
-  const sc=S[3];
-  sc.s.forEach(([id],i)=>{nodeEl[id].classList.add('on');if(i>0){const e=edgeEl[sc.s[i-1][0]+'>'+id];if(e){e.p.classList.add('on');e.p.setAttribute('marker-end','url(#ar-on)');e.lt&&e.lt.classList.add('on');}}});
-  document.getElementById('sc-flag').setAttribute('aria-pressed','true');
-  sc.s.forEach(([,line],i)=>{const li=document.createElement('li');li.textContent=line;if(i===sc.s.length-1)li.className='cur';log.appendChild(li);});
-  tq.textContent='1';tw.textContent='1';show('dry');
-})();
-})();
 </script>
 
 </body>

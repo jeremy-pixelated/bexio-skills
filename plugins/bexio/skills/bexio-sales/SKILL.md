@@ -15,12 +15,12 @@ Core `bexio` first (router, gate, flags). All 98 ops: `reference.md`.
 | Tool | Actions | Gated |
 |---|---|---|
 | `bexio_quotes` | list, search, get, create, update, delete, issue, revert_issue, accept, decline, reissue, mark_as_sent, send, copy, pdf, create_invoice, create_order | delete, send |
-| `bexio_orders` | list, search, get, create, update, delete, pdf, get_repetition, edit_repetition, delete_repetition, create_delivery, create_invoice | delete, delete_repetition |
+| `bexio_orders` | list, search, get, create, update, delete, pdf, get_repetition, edit_repetition, delete_repetition, create_delivery, create_invoice | delete |
 | `bexio_deliveries` | list, get, issue | – |
-| `bexio_invoices` | list, search, get, create, update, delete, issue, revert_issue, cancel, mark_as_sent, send, copy, pdf | delete, issue, revert_issue, cancel, send |
-| `bexio_invoice_payments` | list, get, create, delete | create, delete |
+| `bexio_invoices` | list, search, get, create, update, delete, issue, revert_issue, cancel, mark_as_sent, send, copy, pdf | delete, send |
+| `bexio_invoice_payments` | list, get, create, delete | – |
 | `bexio_invoice_reminders` | list, search, get, create, delete, send, mark_as_sent, mark_as_unsent, pdf | delete, send |
-| `bexio_document_positions` | list, get, create, update, delete | delete |
+| `bexio_document_positions` | list, get, create, update, delete | – |
 | `bexio_document_comments` | list, get, create | – |
 | `bexio_document_settings` | list_settings, list_templates | – |
 - Scopes `kb_offer_*`, `kb_order_*`, `kb_invoice_*`, `kb_delivery_*`; conversion needs edit scope of source + target [D:v2CreateOrderFromQuote].
@@ -35,7 +35,7 @@ Core `bexio` first (router, gate, flags). All 98 ops: `reference.md`.
 
 ## Transitions (read status from the response; results in () n.d.)
 - Quote `issue`: must be Draft (→ Pending n.d.) [D:v2IssueQuote] · `revert_issue` → Draft [D:v2RevertIssueQuote] · `accept` / `decline`: need status 2 (→ Confirmed / Declined n.d.) [D:v2AcceptQuote], [D:v2DeclineQuote] · `reissue` → Pending from accepted / declined [D:v2ReissueQuote].
-- Invoice `issue`: must be Draft; resulting status + ledger effect n.d. → gated as posting [D:v2IssueInvoice] · `revert_issue`: issued → Draft; ledger effect n.d. → gated as posting [D:v2RevertIssueInvoice] · `cancel`: cancels an issued invoice; no un-cancel endpoint [D:v2CancelInvoice] · how Paid / Partial / Unpaid are reached: n.d. per endpoint → read status.
+- Invoice `issue`: must be Draft; resulting status + ledger effect n.d. → say so in the report [D:v2IssueInvoice] · `revert_issue`: issued → Draft; ledger effect n.d. → say so in the report [D:v2RevertIssueInvoice] · `cancel`: cancels an issued invoice; no un-cancel endpoint [D:v2CancelInvoice] · how Paid / Partial / Unpaid are reached: n.d. per endpoint → read status.
 - Delivery `issue`: must be Draft [D:v2IssueDelivery]. Orders: no status actions.
 - UI-only rules (API enforcement n.d. → skill pre-check) [H:000001859]: revert to Draft only without recorded payment · paid / partially paid invoice: content frozen · delete only in Draft, else cancel (credit notes: no API [D§FAQ] → user in Bexio UI).
 
@@ -76,31 +76,31 @@ Core `bexio` first (router, gate, flags). All 98 ops: `reference.md`.
 ## Gate rows (core §3.2: dry run → one preview → one yes → call with the dry run's `acknowledge_flags`)
 | Row | Class | Preview (`pre_image` + `would_send`) | Skill pre-check |
 |---|---|---|---|
-| `bexio_invoices.issue` | posting | id + document_nr, customer, title, date + due, net / VAT / gross, currency, positions (text, qty, unit price, account, tax), bank account / QR; "leaves Draft; ledger effect n.d., treated as posting" | – |
-| `bexio_invoices.revert_issue` | posting | document_nr, status (Pending / Unpaid), total; "back to Draft; ledger effect n.d." | `bexio_invoice_payments.list` → payments recorded → ⚑ UI blocks revert [H:000001859] |
-| `bexio_invoices.cancel` | cancel | document_nr, customer, total, status; "no un-cancel via API" | `bexio_invoice_payments.list` → payments in the preview |
 | `bexio_invoices.send` | send | document_nr, `recipient_email`, subject, full message incl. `[Network Link]`, `attach_pdf`, `mark_as_open`; "emails the customer now" | ⚑ recipient not stored |
 | `bexio_quotes.send` | send | as invoice send, quote document_nr | ⚑ recipient not stored |
 | `bexio_invoice_reminders.send` | send | invoice document_nr, reminder level, `recipient_email`, subject, message; "emails now" | ⚑ recipient not stored |
-| `bexio_invoice_payments.create` | posting | invoice document_nr + customer, open amount (`total_remaining_payments`), `value`, `date`, bank account (name + IBAN), resulting status (Paid / Partial) | ⚑ bank-feed double |
-| `bexio_invoice_payments.delete` | delete | invoice, payment id, date, value, bank account; "permanent; status effect n.d." | – |
-| `bexio_invoices.delete` | delete | id, document_nr, customer, total, status; "permanent" | status ≠ Draft → ⚑ UI: cancel instead |
-| `bexio_quotes.delete` | delete | id, document_nr, customer, total, status; "permanent" | – |
-| `bexio_orders.delete` | delete | id, document_nr, customer, total, status; "permanent" | – |
-| `bexio_orders.delete_repetition` | delete | order id + document_nr, current rule | – |
-| `bexio_invoice_reminders.delete` | delete | invoice, reminder id + level (latest only); "permanent" | – |
-| `bexio_document_positions.delete` | delete | doc type + nr, position type + id, text, amount, line total; "permanent" | – |
+| `bexio_invoices.delete` | final delete | id, document_nr, customer, total, status; "permanent" | status ≠ Draft → ⚑ UI: cancel instead |
+| `bexio_quotes.delete` | final delete | id, document_nr, customer, total, status; "permanent" | – |
+| `bexio_orders.delete` | final delete | id, document_nr, customer, total, status; "permanent" | – |
+| `bexio_invoice_reminders.delete` | final delete | invoice, reminder id + level (latest only); "permanent" | – |
 - ⚑ recipient not stored: `recipient_email` ≠ contact `mail` / `mail_second` (`bexio_contacts.get`) and not on the company's own mail domain (from `bexio_company_profile` `mail`; empty or public mail-provider domain → no domain exemption) → flag line naming the address source.
-- ⚑ bank-feed double: same bank line also matched in Bexio bank reconciliation → API payment + match may count twice (confirmed for supplier bills [H:000001755]; sales n.d.) → same question: also matched in reconciliation?
+
+## Direct writes with a skill check (core §3: checked before the call, finding = report line, no question)
+| Action | Check → report line |
+|---|---|
+| `bexio_invoices.revert_issue` | `bexio_invoice_payments.list` → payments recorded → "UI blocks revert with payments [H:000001859]; API n.d." |
+| `bexio_invoices.cancel` | `bexio_invoice_payments.list` → payments recorded → listed in the report; "no un-cancel via API" |
+| `bexio_invoice_payments.create` | bank-feed double: same bank line also matched in Bexio bank reconciliation → API payment + match may count twice (confirmed for supplier bills [H:000001755]; sales n.d.) → report line: "if this payment is also matched in bank reconciliation, it counts twice" |
+- Other ungated sales writes (`issue`, `delete_repetition`, payment `delete`, position `delete`): call, report id + resulting status.
 
 ## Customer payment on an invoice
 1. `bexio_invoices.search` `document_nr` `=` → `get`.
 2. Status 8, 16 or 31; note `total_remaining_payments`.
 3. `bexio_bank_accounts.list` → integer `id` of the receiving account.
-4. Gate row `bexio_invoice_payments.create` → response: invoice status 9 / 16.
+4. `bexio_invoice_payments.create` (direct, check above) → response: invoice status 9 / 16.
 
 ## Gotchas
-1. `revert_issue` / `cancel` / `delete` preconditions = UI help only [H:000001859] → skill pre-checks.
+1. `revert_issue` / `cancel` / `delete` preconditions = UI help only [H:000001859] → skill checks (gate row / direct-write table).
 2. `send` = email now · `mark_as_sent` = flag only.
 3. Quote endpoints: `decline` = `/reject`, `revert_issue` = `/revertIssue`.
 4. `mwst_type`: integer here, string on purchase orders.

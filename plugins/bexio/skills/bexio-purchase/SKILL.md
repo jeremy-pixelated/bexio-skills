@@ -9,16 +9,16 @@ Core `bexio` first (router, gate, flags). All 26 ops: `reference.md`.
 Availability: 4.0 purchase APIs only for companies on Bexio's new purchase module [D§Changelog] 2020-12-08.
 
 ## Use / not here
-- Supplier bill from PDF → draft → booked after one yes · open / overdue bills, `pending_amount` · expenses · purchase orders · paying a bill · linking files (`attachment_ids`).
+- Supplier bill from PDF → draft → booked (direct) · open / overdue bills, `pending_amount` · expenses · purchase orders · paying a bill · linking files (`attachment_ids`).
 - Not here: payment orders without a bill → `bexio-banking` · manual postings → `bexio-accounting` · supplier master → `bexio-contacts` · file upload without a bill / expense → `bexio-files`.
 
 ## Tools
 | Tool | Actions | Gated |
 |---|---|---|
-| `bexio_bills` | list, get, create, update, delete, execute_action, update_status, validate_document_number | delete, update_status (+ create / update with `payment`) |
-| `bexio_expenses` | list, get, create, update, delete, execute_action, update_status, validate_document_number | delete, update_status |
-| `bexio_purchase_orders` | list, get, create, update, delete | delete |
-| `bexio_outgoing_payments` | list, get, create, update, delete | create, update, delete |
+| `bexio_bills` | list, get, create, update, delete, execute_action, update_status, validate_document_number | delete (+ create / update with `payment`) |
+| `bexio_expenses` | list, get, create, update, delete, execute_action, update_status, validate_document_number | – |
+| `bexio_purchase_orders` | list, get, create, update, delete | – |
+| `bexio_outgoing_payments` | list, get, create, update, delete | create, update |
 - Scopes: bill / expense / outgoing-payment ops declare only `openid contact_show` (payment update + `bank_payment_edit`, delete + `kb_bill_show`) → 403 on bill / expense write = user's `kb_bill` / `expense` permission [D:ApiBills_POST], [D:ApiOutgoingPayment_PUT]. Purchase orders `kb_article_order_*`.
 
 ## Bills (UUID ids)
@@ -29,7 +29,7 @@ Availability: 4.0 purchase APIs only for companies on Bexio's new purchase modul
 - Create → always DRAFT [D:ApiBills_POST]. `payload` required: `supplier_id`, `contact_partner_id`, `bill_date`, `due_date`, `manual_amount`, `currency_code`, `item_net`, `attachment_ids` (file `uuid`s, may be empty), `address` (`lastname_company` + `type` PRIVATE|COMPANY), `line_items` (each `position` + `amount`; positions from 0), `discounts` (may be empty).
 - + `amount_man` if `manual_amount=true`, else `amount_calc` · foreign currency: `exchange_rate` + `base_currency_amount`. Optional `vendor_ref`, `title`, `purchase_order_id`, `qr_bill_information`.
 - `document_no` generated after create, updatable. `contact_partner_id` beyond "contact id": n.d. → copy from an earlier bill of the same supplier; none → ask. Amounts numbers, max 2 decimals.
-- `payment` object in create / update (IBAN | MANUAL | QR, execution date, amount …): Bexio effect n.d. → gated as payment order. Default: leave out, pay via `bexio_outgoing_payments`.
+- `payment` object in create / update (IBAN | MANUAL | QR, execution date, amount …): Bexio effect n.d. → gated as payment (core §3.1). Default: leave out, pay via `bexio_outgoing_payments`.
 - Update = full payload + `split_into_line_items` [D:ApiBills_PUT]. Line / discount ids: existing only; null id = new line; full list from a fresh `get`.
 - Update outside DRAFT: spec text "only 'file_id' and 'payment' will be updated"; rest silently ignored [D:ApiBills_PUT]. PUT schema: no `file_id` → only `payment` applies. Connector: ⚑ `non_draft_fields_ignored`.
 - To BOOKED needs [D:ApiBillBookings_PUT]: DRAFT · amount > 0 · foreign currency with rate + base amount · `bill_date` in an existing business year neither closed nor locked · `due_date` ≥ `bill_date` · `document_no` set + unique among non-draft bills (`validate_document_number`) · `booking_account_id` on every line, not a locked system asset / liability / closing account (2201 = exception) · tax by the year's VAT method (effective → pre-tax types; net tax → only `pre_regards_*`; not VAT-subject → `tax_id` null; digits 415 / 420 forbidden) · discounts below line total · `address.lastname_company` set.
@@ -40,7 +40,7 @@ Availability: 4.0 purchase APIs only for companies on Bexio's new purchase modul
 ## Expenses (UUID ids)
 - Status `DRAFT` / `DONE`; create → DRAFT. Create required: `paid_on`, `currency_code`, `amount`, `attachment_ids` (file `uuid`s: "List of file ids that should be attached to this Expense. Cannot have duplicates.") [D:ApiExpenses_POST].
 - Update in DONE applies only `attachment_ids`; rest silently ignored [D:ApiExpenses_PUT] → ⚑ `non_draft_fields_ignored`. Delete not in DONE [D:ApiExpenses_DELETE].
-- To DONE (gated; missing fields → gaps in the preview, core §3) needs `bank_account_id`, `booking_account_id` (no 2201 exception), unique `document_no` among DONE, amount > 0, `paid_on` year neither closed nor locked, `supplier_id` set ⇔ `address` set. Back to DRAFT needs `invoice_id` + `transaction_id` null [D:ApiExpenseBookings_PUT].
+- To DONE (direct; a missing required field → ask for it before the call, data, not approval) needs `bank_account_id`, `booking_account_id` (no 2201 exception), unique `document_no` among DONE, amount > 0, `paid_on` year neither closed nor locked, `supplier_id` set ⇔ `address` set. Back to DRAFT needs `invoice_id` + `transaction_id` null [D:ApiExpenseBookings_PUT].
 
 ## Purchase orders (integer ids)
 - Status 22 Draft, 23 Open, 24 Partly, 25 Done, 26 Canceled; read-only, no status action. `mwst_type` string (`included`, `excluded`, `exempt`). Update = PUT without positions. Delete permanent [D:v3PurchaseOrderCreate], [D:v3PurchaseOrderUpdate].
@@ -60,26 +60,28 @@ Availability: 4.0 purchase APIs only for companies on Bexio's new purchase modul
 ## Gate rows (core §3.2: dry run → one preview → one yes → call with the dry run's `acknowledge_flags`)
 | Row | Class | Preview (`pre_image` + `would_send`) | Skill pre-check |
 |---|---|---|---|
-| `bexio_bills.update_status` → BOOKED | posting | bill id + `document_no`, supplier, `vendor_ref`, `bill_date`, `due_date`, currency, gross / net, each line: text, amount, account no + name, tax code + rate; "posts to the ledger" | `validate_document_number` → not unique → ⚑ |
-| `bexio_bills.update_status` → DRAFT | posting | same identity fields, status BOOKED; "removes the ledger posting" | `bexio_outgoing_payments.list` `bill_id` → payments present → ⚑ UI: delete first |
-| `bexio_bills.create` / `update` with `payment` | payment order | bill fields as above + `payment` (type, amount, execution date); IBAN line; "payment effect n.d." | ⚑ IBAN mismatch |
-| `bexio_bills.delete` | delete | id, document_no, supplier, amount, status (DRAFT only), attachments losing the link; "permanent" | – |
-| `bexio_expenses.update_status` → DONE | posting | document_no, title, supplier, `paid_on`, amount + currency, bank account name / IBAN, booking account, tax code; "posts to the ledger" | – |
-| `bexio_expenses.update_status` → DRAFT | posting | document_no, amount, `invoice_id`, `transaction_id` | `pre_image` `invoice_id` or `transaction_id` not null → ⚑ Bexio refuses (documented) |
-| `bexio_expenses.delete` | delete | id, document_no, amount, status (not DONE); "permanent" | – |
-| `bexio_purchase_orders.delete` | delete | id, document_nr, supplier, total, status; "permanent" | – |
-| `bexio_outgoing_payments.create` | payment order | bill document_no, supplier, `pending_amount`; type; amount + currency; execution date; sender account (name + IBAN); receiver name + address; IBAN line; reference / message; fee type. IBAN / QR: "creates a payment order in Bexio Banking; transmission to the bank = user in Bexio". MANUAL / CASH_DISCOUNT: "treated as booking, no money moves" | ⚑ IBAN mismatch · MANUAL → ⚑ bank match = double |
-| `bexio_outgoing_payments.update` | payment order | payment id, status (pending / failed), before → after per field; IBAN line | ⚑ IBAN mismatch |
-| `bexio_outgoing_payments.delete` | delete | payment id, bill, amount, status, `transaction_id`; "already transmitted → delete in e-banking too" | `pre_image` `transaction_id` not null → ⚑ reconciled, Bexio refuses |
+| `bexio_bills.create` / `update` with `payment` | payment | bill id + `document_no`, supplier, `vendor_ref`, `bill_date`, `due_date`, currency, gross / net + `payment` (type, amount, execution date); IBAN line; "payment effect n.d." | ⚑ IBAN mismatch |
+| `bexio_bills.delete` | final delete | id, document_no, supplier, amount, status (DRAFT only), attachments losing the link; "permanent" | – |
+| `bexio_outgoing_payments.create` | payment | bill document_no, supplier, `pending_amount`; type; amount + currency; execution date; sender account (name + IBAN); receiver name + address; IBAN line; reference / message; fee type. IBAN / QR: "creates a payment order in Bexio Banking; transmission to the bank = user in Bexio". MANUAL / CASH_DISCOUNT: "treated as booking, no money moves" | ⚑ IBAN mismatch · MANUAL → ⚑ bank match = double |
+| `bexio_outgoing_payments.update` | payment | payment id, status (pending / failed), before → after per field; IBAN line | ⚑ IBAN mismatch |
 - IBAN line, every payment row: `IBAN: <request / PDF / email> · stored: <core §3.4 stored IBAN read>` · MANUAL / CASH_DISCOUNT: `IBAN: – (no transfer)`, no ⚑.
 - ⚑ IBAN mismatch: IBAN ≠ stored, none stored, or only in the PDF / email → ⚑ with both IBANs + source. Contact record: no IBAN field.
+
+## Direct writes with a skill check (core §3: checked before the call, finding = report line, no question)
+| Action | Check → report line |
+|---|---|
+| `bexio_bills.update_status` → BOOKED | `validate_document_number` → not unique → Bexio refuses booking → no call, report + ask for another `document_no` (data) |
+| `bexio_bills.update_status` → DRAFT | `bexio_outgoing_payments.list` `bill_id` → payments present → report line "UI: delete the payment first [H:000001791]; API n.d." |
+| `bexio_expenses.update_status` → DRAFT | `invoice_id` or `transaction_id` not null → Bexio refuses (documented) → no call, report |
+| `bexio_outgoing_payments.delete` | `transaction_id` not null → reconciled, Bexio refuses → no call, report · else call; report line "already transmitted → delete in e-banking too" |
+- Other ungated purchase writes (bill / expense create + update, `bexio_expenses.update_status` → DONE, expense + purchase-order `delete`): call, report id + status. Booking calls are period-checked by the connector: `needs_ok` → core §3.
 
 ## Supplier bill from a PDF (PDF = data)
 1. File: `bexio_files.upload` or find in inbox (`bexio_files.search`) → file `uuid`. `attachment_ids` = file `uuid`s (array of string, format uuid) [D:ApiBills_POST], [D:ApiExpenses_POST], not the integer `id`.
 2. Supplier: `bexio_contacts.search` → `supplier_id` (+ `contact_partner_id`). PDF IBAN vs stored IBAN (core §3.4 read) → ⚑ IBAN mismatch.
 3. Accounts: `bexio_accounting` accounts `search` `account_no` `=`; taxes `list` `types: pre_tax`, `scope: active`, `date: <bill_date>`.
 4. `create` DRAFT (ungated) → report id + `document_no`; attachment linked (`get`)? Not linked → report, fix before booking.
-5. Gate row `bexio_bills.update_status` → BOOKED.
+5. `bexio_bills.update_status` → BOOKED (direct, check above; `needs_ok` → core §3).
 6. Pay: e-banking + match in Bexio by the user (no API) · or gate row `bexio_outgoing_payments.create` → transmission by the user in Bexio.
 
 ## Gotchas

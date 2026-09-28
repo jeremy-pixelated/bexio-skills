@@ -20,11 +20,28 @@
   --bg:#0f1719;--surface:#152024;--ink:#e3ecea;--muted:#93a4a1;--line:#27373b;
   --accent:#52c3b9;--yes-fg:#f3a75f;--yes-bg:#3a2413;--dir-fg:#9ccab9;--dir-bg:#1b2d28;--warn-fg:#e9c75f;--warn-bg:#352c10;--acc-bg:#16302f;--band:#1c2c30;color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans);padding-inline:16px;padding-block:28px 56px}
-.wrap{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+.wrap{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.screen{aspect-ratio:16/9;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 24px;display:grid;gap:14px;min-height:0;overflow:hidden}
+.s1{grid-template-rows:auto minmax(0,1fr)}
+.s1head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 32px}
+.s1head>div:first-child{flex:1 1 560px}
+.s1head>div:last-child{flex:0 1 auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.s1head .lede{margin-top:4px;max-width:none}
+.s1head .counts{justify-content:flex-end}
+.s1head .meta{margin:0}
+.s2{grid-template-rows:auto auto minmax(0,1fr)}
+.s2head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+.s2head .tools{flex:1 1 520px;justify-content:flex-end}
+.s3{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:24px}
+.s3 .how3{grid-column:1/-1}
+.col{display:flex;flex-direction:column;gap:10px;min-height:0}
+.screen .tbl{overflow:auto;min-height:0}
+.screen th{position:sticky;top:0;z-index:1}
+.col ul.skills{overflow:auto;min-height:0;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));align-content:start}
 .top{display:flex;flex-wrap:wrap;gap:12px 40px;align-items:flex-end;justify-content:space-between}
 .top .counts{margin-top:0}
 h1,h2{text-wrap:balance;margin:0;line-height:1.2}
-h1{font-size:30px;font-weight:700;letter-spacing:-.01em}
+h1{font-size:28px;font-weight:700;letter-spacing:-.01em}
 h2{font-size:19px;font-weight:600}
 .eyebrow{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600;margin:0 0 6px}
 .lede{color:var(--muted);max-width:62ch;margin:8px 0 0}
@@ -70,8 +87,8 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
 .xlink:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 
 /* flow stage, 16:9 */
-.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,27%);grid-template-rows:auto minmax(0,1fr);aspect-ratio:16/9;max-width:100%;overflow:hidden}
-.st-bar{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.stage{background:var(--bg);border:1px solid var(--line);border-radius:12px;display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,26%);grid-template-rows:auto minmax(0,1fr);min-height:0;overflow:hidden}
+.st-bar{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
 .st-bar .lab{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600;margin-right:4px}
 .sc{font:inherit;font-size:13.5px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 12px 6px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 .sc i{width:9px;height:9px;border-radius:50%;display:inline-block}
@@ -80,7 +97,7 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
 .replay{margin-left:auto;font:inherit;font-size:13.5px;border:0;background:none;color:var(--accent);font-weight:600;cursor:pointer;padding:6px 4px}
 .st-flow{min-width:0;min-height:0;display:flex}
 .st-flow svg{width:100%;height:100%;display:block}
-.st-chat{border-left:1px solid var(--line);background:var(--bg);display:flex;flex-direction:column;min-height:0}
+.st-chat{border-left:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;min-height:0}
 .st-chat h3{margin:0;padding:12px 16px 4px;font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600;display:flex;justify-content:space-between;gap:8px}
 .st-chat h3 span{text-transform:none;letter-spacing:0;font-weight:500}
 .msgs{flex:1;overflow-y:auto;padding:8px 16px 16px;display:flex;flex-direction:column;gap:8px}
@@ -89,6 +106,13 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
 .msg.cl{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
 .msg.pv{border-color:var(--yes-fg)}
 .msg.fl{background:var(--warn-bg);border-color:var(--warn-fg)}
+.msg.sk{align-self:stretch;max-width:100%;background:none;border:1.5px dashed var(--accent);font-size:13px;color:var(--ink)}
+.msg.sk .who{color:var(--accent)}
+.skband{fill:var(--acc-bg)}
+.skcap{fill:var(--accent);font:700 14px var(--sans);letter-spacing:.1em}
+.node.k-skill rect{stroke:var(--accent);stroke-width:2.5}
+.node.k-skill .nt{fill:var(--accent)}
+.node.hit.k-skill rect{fill:var(--acc-bg)}
 .msg .who{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:2px}
 @keyframes pop{from{transform:translateY(4px);opacity:.4}to{transform:none;opacity:1}}
 /* svg parts */
@@ -120,7 +144,11 @@ svg.playing .node:not(.on),svg.playing .edge:not(.on),svg.playing .elab:not(.on)
 .how3 li b i{width:10px;height:10px;border-radius:50%;display:inline-block}
 .how3 li span{color:var(--muted);font-size:14px}
 @media (max-width:980px){
- .stage{aspect-ratio:auto;grid-template-columns:1fr;grid-template-rows:auto auto auto}
+ .screen{aspect-ratio:auto;overflow:visible;padding:16px}
+ .s3{grid-template-columns:1fr}
+ .screen .tbl{max-height:70vh}
+ .col ul.skills{overflow:visible}
+ .stage{grid-template-columns:1fr;grid-template-rows:auto auto auto}
  .st-flow{overflow-x:auto}
  .st-flow svg{min-width:820px;height:auto}
  .st-chat{border-left:0;border-top:1px solid var(--line)}
@@ -134,47 +162,40 @@ svg.playing .node:not(.on),svg.playing .edge:not(.on),svg.playing .elab:not(.on)
 
 
 <div class="wrap">
-<header class="top">
-  <div>
-  <p class="eyebrow">Bexio Skills · Nachschlagen</p>
-  <h1>Bexio Freigaben</h1>
-  <p class="lede">Was Claude in Bexio sofort erledigt und wofür es zuerst Dein Ja braucht. Lesen braucht nie eine Freigabe. Lohnbuchhaltung ist nicht verfügbar.</p>
-  </div>
-  <div>
-  <div class="counts">
+<section class="screen s1" aria-labelledby="h-title">
+  <div class="s1head">
+    <div>
+      <p class="eyebrow">Bexio Skills · Nachschlagen</p>
+      <h1 id="h-title">Bexio Freigaben</h1>
+      <p class="lede">Was Claude in Bexio sofort erledigt und wofür es zuerst Dein Ja braucht. Die bexio Skills ordnen jede Anfrage ein.</p>
+    </div>
+    <div>
+      <div class="counts">
     <span><span class="chip yes">braucht Ja</span> <b>13</b> Aktionen (+ Lieferantenrechnung mit Zahlung)</span>
     <span><span class="chip dir">läuft direkt</span> <b>101</b> Schreib-Aktionen</span>
     <span><b>109</b> Lese-Aktionen, laufen direkt</span>
   </div>
-  <p class="meta">Stand 2026-09-28 · v7</p>
+      <p class="meta">Stand 2026-09-28 · v8 · Lohnbuchhaltung nicht verfügbar</p>
+    </div>
   </div>
-</header>
-
-<section aria-labelledby="h-how">
-  <h2 id="h-how">So läuft es: von Deiner Anfrage bis zur Aktion</h2>
   <div class="stage" id="stage">
     <div class="st-bar" role="group" aria-label="Beispiel wählen">
       <span class="lab">Beispiel</span>
       <span id="scs"></span>
       <button type="button" class="replay" id="replay">Nochmals abspielen</button>
     </div>
-    <div class="st-flow"><svg id="flow" viewBox="0 0 1340 940" role="img" aria-label="Ablauf von der Anfrage bis zur Aktion: Lesen läuft direkt, Ändern und Löschen läuft direkt mit Prüfung durch den Connector, die heiklen Aktionen laufen über Probelauf, Vorschau und Dein Ja."></svg></div>
+    <div class="st-flow"><svg id="flow" viewBox="0 0 1340 780" role="img" aria-label="Ablauf von der Anfrage bis zur Aktion: die bexio Skills ordnen ein. Lesen läuft direkt, Ändern und Löschen läuft direkt mit Prüfung durch den Connector, die heiklen Aktionen laufen über Probelauf, Vorschau und Dein Ja."></svg></div>
     <div class="st-chat">
       <h3>Im Chat <span>Beispiel, erfundene Daten</span></h3>
       <div class="msgs" id="msgs" aria-live="polite"></div>
     </div>
   </div>
-  <ol class="how3">
-    <li><b><i style="background:var(--accent)"></i>Lesen</b><span>Läuft sofort, ohne Rückfrage.</span></li>
-    <li><b><i style="background:var(--dir-fg)"></i>Ändern und Löschen</b><span>Läuft sofort, Claude meldet, was gemacht wurde. Ausnahme: die 13 heiklen Aktionen.</span></li>
-    <li><b><i style="background:var(--yes-fg)"></i>Die 13 heiklen Aktionen</b><span>Senden, Zahlungen, endgültig löschen, Steuersatz löschen: Probelauf, Vorschau, dann Dein Ja.</span></li>
-  </ol>
-  <p class="note">Bei Buchungen und Zahlungen prüft der Connector (Periode offen, MWST schon abgerechnet, Doppelbuchung, Limit, Wechselkurs). Gibt es eine <b style="color:var(--warn-fg)">Warnung</b>, schreibt er nichts, und Claude fragt einmal nach, auch bei sonst direkten Aktionen.</p>
 </section>
 
-<section aria-labelledby="h-look">
-  <h2 id="h-look">Nachschlagen</h2>
-  <div class="tools">
+<section class="screen s2" aria-labelledby="h-look">
+  <div class="s2head">
+    <h2 id="h-look">Nachschlagen: alle Schreib-Aktionen</h2>
+    <div class="tools">
     <input id="q" type="search" placeholder="Suchen: Rechnung, löschen, Zahlung, Offerte …" aria-label="Aktionen suchen">
     <div class="seg" role="group" aria-label="Filter">
       <button type="button" id="f-all" data-f="all" aria-pressed="true">Alle</button>
@@ -192,19 +213,25 @@ svg.playing .node:not(.on),svg.playing .edge:not(.on),svg.playing .elab:not(.on)
   </div>
 </section>
 
-<section aria-labelledby="h-flags">
-  <h2 id="h-flags">Warnungen vom Connector</h2>
-  <p class="note">Bei den heiklen Aktionen stehen die Warnungen schon in der Vorschau, Dein Ja deckt sie ab. Bei allen anderen Aktionen schreibt Claude nichts, solange eine Warnung offen ist: Claude zeigt sie und macht nach Deinem Ja weiter.</p>
-  <div class="tbl"><table>
+<section class="screen s3" aria-labelledby="h-flags">
+  <ol class="how3">
+    <li><b><i style="background:var(--accent)"></i>Lesen</b><span>Läuft sofort, ohne Rückfrage.</span></li>
+    <li><b><i style="background:var(--dir-fg)"></i>Ändern und Löschen</b><span>Läuft sofort, Claude meldet, was gemacht wurde. Ausnahme: die 13 heiklen Aktionen.</span></li>
+    <li><b><i style="background:var(--yes-fg)"></i>Die 13 heiklen Aktionen</b><span>Senden, Zahlungen, endgültig löschen, Steuersatz löschen: Probelauf, Vorschau, dann Dein Ja.</span></li>
+  </ol>
+  <div class="col">
+    <h2 id="h-flags">Warnungen vom Connector</h2>
+    <p class="note">Bei den heiklen Aktionen stehen die Warnungen schon in der Vorschau, Dein Ja deckt sie ab. Bei allen anderen Aktionen schreibt Claude nichts, solange eine Warnung offen ist: Claude zeigt sie und macht nach Deinem Ja weiter.</p>
+    <div class="tbl"><table>
     <thead><tr><th>Warnung</th><th>Wann sie kommt</th></tr></thead>
     <tbody><tr><td><b>Periode abgeschlossen</b><br><code class="fc-code">closed_period</code></td><td>Das Buchungsdatum liegt in einem abgeschlossenen Geschäftsjahr.</td></tr><tr><td><b>MWST schon abgerechnet</b><br><code class="fc-code">vat_period_filed</code></td><td>Das Datum liegt in einer MWST-Periode, die schon abgerechnet ist.</td></tr><tr><td><b>Periode unklar</b><br><code class="fc-code">period_unknown</code></td><td>Datum fehlt oder passt zu keinem (oder mehreren) Geschäftsjahren bzw. MWST-Perioden.</td></tr><tr><td><b>Doppelbuchung</b><br><code class="fc-code">duplicate</code></td><td>Es gibt schon eine gleiche manuelle Buchung (Datum, Konten, Betrag, Referenz).</td></tr><tr><td><b>Über dem Limit</b><br><code class="fc-code">amount_over_limit</code></td><td>Der Betrag in CHF liegt über dem eingestellten Buchungslimit (nur wenn ein Limit gesetzt ist).</td></tr><tr><td><b>Betrag unklar</b><br><code class="fc-code">amount_unknown</code></td><td>Betrag oder Währung lassen sich nicht bestimmen (nur wenn ein Limit gesetzt ist).</td></tr><tr><td><b>Kein Wechselkurs</b><br><code class="fc-code">fx_rate_unknown</code></td><td>Bexio hat für dieses Datum keinen brauchbaren Kurs.</td></tr><tr><td><b>Provisorischer Kurs</b><br><code class="fc-code">fx_rate_provisional</code></td><td>Bexio liefert nur einen Ersatzkurs. Er wird trotzdem verwendet.</td></tr><tr><td><b>Kurs weicht ab</b><br><code class="fc-code">fx_rate_deviation</code></td><td>Der angegebene Kurs weicht mehr als 2 % vom Bexio-Kurs ab.</td></tr><tr><td><b>Felder werden ignoriert</b><br><code class="fc-code">non_draft_fields_ignored</code></td><td>Änderung an einer schon gebuchten Lieferantenrechnung oder Spese: Bexio übernimmt nur einen Teil.</td></tr><tr><td><b>Prüfung nicht möglich</b><br><code class="fc-code">check_unavailable</code></td><td>Eine Prüfung konnte ihre Daten nicht lesen. Wird nie als &quot;in Ordnung&quot; angenommen.</td></tr></tbody>
   </table></div>
-</section>
-
-<section aria-labelledby="h-skills">
-  <h2 id="h-skills">Die Skills</h2>
-  <p class="note">Zehn Skills in einem Plugin. Der Kern-Skill lädt immer zuerst und enthält die Freigabe-Regeln. Die anderen enthalten die Felder und Vorab-Prüfungen für ihren Bereich.</p>
-  <ul class="skills"><li class="sk"><div class="skn"><code>bexio</code><span>Kern · lädt immer zuerst</span></div><p>Freigabe-Regeln, Warnungen, Grundregeln der Schnittstelle, Fehler, was ohne Schnittstelle geht, Weiterleitung an die Bereiche.</p></li><li class="sk"><div class="skn"><code>bexio-contacts</code><span>Kontakte</span></div><p>Kunden, Lieferanten, Personen, Verknüpfungen, Gruppen, Branchen, Zusatzadressen.</p></li><li class="sk"><div class="skn"><code>bexio-sales</code><span>Verkauf</span></div><p>Offerten, Aufträge, Lieferscheine, Rechnungen, Positionen, Zahlungseingänge, Mahnungen.</p></li><li class="sk"><div class="skn"><code>bexio-purchase</code><span>Einkauf</span></div><p>Lieferantenrechnungen, Spesen, Bestellungen, Zahlungen an Lieferanten.</p></li><li class="sk"><div class="skn"><code>bexio-accounting</code><span>Buchhaltung</span></div><p>Manuelle Buchungen, Storno-Buchungen, Kontenplan, Geschäftsjahre, MWST-Perioden, Währungen, Journal.</p></li><li class="sk"><div class="skn"><code>bexio-banking</code><span>Banking</span></div><p>Bankkonten, Zahlungsaufträge, offene und fehlgeschlagene Zahlungen, Bankabstimmung.</p></li><li class="sk"><div class="skn"><code>bexio-items</code><span>Artikel</span></div><p>Artikelstamm, Preise, Steuer- und Konto-Vorgaben, Einheiten, Lagerorte.</p></li><li class="sk"><div class="skn"><code>bexio-projects</code><span>Projekte</span></div><p>Projekte, Meilensteine, Arbeitspakete, Zeiterfassung, Tätigkeiten.</p></li><li class="sk"><div class="skn"><code>bexio-files</code><span>Dateien</span></div><p>Bexio-Inbox: Belege hochladen, finden, umbenennen, archivieren, löschen.</p></li><li class="sk"><div class="skn"><code>bexio-admin</code><span>Verwaltung</span></div><p>Benutzer und Rechte, fiktive Benutzer, Notizen, Aufgaben, Firmenprofil, Stammdaten.</p></li></ul>
+  </div>
+  <div class="col">
+    <h2 id="h-skills">Die bexio Skills</h2>
+    <p class="note">Zehn Skills in einem Plugin. Der Kern-Skill lädt immer zuerst und enthält die Freigabe-Regeln. Die anderen enthalten die Felder und Vorab-Prüfungen für ihren Bereich.</p>
+    <ul class="skills"><li class="sk"><div class="skn"><code>bexio</code><span>Kern · lädt immer zuerst</span></div><p>Freigabe-Regeln, Warnungen, Grundregeln der Schnittstelle, Fehler, was ohne Schnittstelle geht, Weiterleitung an die Bereiche.</p></li><li class="sk"><div class="skn"><code>bexio-contacts</code><span>Kontakte</span></div><p>Kunden, Lieferanten, Personen, Verknüpfungen, Gruppen, Branchen, Zusatzadressen.</p></li><li class="sk"><div class="skn"><code>bexio-sales</code><span>Verkauf</span></div><p>Offerten, Aufträge, Lieferscheine, Rechnungen, Positionen, Zahlungseingänge, Mahnungen.</p></li><li class="sk"><div class="skn"><code>bexio-purchase</code><span>Einkauf</span></div><p>Lieferantenrechnungen, Spesen, Bestellungen, Zahlungen an Lieferanten.</p></li><li class="sk"><div class="skn"><code>bexio-accounting</code><span>Buchhaltung</span></div><p>Manuelle Buchungen, Storno-Buchungen, Kontenplan, Geschäftsjahre, MWST-Perioden, Währungen, Journal.</p></li><li class="sk"><div class="skn"><code>bexio-banking</code><span>Banking</span></div><p>Bankkonten, Zahlungsaufträge, offene und fehlgeschlagene Zahlungen, Bankabstimmung.</p></li><li class="sk"><div class="skn"><code>bexio-items</code><span>Artikel</span></div><p>Artikelstamm, Preise, Steuer- und Konto-Vorgaben, Einheiten, Lagerorte.</p></li><li class="sk"><div class="skn"><code>bexio-projects</code><span>Projekte</span></div><p>Projekte, Meilensteine, Arbeitspakete, Zeiterfassung, Tätigkeiten.</p></li><li class="sk"><div class="skn"><code>bexio-files</code><span>Dateien</span></div><p>Bexio-Inbox: Belege hochladen, finden, umbenennen, archivieren, löschen.</p></li><li class="sk"><div class="skn"><code>bexio-admin</code><span>Verwaltung</span></div><p>Benutzer und Rechte, fiktive Benutzer, Notizen, Aufgaben, Firmenprofil, Stammdaten.</p></li></ul>
+  </div>
 </section>
 </div>
 
@@ -231,26 +258,28 @@ render();
 const svg=document.getElementById('flow'),msgs=document.getElementById('msgs'),scs=document.getElementById('scs'),replay=document.getElementById('replay');
 const NS='http://www.w3.org/2000/svg';
 const N={
- req:{x:105,y:420,w:180,t:'Deine Anfrage',s:'im Chat',k:'start'},
- sort:{x:330,y:420,w:210,t:'Claude ordnet ein',s:'lesen, ändern|oder heikel?',k:'dec'},
- r1:{x:570,y:115,w:180,t:'Liest in Bexio',s:'keine Rückfrage',k:'read'},
- rOut:{x:1230,y:115,w:180,t:'Ergebnis',s:'im Chat',k:'read'},
- d1:{x:570,y:330,w:180,t:'Schreibt direkt',s:'kein Probelauf',k:'dir'},
- d2:{x:790,y:330,w:180,t:'Connector prüft',s:'Periode, MWST,|doppelt, Limit, Kurs',k:'dec'},
- dAsk:{x:1010,y:470,w:180,t:'Zeigt Warnung',s:'Dein Ja?',k:'warn'},
- dDone:{x:1230,y:330,w:180,t:'Erledigt',s:'Claude meldet|Nummer + Status',k:'dir'},
- dStop:{x:1230,y:470,w:180,t:'Abbruch',s:'nichts geschrieben',k:'stop'},
- g1:{x:570,y:690,w:180,t:'Probelauf',s:'nichts wird|geschrieben',k:'yes'},
- g2:{x:790,y:690,w:180,t:'Vorschau',s:'Firma, Betrag,|Empfänger, Warnung',k:'yes'},
- gAsk:{x:1010,y:690,w:180,t:'Dein Ja?',s:'Claude wartet',k:'yes'},
- gDone:{x:1230,y:690,w:180,t:'Ausführen',s:'einmal, dann|Nummer + Status',k:'yes'},
- gStop:{x:1230,y:845,w:180,t:'Abbruch',s:'nichts passiert',k:'stop'}
+ req:{x:105,y:380,w:180,t:'Deine Anfrage',s:'im Chat an Claude',k:'start'},
+ sort:{x:331,y:380,w:196,t:'Ordnen ein',s:'lesen, ändern|oder eine der 13?',k:'skill'},
+ r1:{x:570,y:95,w:180,t:'Liest in Bexio',s:'keine Rückfrage',k:'read'},
+ rOut:{x:1230,y:95,w:180,t:'Ergebnis',s:'im Chat',k:'read'},
+ d1:{x:570,y:270,w:180,t:'Schreibt direkt',s:'kein Probelauf',k:'dir'},
+ d2:{x:790,y:270,w:180,t:'Connector prüft',s:'Periode, MWST,|doppelt, Limit, Kurs',k:'dec'},
+ dAsk:{x:1010,y:395,w:180,t:'Zeigt Warnung',s:'Dein Ja?',k:'warn'},
+ dDone:{x:1230,y:270,w:180,t:'Erledigt',s:'Claude meldet|Nummer + Status',k:'dir'},
+ dStop:{x:1230,y:395,w:180,t:'Abbruch',s:'nichts geschrieben',k:'stop'},
+ g1:{x:570,y:590,w:180,t:'Probelauf',s:'nichts wird|geschrieben',k:'yes'},
+ g2:{x:790,y:590,w:180,t:'Vorschau',s:'Firma, Betrag,|Empfänger, Warnung',k:'yes'},
+ gAsk:{x:1010,y:590,w:180,t:'Dein Ja?',s:'Claude wartet',k:'yes'},
+ gDone:{x:1230,y:590,w:180,t:'Ausführen',s:'einmal, dann|Nummer + Status',k:'yes'},
+ gStop:{x:1230,y:708,w:180,t:'Abbruch',s:'nichts passiert',k:'stop'}
 };
-const H=92;
+const H=88;
 const E=[['req','sort',''],['sort','r1','liest'],['sort','d1','ändert'],['sort','g1','heikel'],['r1','rOut',''],['d1','d2',''],['d2','dDone','keine Warnung'],['d2','dAsk','Warnung'],['dAsk','dDone','ja'],['dAsk','dStop','nein'],['g1','g2',''],['g2','gAsk',''],['gAsk','gDone','ja'],['gAsk','gStop','nein']];
 const LANE={read:'var(--accent)',dir:'var(--dir-fg)',warn:'var(--warn-fg)',yes:'var(--yes-fg)'};
 function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;}
-[['LESEN',18,200],['ÄNDERN UND LÖSCHEN',232,560],['DIE 13 HEIKLEN AKTIONEN',592,922]].forEach(([l,y1,y2])=>{
+el('rect',{class:'skband',x:224,y:12,width:214,height:756,rx:18});
+el('text',{class:'skcap',x:331,y:40,'text-anchor':'middle'}).textContent='BEXIO SKILLS';
+[['LESEN',12,160],['ÄNDERN UND LÖSCHEN',178,470],['DIE 13 HEIKLEN AKTIONEN · SKILL VERLANGT VORSCHAU + JA',488,768]].forEach(([l,y1,y2])=>{
  el('rect',{class:'band',x:462,y:y1,width:870,height:y2-y1,rx:18});
  el('text',{class:'bandlab',x:482,y:y1+26}).textContent=l;
 });
@@ -276,38 +305,38 @@ for(const id in N){
 const dot=el('circle',{class:'dot',r:12,cx:N.req.x,cy:N.req.y,fill:'var(--ink)',opacity:0});
 const S=[
  {id:'lesen',t:'Rechnungen zeigen',k:'read',st:[
-  ['req',[['du','Zeig mir die offenen Rechnungen.']]],['sort',[]],
+  ['req',[['du','Zeig mir die offenen Rechnungen.']]],['sort',[['sk','Kern-Skill: nur lesen → direkt. Der Verkaufs-Skill weiss, welche Rechnungen offen sind.']]],
   ['r1',[['cl','Liest die offenen Rechnungen in Bexio.']]],
   ['rOut',[['cl',"7 offene Rechnungen, total CHF 12'480.–. Die älteste ist 42 Tage offen."]]]]},
  {id:'direkt',t:'Position entfernen',k:'dir',st:[
-  ['req',[['du','Nimm die Position «Versand» aus der Offerte AN-00051.']]],['sort',[]],
+  ['req',[['du','Nimm die Position «Versand» aus der Offerte AN-00051.']]],['sort',[['sk','Kern-Skill: ändern, nicht unter den 13 → direkt, ohne Rückfrage.']]],
   ['d1',[['cl','Entfernt die Position direkt, ohne Probelauf.']]],['d2',[]],
   ['dDone',[['cl',"Erledigt: Position entfernt. Offerte AN-00051 hat noch 3 Positionen, CHF 2'380.–."]]]]},
  {id:'warnung',t:'Buchung mit Warnung',k:'warn',st:[
-  ['req',[['du',"Buch CHF 250.– Büromaterial per 31.03."]]],['sort',[]],
+  ['req',[['du',"Buch CHF 250.– Büromaterial per 31.03."]]],['sort',[['sk','Kern-Skill: Buchung, nicht unter den 13 → direkt. Der Buchhaltungs-Skill kennt die Konten.']]],
   ['d1',[['cl','Bucht direkt.']]],
   ['d2',[['cl','Der Connector hält an. Noch nichts gebucht.']]],
   ['dAsk',[['fl','⚑ Die MWST-Periode Q1 ist schon abgerechnet. Trotzdem buchen?'],['du','ja']]],
   ['dDone',[['cl','Gebucht: Buchung Nr. 1043 per 31.03.']]]]},
  {id:'senden',t:'Rechnung senden',k:'yes',st:[
   ['req',[['du','Schick die Rechnung RE-00417 an Muster AG.']]],
-  ['sort',[['cl','Senden ist eine der 13 heiklen Aktionen.']]],
+  ['sort',[['sk','Kern-Skill: «senden» ist eine der 13 heiklen Aktionen → Probelauf, Vorschau, Dein Ja.']]],
   ['g1',[['cl','Probelauf: es wird noch nichts gesendet.']]],
   ['g2',[['pv',"Vorschau · Firma: Beispiel GmbH · Rechnung RE-00417 an Muster AG · CHF 1'250.50 · per E-Mail an die Rechnungsadresse · nicht rückholbar. Senden?"]]],
   ['gAsk',[['du','ja']]],
   ['gDone',[['cl','Gesendet. RE-00417 steht auf «versendet».']]]]},
  {id:'nein',t:'Offerte löschen, Du sagst nein',k:'yes',st:[
-  ['req',[['du','Lösch die Offerte AN-00051.']]],['sort',[]],
+  ['req',[['du','Lösch die Offerte AN-00051.']]],['sort',[['sk','Kern-Skill: Offerte endgültig löschen ist eine der 13 → Probelauf, Vorschau, Dein Ja.']]],
   ['g1',[['cl','Probelauf: es wird noch nichts gelöscht.']]],
   ['g2',[['pv',"Vorschau · Offerte AN-00051 · Muster AG · CHF 2'380.– · Entwurf · wird endgültig gelöscht. Löschen?"]]],
   ['gAsk',[['du','nein']]],
   ['gStop',[['cl','Abgebrochen. Nichts gelöscht.']]]]}
 ];
-const WHO={du:'Du',cl:'Claude',pv:'Claude',fl:'Claude'};
+const WHO={du:'Du',cl:'Claude',pv:'Claude',fl:'Claude',sk:'bexio Skill'};
 let run=0,cur=S[0];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-function addMsg(k,txt){const d=document.createElement('div');d.className='msg '+(k==='du'?'du':'cl '+(k==='pv'?'pv':k==='fl'?'fl':''));const w=document.createElement('span');w.className='who';w.textContent=WHO[k];d.appendChild(w);d.appendChild(document.createTextNode(txt));msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+function addMsg(k,txt){const d=document.createElement('div');d.className='msg '+(k==='du'?'du':k==='sk'?'sk':'cl '+(k==='pv'?'pv':k==='fl'?'fl':''));const w=document.createElement('span');w.className='who';w.textContent=WHO[k];d.appendChild(w);d.appendChild(document.createTextNode(txt));msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
 function reset(sc){
  svg.classList.add('playing');msgs.textContent='';
  svg.querySelectorAll('.on,.hit,.done').forEach(e=>e.classList.remove('on','hit','done'));

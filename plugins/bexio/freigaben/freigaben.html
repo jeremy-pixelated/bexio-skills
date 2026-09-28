@@ -9,17 +9,20 @@
 :root{
   --bg:#f4f7f6;--surface:#ffffff;--ink:#15222b;--muted:#5a6a71;--line:#dbe3e1;
   --accent:#0e6e6a;--yes-fg:#9a4508;--yes-bg:#fcefe2;--dir-fg:#335a4d;--dir-bg:#e4eeea;
+  --warn-fg:#7a5a00;--warn-bg:#fbf0c9;--acc-bg:#dcefed;--band:#eaf0ee;
   --sans:-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f1719;--surface:#152024;--ink:#e3ecea;--muted:#93a4a1;--line:#27373b;
-  --accent:#52c3b9;--yes-fg:#f3a75f;--yes-bg:#3a2413;--dir-fg:#9ccab9;--dir-bg:#1b2d28;color-scheme:dark}}
+  --accent:#52c3b9;--yes-fg:#f3a75f;--yes-bg:#3a2413;--dir-fg:#9ccab9;--dir-bg:#1b2d28;--warn-fg:#e9c75f;--warn-bg:#352c10;--acc-bg:#16302f;--band:#1c2c30;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f1719;--surface:#152024;--ink:#e3ecea;--muted:#93a4a1;--line:#27373b;
-  --accent:#52c3b9;--yes-fg:#f3a75f;--yes-bg:#3a2413;--dir-fg:#9ccab9;--dir-bg:#1b2d28;color-scheme:dark}
+  --accent:#52c3b9;--yes-fg:#f3a75f;--yes-bg:#3a2413;--dir-fg:#9ccab9;--dir-bg:#1b2d28;--warn-fg:#e9c75f;--warn-bg:#352c10;--acc-bg:#16302f;--band:#1c2c30;color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans);padding-inline:16px;padding-block:28px 56px}
-.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.wrap{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+.top{display:flex;flex-wrap:wrap;gap:12px 40px;align-items:flex-end;justify-content:space-between}
+.top .counts{margin-top:0}
 h1,h2{text-wrap:balance;margin:0;line-height:1.2}
 h1{font-size:30px;font-weight:700;letter-spacing:-.01em}
 h2{font-size:19px;font-weight:600}
@@ -65,7 +68,65 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
 .note{font-size:13.5px;color:var(--muted);margin:0}
 .xlink{display:inline-flex;margin-top:14px;font-size:14px;font-weight:600;color:var(--accent);text-underline-offset:3px}
 .xlink:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* flow stage, 16:9 */
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,27%);grid-template-rows:auto minmax(0,1fr);aspect-ratio:16/9;max-width:100%;overflow:hidden}
+.st-bar{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.st-bar .lab{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600;margin-right:4px}
+.sc{font:inherit;font-size:13.5px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 12px 6px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.sc i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.sc[aria-pressed="true"]{border-color:var(--ink);font-weight:600}
+.sc:focus-visible,.replay:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.replay{margin-left:auto;font:inherit;font-size:13.5px;border:0;background:none;color:var(--accent);font-weight:600;cursor:pointer;padding:6px 4px}
+.st-flow{min-width:0;min-height:0;display:flex}
+.st-flow svg{width:100%;height:100%;display:block}
+.st-chat{border-left:1px solid var(--line);background:var(--bg);display:flex;flex-direction:column;min-height:0}
+.st-chat h3{margin:0;padding:12px 16px 4px;font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.st-chat h3 span{text-transform:none;letter-spacing:0;font-weight:500}
+.msgs{flex:1;overflow-y:auto;padding:8px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:92%;padding:8px 12px;border-radius:12px;font-size:14px;line-height:1.45;animation:pop .25s ease-out}
+.msg.du{align-self:flex-end;background:var(--acc-bg);color:var(--ink);border-bottom-right-radius:4px}
+.msg.cl{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.pv{border-color:var(--yes-fg)}
+.msg.fl{background:var(--warn-bg);border-color:var(--warn-fg)}
+.msg .who{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:2px}
+@keyframes pop{from{transform:translateY(4px);opacity:.4}to{transform:none;opacity:1}}
+/* svg parts */
+.band{fill:var(--band)}
+.bandlab{fill:var(--muted);font:700 14px var(--sans);letter-spacing:.1em}
+.edge{fill:none;stroke:var(--line);stroke-width:3;transition:stroke .3s,opacity .3s}
+.elab{fill:var(--muted);font:600 16px var(--sans);paint-order:stroke;stroke:var(--surface);stroke-width:6px;stroke-linejoin:round}
+.node rect{fill:var(--surface);stroke:var(--line);stroke-width:2;transition:stroke .3s,fill .3s,opacity .3s}
+.node .nt{fill:var(--ink);font:650 22px var(--sans)}
+.node .ns{fill:var(--muted);font:400 17px var(--sans)}
+.node.dec rect{stroke-dasharray:7 5}
+.node.k-read rect{stroke:var(--accent)}
+.node.k-dir rect{stroke:var(--dir-fg)}
+.node.k-yes rect{stroke:var(--yes-fg)}
+.node.k-warn rect{stroke:var(--warn-fg)}
+.node,.edge,.elab{transition:opacity .3s}
+svg.playing .node:not(.on),svg.playing .edge:not(.on),svg.playing .elab:not(.on){opacity:.42}
+.node.hit rect{stroke-width:3.5}
+.node.hit.k-read rect,.node.hit.k-start rect,.node.hit.k-dec rect{fill:var(--acc-bg)}
+.node.hit.k-dir rect{fill:var(--dir-bg)}
+.node.hit.k-yes rect{fill:var(--yes-bg)}
+.node.hit.k-warn rect{fill:var(--warn-bg)}
+.node.hit.k-stop rect{fill:var(--band)}
+.edge.done{stroke-width:4}
+.dot{transition:none}
+.how3{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.how3 li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;gap:2px}
+.how3 li b{font-weight:600;display:flex;align-items:center;gap:8px}
+.how3 li b i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.how3 li span{color:var(--muted);font-size:14px}
+@media (max-width:980px){
+ .stage{aspect-ratio:auto;grid-template-columns:1fr;grid-template-rows:auto auto auto}
+ .st-flow{overflow-x:auto}
+ .st-flow svg{min-width:820px;height:auto}
+ .st-chat{border-left:0;border-top:1px solid var(--line)}
+ .msgs{max-height:360px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 </style>
 </head>
@@ -73,26 +134,42 @@ ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:
 
 
 <div class="wrap">
-<header>
+<header class="top">
+  <div>
   <p class="eyebrow">Bexio Skills · Nachschlagen</p>
   <h1>Bexio Freigaben</h1>
   <p class="lede">Was Claude in Bexio sofort erledigt und wofür es zuerst Dein Ja braucht. Lesen braucht nie eine Freigabe. Lohnbuchhaltung ist nicht verfügbar.</p>
+  </div>
+  <div>
   <div class="counts">
     <span><span class="chip yes">braucht Ja</span> <b>13</b> Aktionen (+ Lieferantenrechnung mit Zahlung)</span>
     <span><span class="chip dir">läuft direkt</span> <b>101</b> Schreib-Aktionen</span>
     <span><b>109</b> Lese-Aktionen, laufen direkt</span>
   </div>
-  <p class="meta">Stand 2026-09-28 · v6</p>
+  <p class="meta">Stand 2026-09-28 · v7</p>
+  </div>
 </header>
 
 <section aria-labelledby="h-how">
-  <h2 id="h-how">So läuft es</h2>
-  <ol class="how">
-    <li><b>Lesen</b><span>läuft sofort.</span></li>
-    <li><b>Ändern und Löschen</b><span>läuft sofort (ausser den 13 heiklen Aktionen), Claude meldet, was gemacht wurde.</span></li>
-    <li class="yes"><b>Die 13 heiklen Aktionen</b><span>(senden, Zahlungen, endgültig löschen, Steuersatz löschen): Claude zeigt eine Vorschau und wartet auf Dein Ja.</span></li>
+  <h2 id="h-how">So läuft es: von Deiner Anfrage bis zur Aktion</h2>
+  <div class="stage" id="stage">
+    <div class="st-bar" role="group" aria-label="Beispiel wählen">
+      <span class="lab">Beispiel</span>
+      <span id="scs"></span>
+      <button type="button" class="replay" id="replay">Nochmals abspielen</button>
+    </div>
+    <div class="st-flow"><svg id="flow" viewBox="0 0 1340 940" role="img" aria-label="Ablauf von der Anfrage bis zur Aktion: Lesen läuft direkt, Ändern und Löschen läuft direkt mit Prüfung durch den Connector, die heiklen Aktionen laufen über Probelauf, Vorschau und Dein Ja."></svg></div>
+    <div class="st-chat">
+      <h3>Im Chat <span>Beispiel, erfundene Daten</span></h3>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+    </div>
+  </div>
+  <ol class="how3">
+    <li><b><i style="background:var(--accent)"></i>Lesen</b><span>Läuft sofort, ohne Rückfrage.</span></li>
+    <li><b><i style="background:var(--dir-fg)"></i>Ändern und Löschen</b><span>Läuft sofort, Claude meldet, was gemacht wurde. Ausnahme: die 13 heiklen Aktionen.</span></li>
+    <li><b><i style="background:var(--yes-fg)"></i>Die 13 heiklen Aktionen</b><span>Senden, Zahlungen, endgültig löschen, Steuersatz löschen: Probelauf, Vorschau, dann Dein Ja.</span></li>
   </ol>
-  <p class="note">Bei Buchungen und Zahlungen prüft der Connector (Periode offen, MWST schon abgerechnet, Doppelbuchung, Limit, Wechselkurs). Gibt es eine Warnung, fragt Claude einmal nach, auch bei sonst direkten Aktionen.</p>
+  <p class="note">Bei Buchungen und Zahlungen prüft der Connector (Periode offen, MWST schon abgerechnet, Doppelbuchung, Limit, Wechselkurs). Gibt es eine <b style="color:var(--warn-fg)">Warnung</b>, schreibt er nichts, und Claude fragt einmal nach, auch bei sonst direkten Aktionen.</p>
 </section>
 
 <section aria-labelledby="h-look">
@@ -148,6 +225,121 @@ function render(){
 document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;try{localStorage.setItem('gates-f',f);}catch(e){}render();}));
 q.addEventListener('input',render);
 render();
+
+/* ---------- flow ---------- */
+(function(){
+const svg=document.getElementById('flow'),msgs=document.getElementById('msgs'),scs=document.getElementById('scs'),replay=document.getElementById('replay');
+const NS='http://www.w3.org/2000/svg';
+const N={
+ req:{x:105,y:420,w:180,t:'Deine Anfrage',s:'im Chat',k:'start'},
+ sort:{x:330,y:420,w:210,t:'Claude ordnet ein',s:'lesen, ändern|oder heikel?',k:'dec'},
+ r1:{x:570,y:115,w:180,t:'Liest in Bexio',s:'keine Rückfrage',k:'read'},
+ rOut:{x:1230,y:115,w:180,t:'Ergebnis',s:'im Chat',k:'read'},
+ d1:{x:570,y:330,w:180,t:'Schreibt direkt',s:'kein Probelauf',k:'dir'},
+ d2:{x:790,y:330,w:180,t:'Connector prüft',s:'Periode, MWST,|doppelt, Limit, Kurs',k:'dec'},
+ dAsk:{x:1010,y:470,w:180,t:'Zeigt Warnung',s:'Dein Ja?',k:'warn'},
+ dDone:{x:1230,y:330,w:180,t:'Erledigt',s:'Claude meldet|Nummer + Status',k:'dir'},
+ dStop:{x:1230,y:470,w:180,t:'Abbruch',s:'nichts geschrieben',k:'stop'},
+ g1:{x:570,y:690,w:180,t:'Probelauf',s:'nichts wird|geschrieben',k:'yes'},
+ g2:{x:790,y:690,w:180,t:'Vorschau',s:'Firma, Betrag,|Empfänger, Warnung',k:'yes'},
+ gAsk:{x:1010,y:690,w:180,t:'Dein Ja?',s:'Claude wartet',k:'yes'},
+ gDone:{x:1230,y:690,w:180,t:'Ausführen',s:'einmal, dann|Nummer + Status',k:'yes'},
+ gStop:{x:1230,y:845,w:180,t:'Abbruch',s:'nichts passiert',k:'stop'}
+};
+const H=92;
+const E=[['req','sort',''],['sort','r1','liest'],['sort','d1','ändert'],['sort','g1','heikel'],['r1','rOut',''],['d1','d2',''],['d2','dDone','keine Warnung'],['d2','dAsk','Warnung'],['dAsk','dDone','ja'],['dAsk','dStop','nein'],['g1','g2',''],['g2','gAsk',''],['gAsk','gDone','ja'],['gAsk','gStop','nein']];
+const LANE={read:'var(--accent)',dir:'var(--dir-fg)',warn:'var(--warn-fg)',yes:'var(--yes-fg)'};
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;}
+[['LESEN',18,200],['ÄNDERN UND LÖSCHEN',232,560],['DIE 13 HEIKLEN AKTIONEN',592,922]].forEach(([l,y1,y2])=>{
+ el('rect',{class:'band',x:462,y:y1,width:870,height:y2-y1,rx:18});
+ el('text',{class:'bandlab',x:482,y:y1+26}).textContent=l;
+});
+const EP={};
+E.forEach(([a,b,l])=>{
+ const A=N[a],B=N[b],x1=A.x+A.w/2,y1=A.y,x2=B.x-B.w/2,y2=B.y,dx=Math.max(24,(x2-x1)*.5);
+ const p=el('path',{class:'edge',d:`M${x1},${y1} C${x1+dx},${y1} ${x2-dx},${y2} ${x2},${y2}`});
+ EP[a+'-'+b]={p,lab:null,bg:null};
+ if(l){
+  const L=p.getTotalLength(),m=p.getPointAtLength(L*.5),flat=Math.abs(y2-y1)<4;
+  const tx=el('text',{class:'elab',x:m.x,y:flat?m.y-12:m.y+6,'text-anchor':'middle'});tx.textContent=l;EP[a+'-'+b].lab=tx;
+ }
+});
+const NG={};
+for(const id in N){
+ const n=N[id],g=el('g',{class:'node k-'+n.k+(n.k==='dec'?' dec':'')});
+ el('rect',{x:n.x-n.w/2,y:n.y-H/2,width:n.w,height:H,rx:16},g);
+ const lines=n.s.split('|'),top=n.y-(lines.length>1?14:4);
+ const t1=el('text',{class:'nt',x:n.x,y:top,'text-anchor':'middle'},g);t1.textContent=n.t;
+ lines.forEach((s,i)=>{const t=el('text',{class:'ns',x:n.x,y:top+25+i*21,'text-anchor':'middle'},g);t.textContent=s;});
+ NG[id]=g;
+}
+const dot=el('circle',{class:'dot',r:12,cx:N.req.x,cy:N.req.y,fill:'var(--ink)',opacity:0});
+const S=[
+ {id:'lesen',t:'Rechnungen zeigen',k:'read',st:[
+  ['req',[['du','Zeig mir die offenen Rechnungen.']]],['sort',[]],
+  ['r1',[['cl','Liest die offenen Rechnungen in Bexio.']]],
+  ['rOut',[['cl',"7 offene Rechnungen, total CHF 12'480.–. Die älteste ist 42 Tage offen."]]]]},
+ {id:'direkt',t:'Position entfernen',k:'dir',st:[
+  ['req',[['du','Nimm die Position «Versand» aus der Offerte AN-00051.']]],['sort',[]],
+  ['d1',[['cl','Entfernt die Position direkt, ohne Probelauf.']]],['d2',[]],
+  ['dDone',[['cl',"Erledigt: Position entfernt. Offerte AN-00051 hat noch 3 Positionen, CHF 2'380.–."]]]]},
+ {id:'warnung',t:'Buchung mit Warnung',k:'warn',st:[
+  ['req',[['du',"Buch CHF 250.– Büromaterial per 31.03."]]],['sort',[]],
+  ['d1',[['cl','Bucht direkt.']]],
+  ['d2',[['cl','Der Connector hält an. Noch nichts gebucht.']]],
+  ['dAsk',[['fl','⚑ Die MWST-Periode Q1 ist schon abgerechnet. Trotzdem buchen?'],['du','ja']]],
+  ['dDone',[['cl','Gebucht: Buchung Nr. 1043 per 31.03.']]]]},
+ {id:'senden',t:'Rechnung senden',k:'yes',st:[
+  ['req',[['du','Schick die Rechnung RE-00417 an Muster AG.']]],
+  ['sort',[['cl','Senden ist eine der 13 heiklen Aktionen.']]],
+  ['g1',[['cl','Probelauf: es wird noch nichts gesendet.']]],
+  ['g2',[['pv',"Vorschau · Firma: Beispiel GmbH · Rechnung RE-00417 an Muster AG · CHF 1'250.50 · per E-Mail an die Rechnungsadresse · nicht rückholbar. Senden?"]]],
+  ['gAsk',[['du','ja']]],
+  ['gDone',[['cl','Gesendet. RE-00417 steht auf «versendet».']]]]},
+ {id:'nein',t:'Offerte löschen, Du sagst nein',k:'yes',st:[
+  ['req',[['du','Lösch die Offerte AN-00051.']]],['sort',[]],
+  ['g1',[['cl','Probelauf: es wird noch nichts gelöscht.']]],
+  ['g2',[['pv',"Vorschau · Offerte AN-00051 · Muster AG · CHF 2'380.– · Entwurf · wird endgültig gelöscht. Löschen?"]]],
+  ['gAsk',[['du','nein']]],
+  ['gStop',[['cl','Abgebrochen. Nichts gelöscht.']]]]}
+];
+const WHO={du:'Du',cl:'Claude',pv:'Claude',fl:'Claude'};
+let run=0,cur=S[0];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function addMsg(k,txt){const d=document.createElement('div');d.className='msg '+(k==='du'?'du':'cl '+(k==='pv'?'pv':k==='fl'?'fl':''));const w=document.createElement('span');w.className='who';w.textContent=WHO[k];d.appendChild(w);d.appendChild(document.createTextNode(txt));msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+function reset(sc){
+ svg.classList.add('playing');msgs.textContent='';
+ svg.querySelectorAll('.on,.hit,.done').forEach(e=>e.classList.remove('on','hit','done'));
+ svg.querySelectorAll('.edge').forEach(e=>e.style.stroke='');
+ const ids=sc.st.map(s=>s[0]);
+ ids.forEach((id,i)=>{NG[id].classList.add('on');if(i){const e=EP[ids[i-1]+'-'+id];e.p.classList.add('on');if(e.lab)e.lab.classList.add('on');}});
+}
+function moveDot(path,dur,token){return new Promise(res=>{const L=path.getTotalLength(),t0=performance.now();
+ (function f(now){if(token!==run)return res(false);const k=Math.min(1,(now-t0)/dur),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,pt=path.getPointAtLength(L*e);dot.setAttribute('cx',pt.x);dot.setAttribute('cy',pt.y);k<1?requestAnimationFrame(f):res(true);})(t0);});}
+async function play(sc){
+ const token=++run;cur=sc;
+ scs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===sc.id));
+ reset(sc);const col=LANE[sc.k];dot.setAttribute('fill',col);
+ const ids=sc.st.map(s=>s[0]);
+ for(let i=0;i<sc.st.length;i++){
+  const [id,ms]=sc.st[i];
+  if(i){const e=EP[ids[i-1]+'-'+id];e.p.classList.add('done');e.p.style.stroke=col;
+   if(!reduce){dot.setAttribute('opacity',1);if(!(await moveDot(e.p,650,token)))return;}}
+  else if(!reduce){dot.setAttribute('cx',N[id].x);dot.setAttribute('cy',N[id].y);dot.setAttribute('opacity',1);}
+  NG[id].classList.add('hit');
+  for(const [k,txt] of ms){addMsg(k,txt);if(!reduce){await sleep(k==='du'&&i?500:350);if(token!==run)return;}}
+  if(!reduce){await sleep(ms.length?650:350);if(token!==run)return;}
+ }
+ dot.setAttribute('opacity',0);
+}
+S.forEach(sc=>{const b=document.createElement('button');b.type='button';b.className='sc';b.dataset.id=sc.id;b.id='sc-'+sc.id;b.setAttribute('aria-pressed','false');
+ const i=document.createElement('i');i.style.background=LANE[sc.k];b.appendChild(i);b.appendChild(document.createTextNode(sc.t));
+ b.addEventListener('click',()=>play(sc));scs.appendChild(b);});
+scs.style.display='contents';
+replay.addEventListener('click',()=>play(cur));
+play(S[3]);
+})();
 </script>
 
 </body>

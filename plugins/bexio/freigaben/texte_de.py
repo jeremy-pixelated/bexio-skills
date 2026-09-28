@@ -1,5 +1,5 @@
 # Header line; bump by hand on every text change (see gen.py)
-STAND = 'Stand 2026-09-28 · v6'
+STAND = 'Stand 2026-09-28 · v7'
 # (tool, action) -> German "Was passiert" text, one plain sentence (or two)
 DE = {
 ('bexio_contacts','create'):'Legt einen neuen Kontakt an (Kunde, Lieferant oder Person).',

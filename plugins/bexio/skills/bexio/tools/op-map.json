@@ -1,0 +1,1346 @@
+{
+ "generated_by": "connector tool mapping (operationId -> tool.action)",
+ "tools": {
+  "bexio_contacts": {
+   "write": [
+    "create",
+    "update",
+    "delete",
+    "bulk_create",
+    "restore"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_contact_relations": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_contact_groups": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_contact_sectors": {
+   "write": [],
+   "destructive": [],
+   "confirm": []
+  },
+  "bexio_additional_addresses": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_quotes": {
+   "write": [
+    "create",
+    "update",
+    "delete",
+    "issue",
+    "revert_issue",
+    "accept",
+    "decline",
+    "reissue",
+    "mark_as_sent",
+    "send",
+    "copy",
+    "create_invoice",
+    "create_order"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete",
+    "send"
+   ]
+  },
+  "bexio_orders": {
+   "write": [
+    "create",
+    "update",
+    "delete",
+    "edit_repetition",
+    "delete_repetition",
+    "create_delivery",
+    "create_invoice"
+   ],
+   "destructive": [
+    "delete",
+    "delete_repetition"
+   ],
+   "confirm": [
+    "delete",
+    "delete_repetition"
+   ]
+  },
+  "bexio_deliveries": {
+   "write": [
+    "issue"
+   ],
+   "destructive": [],
+   "confirm": []
+  },
+  "bexio_invoices": {
+   "write": [
+    "create",
+    "update",
+    "delete",
+    "issue",
+    "revert_issue",
+    "cancel",
+    "mark_as_sent",
+    "send",
+    "copy"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete",
+    "issue",
+    "revert_issue",
+    "cancel",
+    "send"
+   ]
+  },
+  "bexio_invoice_payments": {
+   "write": [
+    "create",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "create",
+    "delete"
+   ]
+  },
+  "bexio_invoice_reminders": {
+   "write": [
+    "create",
+    "delete",
+    "send",
+    "mark_as_sent",
+    "mark_as_unsent"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete",
+    "send"
+   ]
+  },
+  "bexio_document_positions": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_document_comments": {
+   "write": [
+    "create"
+   ],
+   "destructive": [],
+   "confirm": []
+  },
+  "bexio_document_settings": {
+   "write": [],
+   "destructive": [],
+   "confirm": []
+  },
+  "bexio_bills": {
+   "write": [
+    "create",
+    "update",
+    "delete",
+    "execute_action",
+    "update_status"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete",
+    "update_status"
+   ]
+  },
+  "bexio_expenses": {
+   "write": [
+    "create",
+    "update",
+    "delete",
+    "execute_action",
+    "update_status"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete",
+    "update_status"
+   ]
+  },
+  "bexio_purchase_orders": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_outgoing_payments": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "create",
+    "update",
+    "delete"
+   ]
+  },
+  "bexio_accounting": {
+   "write": [
+    "create",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "create",
+    "delete"
+   ]
+  },
+  "bexio_currencies": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_manual_entries": {
+   "write": [
+    "create",
+    "update",
+    "delete",
+    "add_file",
+    "delete_file"
+   ],
+   "destructive": [
+    "delete",
+    "delete_file"
+   ],
+   "confirm": [
+    "create",
+    "update",
+    "delete",
+    "delete_file"
+   ]
+  },
+  "bexio_bank_accounts": {
+   "write": [],
+   "destructive": [],
+   "confirm": []
+  },
+  "bexio_banking_payments": {
+   "write": [
+    "create",
+    "update",
+    "cancel",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "create",
+    "update",
+    "cancel",
+    "delete"
+   ]
+  },
+  "bexio_items": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_stock": {
+   "write": [],
+   "destructive": [],
+   "confirm": []
+  },
+  "bexio_projects": {
+   "write": [
+    "create",
+    "update",
+    "delete",
+    "archive",
+    "unarchive"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_project_planning": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_timesheets": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_files": {
+   "write": [
+    "upload",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_master_data": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_company_profile": {
+   "write": [],
+   "destructive": [],
+   "confirm": []
+  },
+  "bexio_notes": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_tasks": {
+   "write": [
+    "create",
+    "update",
+    "delete"
+   ],
+   "destructive": [
+    "delete"
+   ],
+   "confirm": [
+    "delete"
+   ]
+  },
+  "bexio_users": {
+   "write": [
+    "create_fictional",
+    "update_fictional",
+    "delete_fictional"
+   ],
+   "destructive": [
+    "delete_fictional"
+   ],
+   "confirm": [
+    "delete_fictional"
+   ]
+  }
+ },
+ "ops": {
+  "ApiBillActions_POST": [
+   "bexio_bills.execute_action"
+  ],
+  "ApiBillBookings_PUT": [
+   "bexio_bills.update_status"
+  ],
+  "ApiBillsList_GET": [
+   "bexio_bills.list"
+  ],
+  "ApiBills_DELETE": [
+   "bexio_bills.delete"
+  ],
+  "ApiBills_GET": [
+   "bexio_bills.get"
+  ],
+  "ApiBills_POST": [
+   "bexio_bills.create"
+  ],
+  "ApiBills_PUT": [
+   "bexio_bills.update"
+  ],
+  "ApiExpenseActions_POST": [
+   "bexio_expenses.execute_action"
+  ],
+  "ApiExpenseBookings_PUT": [
+   "bexio_expenses.update_status"
+  ],
+  "ApiExpenseDocumentNumbers_GET": [
+   "bexio_expenses.validate_document_number"
+  ],
+  "ApiExpensesList_GET": [
+   "bexio_expenses.list"
+  ],
+  "ApiExpenses_DELETE": [
+   "bexio_expenses.delete"
+  ],
+  "ApiExpenses_GET": [
+   "bexio_expenses.get"
+  ],
+  "ApiExpenses_POST": [
+   "bexio_expenses.create"
+  ],
+  "ApiExpenses_PUT": [
+   "bexio_expenses.update"
+  ],
+  "ApiOutgoingPaymentList_GET": [
+   "bexio_outgoing_payments.list"
+  ],
+  "ApiOutgoingPayment_DELETE": [
+   "bexio_outgoing_payments.delete"
+  ],
+  "ApiOutgoingPayment_GET": [
+   "bexio_outgoing_payments.get"
+  ],
+  "ApiOutgoingPayment_POST": [
+   "bexio_outgoing_payments.create"
+  ],
+  "ApiOutgoingPayment_PUT": [
+   "bexio_outgoing_payments.update"
+  ],
+  "ApiPurchaseDocumentNumbers_GET": [
+   "bexio_bills.validate_document_number"
+  ],
+  "CreateCalendarYear": [
+   "bexio_accounting.create[calendar_years]"
+  ],
+  "CreateCurrency": [
+   "bexio_currencies.create"
+  ],
+  "CreateManualEntry": [
+   "bexio_manual_entries.create"
+  ],
+  "CreateMilestone": [
+   "bexio_project_planning.create[milestones]"
+  ],
+  "CreateWorkPackage": [
+   "bexio_project_planning.create[work_packages]"
+  ],
+  "DeleteCountry": [
+   "bexio_master_data.delete[countries]"
+  ],
+  "DeleteCurrency": [
+   "bexio_currencies.delete"
+  ],
+  "DeleteInvoice": [
+   "bexio_invoices.delete"
+  ],
+  "DeleteInvoicePayment": [
+   "bexio_invoice_payments.delete"
+  ],
+  "DeleteItem": [
+   "bexio_items.delete"
+  ],
+  "DeleteManualCompoundEntryFile": [
+   "bexio_manual_entries.delete_file"
+  ],
+  "DeleteManualEntry": [
+   "bexio_manual_entries.delete"
+  ],
+  "DeleteManualEntryFile": [
+   "bexio_manual_entries.delete_file"
+  ],
+  "DeleteMilestone": [
+   "bexio_project_planning.delete[milestones]"
+  ],
+  "DeleteNote": [
+   "bexio_notes.delete"
+  ],
+  "DeleteOrder": [
+   "bexio_orders.delete"
+  ],
+  "DeleteOrderRepetition": [
+   "bexio_orders.delete_repetition"
+  ],
+  "DeleteProject": [
+   "bexio_projects.delete"
+  ],
+  "DeleteQuote": [
+   "bexio_quotes.delete"
+  ],
+  "DeleteTask": [
+   "bexio_tasks.delete"
+  ],
+  "DeleteTax": [
+   "bexio_accounting.delete[taxes]"
+  ],
+  "DeleteTimesheet": [
+   "bexio_timesheets.delete"
+  ],
+  "DeleteWorkPackage": [
+   "bexio_project_planning.delete[work_packages]"
+  ],
+  "EditMilestone": [
+   "bexio_project_planning.update[milestones]"
+  ],
+  "EditWorkPackage": [
+   "bexio_project_planning.update[work_packages]"
+  ],
+  "GetNextReferenceNumber": [
+   "bexio_manual_entries.next_reference_number"
+  ],
+  "ListBankAccounts": [
+   "bexio_bank_accounts.list"
+  ],
+  "ListBusinessYears": [
+   "bexio_accounting.list[business_years]"
+  ],
+  "ListCalendarYears": [
+   "bexio_accounting.list[calendar_years]"
+  ],
+  "ListCurrencies": [
+   "bexio_currencies.list"
+  ],
+  "ListCurrenciesCodes": [
+   "bexio_currencies.list_codes"
+  ],
+  "ListExchangeRatesForCurrency": [
+   "bexio_currencies.list_exchange_rates"
+  ],
+  "ListJournalEntries": [
+   "bexio_accounting.list[journal]"
+  ],
+  "ListManualCompoundEntryFiles": [
+   "bexio_manual_entries.list_files"
+  ],
+  "ListManualEntries": [
+   "bexio_manual_entries.list"
+  ],
+  "ListManualEntryFiles": [
+   "bexio_manual_entries.list_files"
+  ],
+  "ListMilestones": [
+   "bexio_project_planning.list[milestones]"
+  ],
+  "ListTaxes": [
+   "bexio_accounting.list[taxes]"
+  ],
+  "ListVatPeriods": [
+   "bexio_accounting.list[vat_periods]"
+  ],
+  "ListWorkPackages": [
+   "bexio_project_planning.list[work_packages]"
+  ],
+  "NewCancelPayment": [
+   "bexio_banking_payments.cancel"
+  ],
+  "NewCreatePayment": [
+   "bexio_banking_payments.create"
+  ],
+  "NewDeletePayment": [
+   "bexio_banking_payments.delete"
+  ],
+  "NewFetchAllPayments": [
+   "bexio_banking_payments.list"
+  ],
+  "NewGetPayment": [
+   "bexio_banking_payments.get"
+  ],
+  "NewUpdatePayment": [
+   "bexio_banking_payments.update"
+  ],
+  "Permissions": [
+   "bexio_users.permissions"
+  ],
+  "SearchCalendarYears": [
+   "bexio_accounting.search[calendar_years]"
+  ],
+  "ShowBankAccount": [
+   "bexio_bank_accounts.get"
+  ],
+  "ShowBusinessYear": [
+   "bexio_accounting.get[business_years]"
+  ],
+  "ShowCalendarYear": [
+   "bexio_accounting.get[calendar_years]"
+  ],
+  "ShowCurrency": [
+   "bexio_currencies.get"
+  ],
+  "ShowManualCompoundEntryFile": [
+   "bexio_manual_entries.get_file"
+  ],
+  "ShowManualEntryFile": [
+   "bexio_manual_entries.get_file"
+  ],
+  "ShowMilestone": [
+   "bexio_project_planning.get[milestones]"
+  ],
+  "ShowTax": [
+   "bexio_accounting.get[taxes]"
+  ],
+  "ShowVatPeriod": [
+   "bexio_accounting.get[vat_periods]"
+  ],
+  "ShowWorkPackage": [
+   "bexio_project_planning.get[work_packages]"
+  ],
+  "UpdateCurrency": [
+   "bexio_currencies.update"
+  ],
+  "UpdateManualEntry": [
+   "bexio_manual_entries.update"
+  ],
+  "UploadManualCompoundEntryFile": [
+   "bexio_manual_entries.add_file"
+  ],
+  "UploadManualEntryFile": [
+   "bexio_manual_entries.add_file"
+  ],
+  "v2AcceptQuote": [
+   "bexio_quotes.accept"
+  ],
+  "v2ArchiveProject": [
+   "bexio_projects.archive"
+  ],
+  "v2BulkCreateContacts": [
+   "bexio_contacts.bulk_create"
+  ],
+  "v2CancelInvoice": [
+   "bexio_invoices.cancel"
+  ],
+  "v2CopyInvoice": [
+   "bexio_invoices.copy"
+  ],
+  "v2CopyQuote": [
+   "bexio_quotes.copy"
+  ],
+  "v2CreateAdditionalAddress": [
+   "bexio_additional_addresses.create"
+  ],
+  "v2CreateBusinessActivity": [
+   "bexio_master_data.create[business_activities]"
+  ],
+  "v2CreateComment": [
+   "bexio_document_comments.create"
+  ],
+  "v2CreateContact": [
+   "bexio_contacts.create"
+  ],
+  "v2CreateContactGroup": [
+   "bexio_contact_groups.create"
+  ],
+  "v2CreateContactRelation": [
+   "bexio_contact_relations.create"
+  ],
+  "v2CreateCountry": [
+   "bexio_master_data.create[countries]"
+  ],
+  "v2CreateDefaultPosition": [
+   "bexio_document_positions.create"
+  ],
+  "v2CreateDeliveryFromOrder": [
+   "bexio_orders.create_delivery"
+  ],
+  "v2CreateDiscountPosition": [
+   "bexio_document_positions.create"
+  ],
+  "v2CreateInvoice": [
+   "bexio_invoices.create"
+  ],
+  "v2CreateInvoiceFromOrder": [
+   "bexio_orders.create_invoice"
+  ],
+  "v2CreateInvoiceFromQuote": [
+   "bexio_quotes.create_invoice"
+  ],
+  "v2CreateInvoicePayment": [
+   "bexio_invoice_payments.create"
+  ],
+  "v2CreateInvoiceReminder": [
+   "bexio_invoice_reminders.create"
+  ],
+  "v2CreateItem": [
+   "bexio_items.create"
+  ],
+  "v2CreateItemPosition": [
+   "bexio_document_positions.create"
+  ],
+  "v2CreateNote": [
+   "bexio_notes.create"
+  ],
+  "v2CreateOrder": [
+   "bexio_orders.create"
+  ],
+  "v2CreateOrderFromQuote": [
+   "bexio_quotes.create_order"
+  ],
+  "v2CreatePagebreakPosition": [
+   "bexio_document_positions.create"
+  ],
+  "v2CreateProject": [
+   "bexio_projects.create"
+  ],
+  "v2CreateQuote": [
+   "bexio_quotes.create"
+  ],
+  "v2CreateSalutation": [
+   "bexio_master_data.create[salutations]"
+  ],
+  "v2CreateSubpositionPosition": [
+   "bexio_document_positions.create"
+  ],
+  "v2CreateSubtotalPosition": [
+   "bexio_document_positions.create"
+  ],
+  "v2CreateTask": [
+   "bexio_tasks.create"
+  ],
+  "v2CreateTextPosition": [
+   "bexio_document_positions.create"
+  ],
+  "v2CreateTimesheet": [
+   "bexio_timesheets.create"
+  ],
+  "v2CreateTitle": [
+   "bexio_master_data.create[titles]"
+  ],
+  "v2CreateUnit": [
+   "bexio_master_data.create[units]"
+  ],
+  "v2DeclineQuote": [
+   "bexio_quotes.decline"
+  ],
+  "v2DeleteAdditionalAddress": [
+   "bexio_additional_addresses.delete"
+  ],
+  "v2DeleteContact": [
+   "bexio_contacts.delete"
+  ],
+  "v2DeleteContactGroup": [
+   "bexio_contact_groups.delete"
+  ],
+  "v2DeleteContactRelation": [
+   "bexio_contact_relations.delete"
+  ],
+  "v2DeleteDefaultPosition": [
+   "bexio_document_positions.delete"
+  ],
+  "v2DeleteDiscountPosition": [
+   "bexio_document_positions.delete"
+  ],
+  "v2DeleteInvoiceReminder": [
+   "bexio_invoice_reminders.delete"
+  ],
+  "v2DeleteItemPosition": [
+   "bexio_document_positions.delete"
+  ],
+  "v2DeletePagebreakPosition": [
+   "bexio_document_positions.delete"
+  ],
+  "v2DeleteSalutation": [
+   "bexio_master_data.delete[salutations]"
+  ],
+  "v2DeleteSubpositionPosition": [
+   "bexio_document_positions.delete"
+  ],
+  "v2DeleteSubtotalPosition": [
+   "bexio_document_positions.delete"
+  ],
+  "v2DeleteTextPosition": [
+   "bexio_document_positions.delete"
+  ],
+  "v2DeleteTitle": [
+   "bexio_master_data.delete[titles]"
+  ],
+  "v2DeleteUnit": [
+   "bexio_master_data.delete[units]"
+  ],
+  "v2EditAdditionalAddress": [
+   "bexio_additional_addresses.update"
+  ],
+  "v2EditContact": [
+   "bexio_contacts.update"
+  ],
+  "v2EditContactGroup": [
+   "bexio_contact_groups.update"
+  ],
+  "v2EditContactRelation": [
+   "bexio_contact_relations.update"
+  ],
+  "v2EditCountry": [
+   "bexio_master_data.update[countries]"
+  ],
+  "v2EditDefaultPosition": [
+   "bexio_document_positions.update"
+  ],
+  "v2EditDiscountPosition": [
+   "bexio_document_positions.update"
+  ],
+  "v2EditInvoice": [
+   "bexio_invoices.update"
+  ],
+  "v2EditItem": [
+   "bexio_items.update"
+  ],
+  "v2EditItemPosition": [
+   "bexio_document_positions.update"
+  ],
+  "v2EditNote": [
+   "bexio_notes.update"
+  ],
+  "v2EditOrder": [
+   "bexio_orders.update"
+  ],
+  "v2EditOrderRepetition": [
+   "bexio_orders.edit_repetition"
+  ],
+  "v2EditPagebreakPosition": [
+   "bexio_document_positions.update"
+  ],
+  "v2EditProject": [
+   "bexio_projects.update"
+  ],
+  "v2EditQuote": [
+   "bexio_quotes.update"
+  ],
+  "v2EditSalutation": [
+   "bexio_master_data.update[salutations]"
+  ],
+  "v2EditSubpositionPosition": [
+   "bexio_document_positions.update"
+  ],
+  "v2EditSubtotalPosition": [
+   "bexio_document_positions.update"
+  ],
+  "v2EditTask": [
+   "bexio_tasks.update"
+  ],
+  "v2EditTextPosition": [
+   "bexio_document_positions.update"
+  ],
+  "v2EditTimesheet": [
+   "bexio_timesheets.update"
+  ],
+  "v2EditTitle": [
+   "bexio_master_data.update[titles]"
+  ],
+  "v2EditUnit": [
+   "bexio_master_data.update[units]"
+  ],
+  "v2IssueDelivery": [
+   "bexio_deliveries.issue"
+  ],
+  "v2IssueInvoice": [
+   "bexio_invoices.issue"
+  ],
+  "v2IssueQuote": [
+   "bexio_quotes.issue"
+  ],
+  "v2ListAccountGroups": [
+   "bexio_accounting.list[account_groups]"
+  ],
+  "v2ListAccounts": [
+   "bexio_accounting.list[accounts]"
+  ],
+  "v2ListAdditionalAddresses": [
+   "bexio_additional_addresses.list"
+  ],
+  "v2ListBusinessActivities": [
+   "bexio_master_data.list[business_activities]"
+  ],
+  "v2ListComments": [
+   "bexio_document_comments.list"
+  ],
+  "v2ListCommunicationTypes": [
+   "bexio_master_data.list[communication_types]"
+  ],
+  "v2ListCompanyProfile": [
+   "bexio_company_profile.list"
+  ],
+  "v2ListContactGroups": [
+   "bexio_contact_groups.list"
+  ],
+  "v2ListContactRelations": [
+   "bexio_contact_relations.list"
+  ],
+  "v2ListContactSectors": [
+   "bexio_contact_sectors.list"
+  ],
+  "v2ListContacts": [
+   "bexio_contacts.list"
+  ],
+  "v2ListCountries": [
+   "bexio_master_data.list[countries]"
+  ],
+  "v2ListDefaultPositions": [
+   "bexio_document_positions.list"
+  ],
+  "v2ListDeliveries": [
+   "bexio_deliveries.list"
+  ],
+  "v2ListDiscountPositions": [
+   "bexio_document_positions.list"
+  ],
+  "v2ListDocumentSettings": [
+   "bexio_document_settings.list_settings"
+  ],
+  "v2ListInvoicePayments": [
+   "bexio_invoice_payments.list"
+  ],
+  "v2ListInvoiceReminders": [
+   "bexio_invoice_reminders.list"
+  ],
+  "v2ListInvoices": [
+   "bexio_invoices.list"
+  ],
+  "v2ListItemPositions": [
+   "bexio_document_positions.list"
+  ],
+  "v2ListItems": [
+   "bexio_items.list"
+  ],
+  "v2ListLanguages": [
+   "bexio_master_data.list[languages]"
+  ],
+  "v2ListNotes": [
+   "bexio_notes.list"
+  ],
+  "v2ListOrders": [
+   "bexio_orders.list"
+  ],
+  "v2ListPagebreakPositions": [
+   "bexio_document_positions.list"
+  ],
+  "v2ListPaymentTypes": [
+   "bexio_master_data.list[payment_types]"
+  ],
+  "v2ListProjectStatus": [
+   "bexio_projects.list_statuses"
+  ],
+  "v2ListProjectType": [
+   "bexio_projects.list_types"
+  ],
+  "v2ListProjects": [
+   "bexio_projects.list"
+  ],
+  "v2ListQuotes": [
+   "bexio_quotes.list"
+  ],
+  "v2ListSalutations": [
+   "bexio_master_data.list[salutations]"
+  ],
+  "v2ListStockAreas": [
+   "bexio_stock.list_areas"
+  ],
+  "v2ListStockLocations": [
+   "bexio_stock.list_locations"
+  ],
+  "v2ListSubpositionPositions": [
+   "bexio_document_positions.list"
+  ],
+  "v2ListSubtotalPositions": [
+   "bexio_document_positions.list"
+  ],
+  "v2ListTaskPriorities": [
+   "bexio_tasks.list_priorities"
+  ],
+  "v2ListTaskStatus": [
+   "bexio_tasks.list_statuses"
+  ],
+  "v2ListTasks": [
+   "bexio_tasks.list"
+  ],
+  "v2ListTextPositions": [
+   "bexio_document_positions.list"
+  ],
+  "v2ListTimeSheetStatus": [
+   "bexio_timesheets.list_statuses"
+  ],
+  "v2ListTimesheets": [
+   "bexio_timesheets.list"
+  ],
+  "v2ListTitles": [
+   "bexio_master_data.list[titles]"
+  ],
+  "v2ListUnits": [
+   "bexio_master_data.list[units]"
+  ],
+  "v2RMarkAsSentInvoice": [
+   "bexio_invoices.mark_as_sent"
+  ],
+  "v2RMarkAsSentInvoiceReminder": [
+   "bexio_invoice_reminders.mark_as_sent"
+  ],
+  "v2RMarkAsSentQuote": [
+   "bexio_quotes.mark_as_sent"
+  ],
+  "v2RMarkAsUnsentInvoiceReminder": [
+   "bexio_invoice_reminders.mark_as_unsent"
+  ],
+  "v2ReissueQuote": [
+   "bexio_quotes.reissue"
+  ],
+  "v2RestoreContact": [
+   "bexio_contacts.restore"
+  ],
+  "v2RevertIssueInvoice": [
+   "bexio_invoices.revert_issue"
+  ],
+  "v2RevertIssueQuote": [
+   "bexio_quotes.revert_issue"
+  ],
+  "v2SearchAccounts": [
+   "bexio_accounting.search[accounts]"
+  ],
+  "v2SearchAdditionalAddresses": [
+   "bexio_additional_addresses.search"
+  ],
+  "v2SearchBusinessActivities": [
+   "bexio_master_data.search[business_activities]"
+  ],
+  "v2SearchCommunicationTypes": [
+   "bexio_master_data.search[communication_types]"
+  ],
+  "v2SearchContact": [
+   "bexio_contacts.search"
+  ],
+  "v2SearchContactGroups": [
+   "bexio_contact_groups.search"
+  ],
+  "v2SearchContactRelations": [
+   "bexio_contact_relations.search"
+  ],
+  "v2SearchContactSectors": [
+   "bexio_contact_sectors.search"
+  ],
+  "v2SearchCountries": [
+   "bexio_master_data.search[countries]"
+  ],
+  "v2SearchInvoices": [
+   "bexio_invoices.search"
+  ],
+  "v2SearchItems": [
+   "bexio_items.search"
+  ],
+  "v2SearchLanguages": [
+   "bexio_master_data.search[languages]"
+  ],
+  "v2SearchNotes": [
+   "bexio_notes.search"
+  ],
+  "v2SearchOrders": [
+   "bexio_orders.search"
+  ],
+  "v2SearchPaymentTypes": [
+   "bexio_master_data.search[payment_types]"
+  ],
+  "v2SearchProjects": [
+   "bexio_projects.search"
+  ],
+  "v2SearchQuotes": [
+   "bexio_quotes.search"
+  ],
+  "v2SearchReminders": [
+   "bexio_invoice_reminders.search"
+  ],
+  "v2SearchSalutations": [
+   "bexio_master_data.search[salutations]"
+  ],
+  "v2SearchStockAreas": [
+   "bexio_stock.search_areas"
+  ],
+  "v2SearchStockLocations": [
+   "bexio_stock.search_locations"
+  ],
+  "v2SearchTasks": [
+   "bexio_tasks.search"
+  ],
+  "v2SearchTimesheets": [
+   "bexio_timesheets.search"
+  ],
+  "v2SearchTitles": [
+   "bexio_master_data.search[titles]"
+  ],
+  "v2SearchUnits": [
+   "bexio_master_data.search[units]"
+  ],
+  "v2SendInvoice": [
+   "bexio_invoices.send"
+  ],
+  "v2SendInvoiceReminder": [
+   "bexio_invoice_reminders.send"
+  ],
+  "v2SendQuote": [
+   "bexio_quotes.send"
+  ],
+  "v2ShowAdditionalAddress": [
+   "bexio_additional_addresses.get"
+  ],
+  "v2ShowComment": [
+   "bexio_document_comments.get"
+  ],
+  "v2ShowCompanyProfile": [
+   "bexio_company_profile.get"
+  ],
+  "v2ShowContact": [
+   "bexio_contacts.get"
+  ],
+  "v2ShowContactGroup": [
+   "bexio_contact_groups.get"
+  ],
+  "v2ShowContactRelation": [
+   "bexio_contact_relations.get"
+  ],
+  "v2ShowCountry": [
+   "bexio_master_data.get[countries]"
+  ],
+  "v2ShowDefaultPosition": [
+   "bexio_document_positions.get"
+  ],
+  "v2ShowDelivery": [
+   "bexio_deliveries.get"
+  ],
+  "v2ShowDiscountPosition": [
+   "bexio_document_positions.get"
+  ],
+  "v2ShowInvoice": [
+   "bexio_invoices.get"
+  ],
+  "v2ShowInvoicePDF": [
+   "bexio_invoices.pdf"
+  ],
+  "v2ShowInvoicePayment": [
+   "bexio_invoice_payments.get"
+  ],
+  "v2ShowInvoiceReminder": [
+   "bexio_invoice_reminders.get"
+  ],
+  "v2ShowInvoiceReminderPDF": [
+   "bexio_invoice_reminders.pdf"
+  ],
+  "v2ShowItem": [
+   "bexio_items.get"
+  ],
+  "v2ShowItemPosition": [
+   "bexio_document_positions.get"
+  ],
+  "v2ShowNote": [
+   "bexio_notes.get"
+  ],
+  "v2ShowOrder": [
+   "bexio_orders.get"
+  ],
+  "v2ShowOrderPDF": [
+   "bexio_orders.pdf"
+  ],
+  "v2ShowOrderRepetition": [
+   "bexio_orders.get_repetition"
+  ],
+  "v2ShowPagebreakPosition": [
+   "bexio_document_positions.get"
+  ],
+  "v2ShowProject": [
+   "bexio_projects.get"
+  ],
+  "v2ShowQuote": [
+   "bexio_quotes.get"
+  ],
+  "v2ShowQuotePDF": [
+   "bexio_quotes.pdf"
+  ],
+  "v2ShowSalutation": [
+   "bexio_master_data.get[salutations]"
+  ],
+  "v2ShowSubpositionPosition": [
+   "bexio_document_positions.get"
+  ],
+  "v2ShowSubtotalPosition": [
+   "bexio_document_positions.get"
+  ],
+  "v2ShowTask": [
+   "bexio_tasks.get"
+  ],
+  "v2ShowTextPosition": [
+   "bexio_document_positions.get"
+  ],
+  "v2ShowTimesheet": [
+   "bexio_timesheets.get"
+  ],
+  "v2ShowTitle": [
+   "bexio_master_data.get[titles]"
+  ],
+  "v2ShowUnit": [
+   "bexio_master_data.get[units]"
+  ],
+  "v2UnarchiveProject": [
+   "bexio_projects.unarchive"
+  ],
+  "v3CreateFictionalUser": [
+   "bexio_users.create_fictional"
+  ],
+  "v3CreateFile": [
+   "bexio_files.upload"
+  ],
+  "v3DeleteFictionalUser": [
+   "bexio_users.delete_fictional"
+  ],
+  "v3DeleteFile": [
+   "bexio_files.delete"
+  ],
+  "v3DownloadFile": [
+   "bexio_files.download"
+  ],
+  "v3ListDocumentTemplate": [
+   "bexio_document_settings.list_templates"
+  ],
+  "v3ListFictionalUsers": [
+   "bexio_users.list_fictional"
+  ],
+  "v3ListUsers": [
+   "bexio_users.list"
+  ],
+  "v3PreviewFile": [
+   "bexio_files.preview"
+  ],
+  "v3PurchaseOrderCreate": [
+   "bexio_purchase_orders.create"
+  ],
+  "v3PurchaseOrderDelete": [
+   "bexio_purchase_orders.delete"
+  ],
+  "v3PurchaseOrderList": [
+   "bexio_purchase_orders.list"
+  ],
+  "v3PurchaseOrderShow": [
+   "bexio_purchase_orders.get"
+  ],
+  "v3PurchaseOrderUpdate": [
+   "bexio_purchase_orders.update"
+  ],
+  "v3ReadFile": [
+   "bexio_files.get"
+  ],
+  "v3ReadFiles": [
+   "bexio_files.list"
+  ],
+  "v3SearchFile": [
+   "bexio_files.search"
+  ],
+  "v3ShowFictionalUser": [
+   "bexio_users.get_fictional"
+  ],
+  "v3ShowFile": [
+   "bexio_files.usage"
+  ],
+  "v3ShowMe": [
+   "bexio_users.me"
+  ],
+  "v3ShowUser": [
+   "bexio_users.get"
+  ],
+  "v3UpdateFictionalUser": [
+   "bexio_users.update_fictional"
+  ],
+  "v3UpdateFile": [
+   "bexio_files.update"
+  ]
+ }
+}

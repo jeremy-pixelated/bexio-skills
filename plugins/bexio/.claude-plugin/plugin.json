@@ -1,0 +1,6 @@
+{
+  "name": "bexio",
+  "version": "1.1.0",
+  "description": "Skills for working with Bexio accounting through a bexio_* MCP connector: contacts, sales, purchase, accounting, banking, items, projects, files, admin. Gated send, delete, cancel, payment-order and posting actions with one preview and one explicit yes.",
+  "author": { "name": "bexio-skills" }
+}

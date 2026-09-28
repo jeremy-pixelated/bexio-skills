@@ -1,0 +1,938 @@
+{
+ "about": "Routing cases for core SKILL.md §8, resolved literally in §8 order. expected = one skill, a split (one per part, request order), \"lookup\" (§8 step 3: data decides), \"ask\" (§8 step 4) or \"not covered\". row = text of the deciding §8 row / step (one per part). Structure check: check_routing.py.",
+ "cases": [
+  {
+   "id": "N01",
+   "set": "new",
+   "lang": "de",
+   "request": "Trag den Tageskurs EUR/CHF vom 30.09. ein.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "currency, exchange rate · Währung, Kurs, Wechselkurs, Devisenkurs, Tageskurs"
+   ]
+  },
+  {
+   "id": "N02",
+   "set": "new",
+   "lang": "de",
+   "request": "Welche Debitoren sind über 60 Tage offen?",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "customer invoice: create, copy, list open / overdue"
+   ]
+  },
+  {
+   "id": "N03",
+   "set": "new",
+   "lang": "de",
+   "request": "Erfasse die Kreditorenrechnung von Muster AG über CHF 249.–.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ]
+  },
+  {
+   "id": "N04",
+   "set": "new",
+   "lang": "de",
+   "request": "Buch den Zahlungseingang von Kunde Beispiel GmbH auf Rechnung RE-00417.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "customer paid an invoice (customer side only)"
+   ]
+  },
+  {
+   "id": "N05",
+   "set": "new",
+   "lang": "de",
+   "request": "Lade den Spesenbeleg vom Taxi hoch und erfasse ihn als Spese.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ],
+   "note": "one part: upload serves the expense"
+  },
+  {
+   "id": "N06",
+   "set": "new",
+   "lang": "de",
+   "request": "Erfasse die Lohnbuchung für September: Lohnaufwand an Bank, CHF 48'300.–.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "salary posting as a manual entry · Lohnbuchung"
+   ]
+  },
+  {
+   "id": "N07",
+   "set": "new",
+   "lang": "de",
+   "request": "Mach die Lohnabrechnung für Oktober.",
+   "expected": [
+    "not covered"
+   ],
+   "row": [
+    "payroll: payslips, salary runs"
+   ]
+  },
+  {
+   "id": "N08",
+   "set": "new",
+   "lang": "de",
+   "request": "Stell eine Gutschrift über CHF 200.– für Kunde Beispiel GmbH aus.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "credit note · Gutschrift, Kreditnote"
+   ],
+   "note": "§9: no API → Bexio UI"
+  },
+  {
+   "id": "N09",
+   "set": "new",
+   "lang": "de",
+   "request": "Erfasse die Gutschrift von Lieferant Muster AG.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier credit note · Lieferantengutschrift"
+   ],
+   "note": "§9: no endpoint → Bexio UI"
+  },
+  {
+   "id": "N10",
+   "set": "new",
+   "lang": "de",
+   "request": "Starte den Mahnlauf für September.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "quote, sales order, delivery note, customer invoice, position"
+   ]
+  },
+  {
+   "id": "N11",
+   "set": "new",
+   "lang": "de",
+   "request": "Gleich den Kontoauszug September mit Bexio ab.",
+   "expected": [
+    "bexio-banking"
+   ],
+   "row": [
+    "bank reconciliation: list + proposed postings"
+   ],
+   "note": "matching itself = Bexio UI (§9)"
+  },
+  {
+   "id": "N12",
+   "set": "new",
+   "lang": "de",
+   "request": "Zeig mir den Kontoauszug von Konto 1020 für das dritte Quartal.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "journal lines / movements of one ledger account"
+   ]
+  },
+  {
+   "id": "N13",
+   "set": "new",
+   "lang": "de",
+   "request": "Lade den Kontoauszug September als PDF in die Inbox.",
+   "expected": [
+    "bexio-files"
+   ],
+   "row": [
+    "upload to the inbox, find / rename / archive / download / delete a file"
+   ]
+  },
+  {
+   "id": "N14",
+   "set": "new",
+   "lang": "de",
+   "request": "Bezahl die Kreditorenrechnung KR-2231 per 30.10.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ]
+  },
+  {
+   "id": "N15",
+   "set": "new",
+   "lang": "de",
+   "request": "Überweis CHF 1'200.– Mietkaution an IBAN CH44 3199 9123 0008 8901 2.",
+   "expected": [
+    "bexio-banking"
+   ],
+   "row": [
+    "payment order, the company pays (imperative, wir / uns)"
+   ]
+  },
+  {
+   "id": "N16",
+   "set": "new",
+   "lang": "de",
+   "request": "Welche Zahlungsaufträge sind fehlgeschlagen?",
+   "expected": [
+    "bexio-banking"
+   ],
+   "row": [
+    "payment order, the company pays (imperative, wir / uns)"
+   ]
+  },
+  {
+   "id": "N17",
+   "set": "new",
+   "lang": "de",
+   "request": "Storniere den Zahlungsauftrag vom 12.09. an Muster AG.",
+   "expected": [
+    "bexio-banking"
+   ],
+   "row": [
+    "payment order, the company pays (imperative, wir / uns)"
+   ]
+  },
+  {
+   "id": "N18",
+   "set": "new",
+   "lang": "de",
+   "request": "Mach die Abgrenzung für die Versicherungsprämie Q4.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "free posting not tied to a bill, expense or invoice"
+   ]
+  },
+  {
+   "id": "N19",
+   "set": "new",
+   "lang": "de",
+   "request": "Buche CHF 500.– von Konto 1000 auf 1020 um.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "free posting not tied to a bill, expense or invoice"
+   ],
+   "note": "umbuchen = Umbuchung (word form)"
+  },
+  {
+   "id": "N20",
+   "set": "new",
+   "lang": "de",
+   "request": "Welche MWST-Periode ist noch offen?",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "month-end / year-end / period close check"
+   ]
+  },
+  {
+   "id": "N21",
+   "set": "new",
+   "lang": "de",
+   "request": "Mach die MWST-Abrechnung für Q3.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "month-end / year-end / period close check"
+   ],
+   "note": "VAT form = Bexio UI (§9)"
+  },
+  {
+   "id": "N22",
+   "set": "new",
+   "lang": "de",
+   "request": "Leg den Lieferanten Muster AG an.",
+   "expected": [
+    "bexio-contacts"
+   ],
+   "row": [
+    "supplier / customer master data: create, change, find, delete"
+   ]
+  },
+  {
+   "id": "N23",
+   "set": "new",
+   "lang": "de",
+   "request": "Ändere die IBAN von Lieferant Muster AG.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "a supplier's IBAN / bank details"
+   ],
+   "note": "change: §9 no API → Bexio UI"
+  },
+  {
+   "id": "N24",
+   "set": "new",
+   "lang": "en",
+   "request": "What is our QR-IBAN?",
+   "expected": [
+    "bexio-banking"
+   ],
+   "row": [
+    "the company's own bank accounts: IBAN, QR-IBAN, bank"
+   ]
+  },
+  {
+   "id": "N25",
+   "set": "new",
+   "lang": "en",
+   "request": "Send quote AN-00051 to the client.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "quote, sales order, delivery note, customer invoice, position"
+   ]
+  },
+  {
+   "id": "N26",
+   "set": "new",
+   "lang": "en",
+   "request": "Convert quote AN-00051 into an order.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "sales order, delivery note · Auftrag, Lieferschein"
+   ]
+  },
+  {
+   "id": "N27",
+   "set": "new",
+   "lang": "en",
+   "request": "Create a purchase order for 20 toner cartridges from Muster AG.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "purchase order · Bestellung"
+   ]
+  },
+  {
+   "id": "N28",
+   "set": "new",
+   "lang": "en",
+   "request": "Record an expense of CHF 84.60 for the team lunch, paid by card.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ]
+  },
+  {
+   "id": "N29",
+   "set": "new",
+   "lang": "en",
+   "request": "Attach the receipt from the inbox to expense SP-0042.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "attach a file to a bill or expense"
+   ]
+  },
+  {
+   "id": "N30",
+   "set": "new",
+   "lang": "en",
+   "request": "Upload this parking receipt to the Bexio inbox.",
+   "expected": [
+    "bexio-files"
+   ],
+   "row": [
+    "upload to the inbox, find / rename / archive / download / delete a file"
+   ]
+  },
+  {
+   "id": "N31",
+   "set": "new",
+   "lang": "de",
+   "request": "Lösch die Kontaktgruppe Messe 2024.",
+   "expected": [
+    "bexio-contacts"
+   ],
+   "row": [
+    "customer, supplier, person, contact, address, contact group"
+   ]
+  },
+  {
+   "id": "N32",
+   "set": "new",
+   "lang": "en",
+   "request": "How many hours were logged on project Website Relaunch in September?",
+   "expected": [
+    "bexio-projects"
+   ],
+   "row": [
+    "hours per project, time entries"
+   ]
+  },
+  {
+   "id": "N33",
+   "set": "new",
+   "lang": "en",
+   "request": "Add a note to customer Beispiel GmbH: called about the overdue invoice.",
+   "expected": [
+    "bexio-admin"
+   ],
+   "row": [
+    "note or task, also on a contact or project"
+   ]
+  },
+  {
+   "id": "N34",
+   "set": "new",
+   "lang": "de",
+   "request": "Erstelle eine Pendenz: Mahnung an Kunde Beispiel GmbH prüfen, fällig Freitag.",
+   "expected": [
+    "bexio-admin"
+   ],
+   "row": [
+    "note or task, also on a contact or project"
+   ]
+  },
+  {
+   "id": "N35",
+   "set": "new",
+   "lang": "de",
+   "request": "Zeig mir Beleg 7781.",
+   "expected": [
+    "lookup"
+   ],
+   "row": [
+    "3. Existing object named only by a number"
+   ],
+   "note": "invoice → sales · bill / expense → purchase · manual entry → accounting · file → files; several / none → ask"
+  },
+  {
+   "id": "N36",
+   "set": "new",
+   "lang": "de",
+   "request": "Welche Rechnungen sind überfällig?",
+   "expected": [
+    "ask"
+   ],
+   "row": [
+    "no side, no number → ask: customer or supplier"
+   ],
+   "note": "customer or supplier?"
+  },
+  {
+   "id": "N37",
+   "set": "new",
+   "lang": "en",
+   "request": "Show me the balance sheet as of 30.09.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "balance, balance sheet, P&L"
+   ],
+   "note": "§9: journal movements only"
+  },
+  {
+   "id": "N38",
+   "set": "new",
+   "lang": "en",
+   "request": "Who may book in Bexio? I get a 403.",
+   "expected": [
+    "bexio-admin"
+   ],
+   "row": [
+    "users, who is signed in, rights, 403"
+   ]
+  },
+  {
+   "id": "N39",
+   "set": "new",
+   "lang": "de",
+   "request": "Leg ein neues Projekt Umbau Filiale für Kunde Beispiel GmbH an.",
+   "expected": [
+    "bexio-projects"
+   ],
+   "row": [
+    "project, milestone, work package: create, change, archive, delete"
+   ]
+  },
+  {
+   "id": "N40",
+   "set": "new",
+   "lang": "de",
+   "request": "Zeig mir die offenen Kreditoren per 30.09.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ]
+  },
+  {
+   "id": "N41",
+   "set": "new",
+   "lang": "de",
+   "request": "Buch den Beleg im Anhang.",
+   "expected": [
+    "ask"
+   ],
+   "row": [
+    "neither → ask: supplier bill, expense or manual posting"
+   ],
+   "note": "bare Beleg + book, no number"
+  },
+  {
+   "id": "N42",
+   "set": "new",
+   "lang": "de",
+   "request": "Überweis CHF 2'500.– an Lieferant Muster AG für die Rechnung LR-2026-044.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ],
+   "note": "transfer verb + supplier bill named = bill acted on"
+  },
+  {
+   "id": "N43",
+   "set": "new",
+   "lang": "de",
+   "request": "Zahlungseingang von Lieferant Muster AG: sie haben uns CHF 120.– zurückerstattet.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "money in from a supplier: refund, repayment"
+   ],
+   "note": "supplier side: customer-paid row does not apply"
+  },
+  {
+   "id": "N44",
+   "set": "new",
+   "lang": "de",
+   "request": "Kunde Beispiel GmbH hat RE-00417 mit 2 % Skonto bezahlt.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "customer paid an invoice (customer side only)"
+   ],
+   "note": "Skonto: value = amount received; write-off n.d. → manual posting proposal"
+  },
+  {
+   "id": "N45",
+   "set": "new",
+   "lang": "de",
+   "request": "Kunde Beispiel GmbH hat CHF 50.– zu viel überwiesen.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "customer paid an invoice (customer side only)"
+   ],
+   "note": "money in; overpayment → sales ask line (record open amount + excess as manual posting, or Bexio UI)"
+  },
+  {
+   "id": "N46",
+   "set": "new",
+   "lang": "de",
+   "request": "Beispiel GmbH hat Rechnung RE-00431 bezahlt.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "customer paid an invoice (customer side only)"
+   ],
+   "note": "third party as payer = money in → customer side"
+  },
+  {
+   "id": "N47",
+   "set": "new",
+   "lang": "de",
+   "request": "Erfasse den Beleg von Lieferant Muster AG.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ],
+   "note": "Beleg + erfassen + supplier side"
+  },
+  {
+   "id": "N48",
+   "set": "new",
+   "lang": "de",
+   "request": "Lieferant Muster AG: Zahlungseingang CHF 80.– als Rückzahlung.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "money in from a supplier: refund, repayment"
+   ],
+   "note": "Zahlungseingang … <Lieferant>, any order"
+  },
+  {
+   "id": "N49",
+   "set": "new",
+   "lang": "de",
+   "request": "Lieferant Muster AG hat uns eine Gutschrift geschickt, erfass sie.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier credit note · Lieferantengutschrift"
+   ],
+   "note": "Gutschrift … <Lieferant>, any order; §9 no API"
+  },
+  {
+   "id": "N50",
+   "set": "new",
+   "lang": "de",
+   "request": "Bezahl die Lieferantenrechnung LR-2026-051 mit 2 % Skonto.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ],
+   "note": "Skonto = CASH_DISCOUNT part"
+  },
+  {
+   "id": "B01",
+   "set": "builder",
+   "lang": "de",
+   "request": "Erfasse die Lieferantenrechnung von Muster AG aus dem angehängten PDF.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ]
+  },
+  {
+   "id": "B02",
+   "set": "builder",
+   "lang": "en",
+   "request": "Send invoice RE-00123 to the customer by email.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "customer invoice: create, copy, list open / overdue"
+   ]
+  },
+  {
+   "id": "B03",
+   "set": "builder",
+   "lang": "de",
+   "request": "Bezahl die offene Rechnung von Beispiel AG.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ],
+   "note": "step 4: supplier side (von <Firma> + pay verb) → supplier bill row"
+  },
+  {
+   "id": "B04",
+   "set": "builder",
+   "lang": "en",
+   "request": "Create a payment order of CHF 500 to IBAN CH93 0076 2011 6238 5295 7 for a rent deposit.",
+   "expected": [
+    "bexio-banking"
+   ],
+   "row": [
+    "payment order, the company pays (imperative, wir / uns)"
+   ]
+  },
+  {
+   "id": "B05",
+   "set": "builder",
+   "lang": "de",
+   "request": "Kunde Beispiel GmbH hat Rechnung 1045 bezahlt, bitte Zahlungseingang erfassen.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "customer paid an invoice (customer side only)"
+   ]
+  },
+  {
+   "id": "B06",
+   "set": "builder",
+   "lang": "de",
+   "request": "Mach mir die Bankabstimmung für September.",
+   "expected": [
+    "bexio-banking"
+   ],
+   "row": [
+    "bank reconciliation: list + proposed postings"
+   ],
+   "note": "matching itself = Bexio UI (§9)"
+  },
+  {
+   "id": "B07",
+   "set": "builder",
+   "lang": "de",
+   "request": "Zeig mir die Bewegungen auf Konto 1020 im August.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "journal lines / movements of one ledger account"
+   ]
+  },
+  {
+   "id": "B08",
+   "set": "builder",
+   "lang": "en",
+   "request": "Add article \"Beratung\" as a position to quote AN-00012.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "article or line on a quote / order / invoice"
+   ]
+  },
+  {
+   "id": "B09",
+   "set": "builder",
+   "lang": "de",
+   "request": "Lege den Artikel \"Beratung Senior\" mit Verkaufspreis 180 an.",
+   "expected": [
+    "bexio-items"
+   ],
+   "row": [
+    "create / change the article master record"
+   ]
+  },
+  {
+   "id": "B10",
+   "set": "builder",
+   "lang": "de",
+   "request": "Hinterlege beim Kunden Beispiel GmbH eine Notiz zum Telefonat.",
+   "expected": [
+    "bexio-admin"
+   ],
+   "row": [
+    "note or task, also on a contact or project"
+   ]
+  },
+  {
+   "id": "B11",
+   "set": "builder",
+   "lang": "en",
+   "request": "What was the EUR/CHF rate Bexio used on 30.06.?",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "currency, exchange rate · Währung, Kurs, Wechselkurs, Devisenkurs, Tageskurs"
+   ]
+  },
+  {
+   "id": "B12",
+   "set": "builder",
+   "lang": "de",
+   "request": "Welcher MWST-Satz steckt hinter dem Steuercode UN81?",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "VAT rates, tax codes · MWST-Satz, Steuercode"
+   ]
+  },
+  {
+   "id": "B13",
+   "set": "builder",
+   "lang": "de",
+   "request": "Hänge diese Quittung an die Buchung 456 an.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "attach a receipt to a posting (upload + attach = one part)"
+   ],
+   "note": "row lookup: <nr> is a bill / expense → bexio-purchase attach row"
+  },
+  {
+   "id": "B14",
+   "set": "builder",
+   "lang": "en",
+   "request": "Upload this receipt to the Bexio inbox.",
+   "expected": [
+    "bexio-files"
+   ],
+   "row": [
+    "upload to the inbox, find / rename / archive / download / delete a file"
+   ]
+  },
+  {
+   "id": "B15",
+   "set": "builder",
+   "lang": "en",
+   "request": "Attach the PDF I uploaded yesterday to expense SP-0042.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "attach a file to a bill or expense"
+   ],
+   "note": "finding the file = same part"
+  },
+  {
+   "id": "B16",
+   "set": "builder",
+   "lang": "de",
+   "request": "Neue Tätigkeit \"Workshop\" für die Zeiterfassung anlegen.",
+   "expected": [
+    "bexio-projects"
+   ],
+   "row": [
+    "business activity: list, search, create"
+   ]
+  },
+  {
+   "id": "B17",
+   "set": "builder",
+   "lang": "de",
+   "request": "Buche die Abgrenzung für die Septembermiete.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "free posting not tied to a bill, expense or invoice"
+   ]
+  },
+  {
+   "id": "B18",
+   "set": "builder",
+   "lang": "de",
+   "request": "Verbuche die Rechnung 2026-0200.",
+   "expected": [
+    "lookup"
+   ],
+   "row": [
+    "3. Existing object named only by a number"
+   ],
+   "note": "invoice hit → sales · bill hit → purchase"
+  },
+  {
+   "id": "B19",
+   "set": "builder",
+   "lang": "de",
+   "request": "Lösch den Zahlungsauftrag 88, der aus der Zahlung der Lieferantenrechnung LR-17 entstanden ist.",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "supplier bill or expense: create (also from a PDF / receipt)"
+   ],
+   "note": "delete its payment → bexio_outgoing_payments.delete"
+  },
+  {
+   "id": "B20",
+   "set": "builder",
+   "lang": "de",
+   "request": "Wie viele Stunden stehen auf Projekt P-7, und stell sie dem Kunden in Rechnung.",
+   "expected": [
+    "bexio-projects",
+    "bexio-sales"
+   ],
+   "row": [
+    "hours per project, time entries",
+    "customer invoice: create, copy, list open / overdue"
+   ],
+   "note": "split: two outcomes; part 2 = in Rechnung stellen"
+  },
+  {
+   "id": "R01",
+   "set": "checker",
+   "lang": "de",
+   "request": "Erstelle eine Gutschrift über CHF 150.– für Kunde Beispiel GmbH.",
+   "expected": [
+    "bexio-sales"
+   ],
+   "row": [
+    "credit note · Gutschrift, Kreditnote"
+   ],
+   "note": "§9: no API → Bexio UI"
+  },
+  {
+   "id": "R07",
+   "set": "checker",
+   "lang": "de",
+   "request": "Lade die Quittung hoch und häng sie an die Buchung 2026-031 an.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "attach a receipt to a posting (upload + attach = one part)"
+   ],
+   "note": "one part → bexio_manual_entries.add_file; row lookup: <nr> is a bill / expense → bexio-purchase attach row"
+  },
+  {
+   "id": "R13",
+   "set": "checker",
+   "lang": "de",
+   "request": "Welche IBAN hat Lieferant Muster AG hinterlegt?",
+   "expected": [
+    "bexio-purchase"
+   ],
+   "row": [
+    "a supplier's IBAN / bank details"
+   ],
+   "note": "core §3.4 stored IBAN read"
+  },
+  {
+   "id": "R14",
+   "set": "checker",
+   "lang": "de",
+   "request": "Lösch den Beleg 2026-114.",
+   "expected": [
+    "lookup"
+   ],
+   "row": [
+    "3. Existing object named only by a number"
+   ],
+   "note": "bare Beleg = no type; manual entry / file / bill / expense / invoice hit decides"
+  },
+  {
+   "id": "R15",
+   "set": "checker",
+   "lang": "de",
+   "request": "Trag den Wechselkurs EUR/CHF vom 30.09. ein.",
+   "expected": [
+    "bexio-accounting"
+   ],
+   "row": [
+    "currency, exchange rate · Währung, Kurs, Wechselkurs, Devisenkurs, Tageskurs"
+   ]
+  }
+ ]
+}

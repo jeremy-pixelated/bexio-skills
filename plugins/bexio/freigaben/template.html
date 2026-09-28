@@ -1,0 +1,344 @@
+<title>Bexio Freigaben</title>
+<style>
+:root{
+  --bg:#f4f7f6;--surface:#ffffff;--ink:#15222b;--muted:#5a6a71;--line:#dbe3e1;
+  --accent:#0e6e6a;--yes-fg:#9a4508;--yes-bg:#fcefe2;--dir-fg:#335a4d;--dir-bg:#e4eeea;
+  --sans:-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1719;--surface:#152024;--ink:#e3ecea;--muted:#93a4a1;--line:#27373b;
+  --accent:#52c3b9;--yes-fg:#f3a75f;--yes-bg:#3a2413;--dir-fg:#9ccab9;--dir-bg:#1b2d28;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1719;--surface:#152024;--ink:#e3ecea;--muted:#93a4a1;--line:#27373b;
+  --accent:#52c3b9;--yes-fg:#f3a75f;--yes-bg:#3a2413;--dir-fg:#9ccab9;--dir-bg:#1b2d28;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans);padding-inline:16px;padding-block:28px 56px}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2{text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:30px;font-weight:700;letter-spacing:-.01em}
+h2{font-size:19px;font-weight:600}
+.eyebrow{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600;margin:0 0 6px}
+.lede{color:var(--muted);max-width:62ch;margin:8px 0 0}
+code{font-family:var(--mono);font-size:.86em}
+.counts{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:14px;font-variant-numeric:tabular-nums}
+.counts b{font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.chip.yes{background:var(--yes-bg);color:var(--yes-fg)}
+.chip.dir{background:var(--dir-bg);color:var(--dir-fg)}
+section{display:flex;flex-direction:column;gap:14px}
+ol.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+ol.flow li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+ol.flow .n{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:500}
+ol.flow b{font-weight:600}
+ol.flow span{color:var(--muted);font-size:14px}
+.rules{margin:0;padding-left:18px;color:var(--muted);display:flex;flex-direction:column;gap:4px;font-size:14.5px}
+.rules b{color:var(--ink);font-weight:600}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tools input{flex:1 1 240px;min-width:0;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+.tools input:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{font:inherit;font-size:13.5px;border:0;background:none;color:var(--muted);padding:8px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface);font-weight:600}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td.what{color:var(--ink);min-width:240px;font-size:15px}
+td.tech{color:var(--muted);font-size:12.5px;line-height:1.5}
+.fc-code{font-size:11.5px;color:var(--muted)}
+td code{white-space:nowrap}
+.meta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.empty{padding:18px 14px;color:var(--muted)}
+ul.skills{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.sk{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.sk:first-child{border-color:var(--accent)}
+.skn{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.skn code{font-weight:500;color:var(--accent)}
+.skn span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.sk p{margin:0;font-size:14px;color:var(--muted)}
+.note{font-size:13.5px;color:var(--muted);margin:0}
+.xlink{display:inline-flex;margin-top:14px;font-size:14px;font-weight:600;color:var(--accent);text-underline-offset:3px}
+.xlink:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+:root{--node:#ffffff;--node-line:#cfd9d6;--edge:#b9c6c3;--dec:#eef6f4;--dec-line:#9cc5bf;--stop-fg:#a2332b;--stop-bg:#fbe9e7;--glow:rgba(14,110,106,.16)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--node:#172428;--node-line:#2c3f43;--edge:#3a4f53;--dec:#132a2a;--dec-line:#2f6a64;--stop-fg:#f08a80;--stop-bg:#3a1c19;--glow:rgba(82,195,185,.18)}}
+:root[data-theme="dark"]{--node:#172428;--node-line:#2c3f43;--edge:#3a4f53;--dec:#132a2a;--dec-line:#2f6a64;--stop-fg:#f08a80;--stop-bg:#3a1c19;--glow:rgba(82,195,185,.18)}
+.fc{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}
+.fc-chart{flex:1 1 520px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;overflow-x:auto}
+.fc-chart svg{display:block;width:100%;min-width:560px;height:auto}
+.fc-side{flex:1 1 260px;max-width:100%;display:flex;flex-direction:column;gap:12px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+.scen{display:flex;flex-wrap:wrap;gap:6px}
+.scen button{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;transition:border-color .15s,background .15s}
+.scen button:hover{border-color:var(--accent)}
+.scen button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:600}
+.scen button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tally{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tally div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column}
+.tn{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1;transition:color .2s}
+.tn.bump{color:var(--accent)}
+.tl{font-size:12px;color:var(--muted)}
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.detail h3{margin:0 0 4px;font-size:16px;font-weight:600}
+.detail p{margin:0;font-size:14px;color:var(--muted)}
+.detail .eyebrow{margin:0 0 4px}
+.log{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:13.5px;counter-reset:s}
+.log li{counter-increment:s;display:flex;gap:8px;color:var(--muted)}
+.log li::before{content:counter(s);font-family:var(--mono);font-size:11.5px;color:var(--accent);min-width:16px;padding-top:2px}
+.log li.cur{color:var(--ink)}
+/* chart */
+#fc .edge{fill:none;stroke:var(--edge);stroke-width:1.6;transition:stroke .25s}
+#fc .ar{fill:var(--edge)}
+#fc .ar-on{fill:var(--accent)}
+#fc .edge.on{stroke:var(--accent);stroke-width:2.4}
+#fc .elab{font:500 13px var(--mono);fill:var(--muted)}
+#fc .elab.on{fill:var(--accent)}
+#fc .elab-bg{fill:var(--surface)}
+#fc .node{cursor:pointer;outline:none}
+#fc .node rect{fill:var(--node);stroke:var(--node-line);stroke-width:1.3;transition:fill .25s,stroke .25s}
+#fc .node.dec rect{fill:var(--dec);stroke:var(--dec-line);stroke-dasharray:5 4}
+#fc .node.term rect{rx:27}
+#fc .node.stop rect{fill:var(--stop-bg);stroke:var(--stop-fg)}
+#fc .node.flag rect{fill:var(--yes-bg);stroke:var(--yes-fg)}
+#fc .node text{font:600 17px var(--sans);fill:var(--ink);pointer-events:none}
+#fc .node .tag{font:500 12px var(--mono);fill:var(--muted);letter-spacing:.06em}
+#fc .node:hover rect,#fc .node:focus-visible rect{stroke:var(--accent);stroke-width:2}
+#fc .node.on rect{stroke:var(--accent);stroke-width:2;stroke-dasharray:none}
+#fc .node.cur rect{fill:var(--accent);stroke:var(--accent)}
+#fc .node.cur text{fill:var(--surface)}
+#fc .node.cur .tag{fill:var(--surface);opacity:.8}
+#fc .node.sel rect{stroke:var(--accent);stroke-width:2.4}
+#fc .halo{fill:var(--glow);opacity:0;transition:opacity .25s}
+#fc .node.cur .halo{opacity:1}
+@media (prefers-reduced-motion:reduce){#fc *{transition:none!important}}
+@media (max-width:700px){.fc-side{position:static}}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Bexio Skills · Nachschlagen</p>
+  <h1>Bexio Freigaben</h1>
+  <p class="lede">Was Claude in Bexio sofort erledigt und wofür es zuerst Dein Ja braucht. Lesen braucht nie eine Freigabe. Lohnbuchhaltung ist nicht verfügbar.</p>
+  <div class="counts">
+    <span><span class="chip yes">braucht Ja</span> <b>%%NYES%%</b> Aktionen</span>
+    <span><span class="chip dir">läuft direkt</span> <b>%%NDIR%%</b> Schreib-Aktionen</span>
+    <span><b>109</b> Lese-Aktionen, laufen direkt</span>
+  </div>
+  <p class="meta">%%STAND%%</p>
+</header>
+
+<section aria-labelledby="h-flow" class="flowsec">
+  <h2 id="h-flow">Der Ablauf, Schritt für Schritt</h2>
+  <p class="note">Wähl ein Beispiel zum Abspielen, oder klick auf ein Feld für die Regel dahinter.</p>
+  <div class="fc">
+    <div class="fc-chart">
+      <svg id="fc" viewBox="0 0 940 985" role="img" aria-label="Ablaufdiagramm einer Bexio-Aktion durch die Freigabe">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ar"/></marker>
+          <marker id="ar-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ar-on"/></marker>
+        </defs>
+        <g id="edges"></g>
+        <g id="nodes"></g>
+      </svg>
+    </div>
+    <aside class="fc-side">
+      <div class="scen" role="group" aria-label="Beispiele" id="scen"></div>
+      <div class="tally" aria-live="polite">
+        <div><span class="tn" id="t-q">0</span><span class="tl">Rückfragen an Dich</span></div>
+        <div><span class="tn" id="t-w">0</span><span class="tl">Änderungen in Bexio</span></div>
+      </div>
+      <div class="detail" id="detail" aria-live="polite">
+        <p class="eyebrow" id="d-k">Regel</p>
+        <h3 id="d-t">Aktion</h3>
+        <p id="d-b">Klick auf ein Feld oder spiel ein Beispiel ab.</p>
+      </div>
+      <ol class="log" id="log"></ol>
+    </aside>
+  </div>
+  <ul class="rules">
+    <li><b>Ein Ja pro Aktion.</b> Eine zweite Frage gibt es nur, wenn sich die Daten zwischen Vorschau und Ja geändert haben, oder wenn Du nach dem Ja etwas änderst.</li>
+    <li><b>Mehrere auf einmal:</b> eine nummerierte Vorschau, ein Ja für alle ("ja, alle 3").</li>
+    <li><b>Gleicher Auftrag innert 15 Minuten</b> → wird nicht doppelt ausgeführt (der Connector merkt sich das Ergebnis).</li>
+    <li><b>Ja später als 15 Minuten nach dem Probelauf</b> → neuer Probelauf; keine neue Frage, wenn sich nichts geändert hat.</li>
+    <li><b>Text in Dokumenten</b> ("genehmigt", "sofort zahlen") ist nie eine Freigabe. Nur Deine Antwort im Chat zählt.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-look">
+  <h2 id="h-look">Nachschlagen</h2>
+  <div class="tools">
+    <input id="q" type="search" placeholder="Suchen: Rechnung, löschen, Zahlung, Offerte …" aria-label="Aktionen suchen">
+    <div class="seg" role="group" aria-label="Filter">
+      <button type="button" id="f-all" data-f="all" aria-pressed="true">Alle</button>
+      <button type="button" id="f-yes" data-f="yes" aria-pressed="false">Braucht Ja</button>
+      <button type="button" id="f-dir" data-f="dir" aria-pressed="false">Läuft direkt</button>
+    </div>
+  </div>
+  <p class="meta" id="count"></p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Was passiert</th><th>Freigabe</th><th>Technisch</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="empty" hidden>Nichts gefunden. Lesen läuft immer ohne Rückfrage.</div>
+  </div>
+  
+</section>
+
+<section aria-labelledby="h-flags">
+  <h2 id="h-flags">Warnungen vom Connector</h2>
+  <p class="note">Eine Warnung blockiert nie. Geprüft wird vor Buchungen und Zahlungen: der Probelauf zeigt sie vorab in der Vorschau, Dein Ja deckt sie ab. Geprüft wird auch bei Änderungen an gebuchten Lieferantenrechnungen und Spesen (<code>bexio_bills.update</code>, <code>bexio_expenses.update</code>). Die laufen ohne Probelauf: der erste Aufruf meldet die Warnung, nichts wird geschrieben, ein Ja, zweiter Aufruf.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Warnung</th><th>Wann sie kommt</th></tr></thead>
+    <tbody>%%FLAGS%%</tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="h-skills">
+  <h2 id="h-skills">Die Skills</h2>
+  <p class="note">Zehn Skills in einem Plugin. Der Kern-Skill lädt immer zuerst und enthält die Freigabe-Regeln. Die anderen enthalten die Felder und Vorab-Prüfungen für ihren Bereich.</p>
+  <ul class="skills">%%SKILLS%%</ul>
+</section>
+</div>
+
+<script>
+const D=%%DATA%%;
+const tb=document.getElementById('rows'),q=document.getElementById('q'),cnt=document.getElementById('count'),empty=document.getElementById('empty');
+let f='all';
+try{const s=localStorage.getItem('gates-f');if(s)f=s;}catch(e){}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function render(){
+  const t=q.value.trim().toLowerCase();
+  const r=D.rows.filter(x=>(f==='all'||(f==='yes'?x.g:!x.g))&&(!t||(x.de+' '+x.t+' '+x.a+' '+D.cls[x.c]).toLowerCase().includes(t)));
+  tb.innerHTML=r.map(x=>`<tr><td class="what">${esc(x.de)}</td><td>${x.g?'<span class="chip yes">braucht Ja · '+esc(D.cls[x.c])+'</span>':'<span class="chip dir">läuft direkt</span>'}</td><td class="tech"><code>${esc(x.t)}</code><br><code>${esc(x.a)}</code></td></tr>`).join('');
+  empty.hidden=r.length>0;
+  cnt.textContent=r.length+' von '+D.rows.length+' Zeilen (%%NW%% Schreib-Aktionen + Sonderfall Lieferantenrechnung mit Zahlung)';
+  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+}
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;try{localStorage.setItem('gates-f',f);}catch(e){}render();}));
+q.addEventListener('input',render);
+render();
+</script>
+<script>
+(function(){
+const NS='http://www.w3.org/2000/svg';
+const W=230,H=54;
+const N={
+ start:{x:450,y:50,t:'Aktion',k:'term',tag:'START',d:'Claude wählt ein Bexio-Werkzeug und eine Aktion, z.B. Rechnung löschen.'},
+ d_read:{x:450,y:140,t:'Nur lesen?',k:'dec',tag:'PRÜFEN',d:'Anzeigen, suchen, PDF holen: 109 Lese-Aktionen. Lesen fragt nie nach.'},
+ n_read:{x:160,y:140,t:'Ausführen · Antwort',k:'term',tag:'ENDE',d:'Läuft sofort. Claude antwortet mit den Daten. Keine Frage, nichts wird geändert.'},
+ d_gate:{x:450,y:240,t:'Braucht es ein Ja?',k:'dec',tag:'PRÜFEN',d:'Ein Ja braucht es bei: E-Mail an Kunden, Löschen, Stornieren, Zahlungen, Buchungen. 46 Aktionen, Liste unten.'},
+ n_direct:{x:160,y:240,t:'Ausführen · melden',k:'term',tag:'ENDE',d:'Die übrigen 68 Änderungen (z.B. Kontakt anlegen, Entwurf erstellen). Läuft sofort, Claude meldet Nummer und ID. Ausnahme: Änderung an gebuchter Lieferantenrechnung/Spese → mögliche Warnung → ein Ja → zweiter Aufruf.'},
+ dry:{x:450,y:340,t:'Probelauf',k:'',tag:'CONNECTOR',d:'Ein Aufruf mit "Probelauf". Der Connector liest den aktuellen Stand und prüft alles: Periode offen, MWST schon abgerechnet, Doppelbuchung, Betrag, Wechselkurs. Er schreibt nichts und meldet jede Warnung.'},
+ prev:{x:450,y:430,t:'Eine Vorschau',k:'',tag:'ZEIGEN',d:'Aus dem Probelauf: Aktion, Firma, Beleg und Nummer, Gegenpartei, Betrag und Währung, Datum, Konten, Empfänger, was nicht rückgängig geht, jede Warnung (⚑). Dazu prüft Claude, was der Connector nicht prüft: IBAN auf dem Beleg vs. hinterlegte IBAN, Empfänger-E-Mail vs. Kontakt.'},
+ d_user:{x:450,y:530,t:'Deine Antwort',k:'dec',tag:'WARTEN',d:'Claude hält an und macht nichts, bis Du antwortest. "ja" → genau das aus der Vorschau. "nein" → Abbruch. Etwas ändern (Betrag, Konto, Empfänger) → neuer Probelauf, neue Vorschau.'},
+ stop:{x:160,y:530,t:'Abbruch',k:'term stop',tag:'ENDE',d:'Nichts wird in Bexio geändert. Keine zweite Nachfrage.'},
+ call:{x:450,y:630,t:'Einmal ausführen',k:'',tag:'SCHREIBEN',d:'Genau die Aktion aus der Vorschau, ein einziges Mal. Die Warnungen aus dem Probelauf sind damit bestätigt. Gilt 15 Minuten und nur für genau diese Aktion.'},
+ d_srv:{x:450,y:730,t:'Connector prüft nochmals',k:'dec',tag:'CONNECTOR',d:'Der Connector prüft direkt vor dem Schreiben nochmals. Nichts Neues → wird geschrieben. Hat sich seit dem Probelauf etwas geändert → neue Warnung, nichts wird geschrieben.'},
+ more:{x:760,y:730,t:'Neue Warnung · noch ein Ja',k:'flag',tag:'FRAGEN',d:'Nur wenn sich die Daten seit dem Probelauf geändert haben. Neue Warnung: Claude zeigt sie und wartet auf ein weiteres Ja. Das ist die einzige zweite Frage. Warnung schon in der Vorschau (nach Neustart): keine Frage, gleich mit Bestätigung senden.'},
+ ack:{x:760,y:930,t:'Mit Bestätigung senden',k:'',tag:'SCHREIBEN',d:'Gleiche Aktion nochmals, mit Bestätigung der neuen Warnung. Keine weitere Frage.'},
+ back:{x:450,y:930,t:'Melden',k:'term',tag:'ENDE',d:'Claude meldet Nummer und neuen Status aus der Antwort von Bexio. Nachlesen nur, wenn die Antwort sie nicht enthält.'}
+};
+const E=[
+ ['start','d_read',[[450,77],[450,113]]],
+ ['d_read','n_read',[[335,140],[275,140]],'ja'],
+ ['d_read','d_gate',[[450,167],[450,213]],'nein'],
+ ['d_gate','n_direct',[[335,240],[275,240]],'nein'],
+ ['d_gate','dry',[[450,267],[450,313]],'ja'],
+ ['dry','prev',[[450,367],[450,403]]],
+ ['prev','d_user',[[450,457],[450,503]]],
+ ['d_user','stop',[[335,530],[275,530]],'nein'],
+ ['d_user','dry',[[565,530],[625,530],[625,340],[565,340]],'ändern'],
+ ['d_user','call',[[450,557],[450,603]],'ja'],
+ ['call','d_srv',[[450,657],[450,703]]],
+ ['d_srv','back',[[450,757],[450,903]],'ok'],
+ ['d_srv','more',[[565,730],[645,730]],'neu'],
+ ['more','ack',[[760,757],[760,903]],'ja'],
+ ['ack','back',[[645,930],[565,930]]]
+];
+const S=[
+ {id:'read',t:'Lesen',s:[['start','Offene Rechnungen anzeigen'],['d_read','Nur lesen'],['n_read','Läuft sofort, Liste kommt']]},
+ {id:'direct',t:'Kontakt anlegen',s:[['start','Neuen Kontakt anlegen'],['d_read','Ändert etwas'],['d_gate','Braucht kein Ja'],['n_direct','Läuft sofort, Claude meldet die Kontakt-ID',0,1]]},
+ {id:'gated',t:'Entwurf löschen',s:[['start','Rechnungsentwurf löschen'],['d_read','Ändert etwas'],['d_gate','Löschen braucht ein Ja'],['dry','Probelauf: Entwurf, Betrag, Kunde, keine Warnung'],['prev','Vorschau: Nummer, Kunde, Betrag, nicht rückgängig'],['d_user','Du: "ja"',1],['call','Löscht einmal'],['d_srv','Nichts Neues',0,1],['back','Meldet: gelöscht']]},
+ {id:'flag',t:'Mit Warnung',s:[['start','Manuelle Buchung erfassen'],['d_read','Ändert etwas'],['d_gate','Buchung braucht ein Ja'],['dry','Probelauf: ⚑ MWST-Periode schon abgerechnet'],['prev','Vorschau zeigt die Warnung'],['d_user','Du: "ja"',1],['call','Bucht einmal, Warnung bestätigt'],['d_srv','Nichts Neues',0,1],['back','Meldet die Buchung']]},
+ {id:'surprise',t:'Neue Warnung',s:[['start','Manuelle Buchung erfassen'],['d_read','Ändert etwas'],['d_gate','Buchung braucht ein Ja'],['dry','Probelauf: keine Warnung'],['prev','Vorschau ohne Warnung'],['d_user','Du: "ja"',1],['call','Bucht einmal'],['d_srv','Inzwischen gebucht: ⚑ Doppelbuchung'],['more','Zeigt die Doppelbuchung. Du: "ja"',1],['ack','Sendet mit Bestätigung',0,1],['back','Meldet die Buchung']]},
+ {id:'no',t:'Du sagst nein',s:[['start','Rechnung per E-Mail senden'],['d_read','Ändert etwas'],['d_gate','E-Mail an Kunden braucht ein Ja'],['dry','Probelauf: Empfänger, Betreff, Text'],['prev','Vorschau: Empfänger, Nummer, Betrag'],['d_user','Du: "nein"',1],['stop','Abbruch, nichts verschickt']]},
+ {id:'changed',t:'Änderung nach Ja',s:[['start','Zahlungsauftrag erstellen'],['d_read','Ändert etwas'],['d_gate','Zahlung braucht ein Ja'],['dry','Probelauf: CHF 100.–, IBAN stimmt'],['prev',"Vorschau: CHF 100.–, IBAN, Datum"],['d_user','Du: "ja, aber 120"',1],['dry','Neuer Probelauf: CHF 120.–'],['prev',"Neue Vorschau: CHF 120.–"],['d_user','Du: "ja"',1],['call','Erstellt den Auftrag einmal'],['d_srv','Nichts Neues',0,1],['back','Meldet: offen, bis Du ihn im E-Banking freigibst']]}
+];
+const svg=document.getElementById('fc'),gE=document.getElementById('edges'),gN=document.getElementById('nodes');
+const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const edgeEl={};
+E.forEach(([a,b,pts,lab])=>{
+  const p=el('polyline',{points:pts.map(p=>p.join(',')).join(' '),class:'edge','marker-end':'url(#ar)'});
+  gE.appendChild(p);
+  let lt=null;
+  if(lab){
+    const [x1,y1]=pts[0],[x2,y2]=pts[1];
+    let lx=(x1+x2)/2,ly=(y1+y2)/2;
+    if(pts.length>2){lx=pts[1][0];ly=(pts[1][1]+pts[2][1])/2;}
+    const vert=pts.length>2?true:(x1===x2);
+    const w=lab.length*7+10;
+    const bx=vert?lx+6:lx-w/2, by=vert?ly-9:ly-22;
+    gE.appendChild(el('rect',{x:bx,y:by,width:w,height:17,rx:4,class:'elab-bg'}));
+    lt=el('text',{x:bx+5,y:by+12.5,class:'elab'});lt.textContent=lab;gE.appendChild(lt);
+  }
+  edgeEl[a+'>'+b]={p,lt};
+});
+const nodeEl={};
+Object.entries(N).forEach(([id,n])=>{
+  const g=el('g',{class:'node '+n.k,tabindex:0,role:'button','aria-label':n.t+'. '+n.d,'data-id':id,transform:`translate(${n.x-W/2},${n.y-H/2})`});
+  g.appendChild(el('rect',{class:'halo',x:-6,y:-6,width:W+12,height:H+12,rx:n.k.includes('term')?33:14}));
+  g.appendChild(el('rect',{width:W,height:H,rx:n.k.includes('term')?27:9}));
+  const tg=el('text',{class:'tag',x:W/2,y:19,'text-anchor':'middle'});tg.textContent=n.tag;g.appendChild(tg);
+  const tx=el('text',{x:W/2,y:38,'text-anchor':'middle'});tx.textContent=n.t;g.appendChild(tx);
+  g.addEventListener('click',()=>show(id));
+  g.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();show(id);}});
+  gN.appendChild(g);nodeEl[id]=g;
+});
+const dk=document.getElementById('d-k'),dt=document.getElementById('d-t'),db=document.getElementById('d-b');
+function show(id){
+  Object.values(nodeEl).forEach(g=>g.classList.remove('sel'));
+  nodeEl[id].classList.add('sel');
+  const n=N[id];dk.textContent=n.tag;dt.textContent=n.t;db.textContent=n.d;
+}
+const log=document.getElementById('log'),tq=document.getElementById('t-q'),tw=document.getElementById('t-w');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let timer=null,run=0;
+function clear(){
+  Object.values(nodeEl).forEach(g=>g.classList.remove('on','cur'));
+  Object.values(edgeEl).forEach(({p,lt})=>{p.classList.remove('on');p.setAttribute('marker-end','url(#ar)');lt&&lt.classList.remove('on');});
+  log.innerHTML='';tq.textContent='0';tw.textContent='0';
+}
+function bump(e,v){e.textContent=String(+e.textContent+v);e.classList.add('bump');setTimeout(()=>e.classList.remove('bump'),400);}
+function play(sc){
+  clearTimeout(timer);const my=++run;clear();
+  document.querySelectorAll('#scen button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===sc.id));
+  let i=0;
+  const step=()=>{
+    if(my!==run)return;
+    const [id,line,q,w]=sc.s[i];
+    Object.values(nodeEl).forEach(g=>g.classList.remove('cur'));
+    nodeEl[id].classList.add('on','cur');
+    if(i>0){const e=edgeEl[sc.s[i-1][0]+'>'+id];if(e){e.p.classList.add('on');e.p.setAttribute('marker-end','url(#ar-on)');e.lt&&e.lt.classList.add('on');}}
+    log.querySelectorAll('li').forEach(l=>l.classList.remove('cur'));
+    const li=document.createElement('li');li.textContent=line;li.className='cur';log.appendChild(li);
+    if(q)bump(tq,q);if(w)bump(tw,w);
+    show(id);
+    i++;if(i<sc.s.length)timer=setTimeout(step,reduce?0:750);
+  };
+  step();
+}
+const sb=document.getElementById('scen');
+S.forEach(sc=>{const b=document.createElement('button');b.type='button';b.textContent=sc.t;b.dataset.s=sc.id;b.id='sc-'+sc.id;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>play(sc));sb.appendChild(b);});
+// resting state: show the full gated path lit
+(function rest(){
+  const sc=S[3];
+  sc.s.forEach(([id],i)=>{nodeEl[id].classList.add('on');if(i>0){const e=edgeEl[sc.s[i-1][0]+'>'+id];if(e){e.p.classList.add('on');e.p.setAttribute('marker-end','url(#ar-on)');e.lt&&e.lt.classList.add('on');}}});
+  document.getElementById('sc-flag').setAttribute('aria-pressed','true');
+  sc.s.forEach(([,line],i)=>{const li=document.createElement('li');li.textContent=line;if(i===sc.s.length-1)li.className='cur';log.appendChild(li);});
+  tq.textContent='1';tw.textContent='1';show('dry');
+})();
+})();
+</script>

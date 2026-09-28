@@ -1,0 +1,12 @@
+{
+  "name": "bexio-skills",
+  "description": "Bexio skill pack for Claude",
+  "owner": { "name": "bexio-skills" },
+  "plugins": [
+    {
+      "name": "bexio",
+      "source": "./plugins/bexio",
+      "description": "Bexio skills: core gate + 9 segment skills with per-operation references"
+    }
+  ]
+}

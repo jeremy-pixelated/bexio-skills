@@ -1,0 +1,800 @@
+[
+ {
+  "tool": "bexio_contacts",
+  "group": "contacts",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_contacts",
+  "group": "contacts",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_contacts",
+  "group": "contacts",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_contacts",
+  "group": "contacts",
+  "action": "bulk_create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_contacts",
+  "group": "contacts",
+  "action": "restore",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_contact_relations",
+  "group": "contacts",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_contact_relations",
+  "group": "contacts",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_contact_relations",
+  "group": "contacts",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_contact_groups",
+  "group": "contacts",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_contact_groups",
+  "group": "contacts",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_contact_groups",
+  "group": "contacts",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_additional_addresses",
+  "group": "contacts",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_additional_addresses",
+  "group": "contacts",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_additional_addresses",
+  "group": "contacts",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "issue",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "revert_issue",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "accept",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "decline",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "reissue",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "mark_as_sent",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "send",
+  "cls": "send",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "copy",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "create_invoice",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_quotes",
+  "group": "sales",
+  "action": "create_order",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_orders",
+  "group": "sales",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_orders",
+  "group": "sales",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_orders",
+  "group": "sales",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_orders",
+  "group": "sales",
+  "action": "edit_repetition",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_orders",
+  "group": "sales",
+  "action": "delete_repetition",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_orders",
+  "group": "sales",
+  "action": "create_delivery",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_orders",
+  "group": "sales",
+  "action": "create_invoice",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_deliveries",
+  "group": "sales",
+  "action": "issue",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "issue",
+  "cls": "posting",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "revert_issue",
+  "cls": "posting",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "cancel",
+  "cls": "cancel",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "mark_as_sent",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "send",
+  "cls": "send",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoices",
+  "group": "sales",
+  "action": "copy",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_invoice_payments",
+  "group": "sales",
+  "action": "create",
+  "cls": "posting",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoice_payments",
+  "group": "sales",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoice_reminders",
+  "group": "sales",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_invoice_reminders",
+  "group": "sales",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoice_reminders",
+  "group": "sales",
+  "action": "send",
+  "cls": "send",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_invoice_reminders",
+  "group": "sales",
+  "action": "mark_as_sent",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_invoice_reminders",
+  "group": "sales",
+  "action": "mark_as_unsent",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_document_positions",
+  "group": "sales",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_document_positions",
+  "group": "sales",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_document_positions",
+  "group": "sales",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_document_comments",
+  "group": "sales",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_bills",
+  "group": "purchase",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_bills",
+  "group": "purchase",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_bills",
+  "group": "purchase",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_bills",
+  "group": "purchase",
+  "action": "execute_action",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_bills",
+  "group": "purchase",
+  "action": "update_status",
+  "cls": "posting",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_expenses",
+  "group": "purchase",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_expenses",
+  "group": "purchase",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_expenses",
+  "group": "purchase",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_expenses",
+  "group": "purchase",
+  "action": "execute_action",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_expenses",
+  "group": "purchase",
+  "action": "update_status",
+  "cls": "posting",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_purchase_orders",
+  "group": "purchase",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_purchase_orders",
+  "group": "purchase",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_purchase_orders",
+  "group": "purchase",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_outgoing_payments",
+  "group": "purchase",
+  "action": "create",
+  "cls": "payment order",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_outgoing_payments",
+  "group": "purchase",
+  "action": "update",
+  "cls": "payment order",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_outgoing_payments",
+  "group": "purchase",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_accounting",
+  "group": "accounting",
+  "action": "create",
+  "cls": "posting",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_accounting",
+  "group": "accounting",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_currencies",
+  "group": "accounting",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_currencies",
+  "group": "accounting",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_currencies",
+  "group": "accounting",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_manual_entries",
+  "group": "accounting",
+  "action": "create",
+  "cls": "posting",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_manual_entries",
+  "group": "accounting",
+  "action": "update",
+  "cls": "posting",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_manual_entries",
+  "group": "accounting",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_manual_entries",
+  "group": "accounting",
+  "action": "add_file",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_manual_entries",
+  "group": "accounting",
+  "action": "delete_file",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_banking_payments",
+  "group": "banking",
+  "action": "create",
+  "cls": "payment order",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_banking_payments",
+  "group": "banking",
+  "action": "update",
+  "cls": "payment order",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_banking_payments",
+  "group": "banking",
+  "action": "cancel",
+  "cls": "cancel",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_banking_payments",
+  "group": "banking",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_items",
+  "group": "items",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_items",
+  "group": "items",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_items",
+  "group": "items",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_projects",
+  "group": "projects",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_projects",
+  "group": "projects",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_projects",
+  "group": "projects",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_projects",
+  "group": "projects",
+  "action": "archive",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_projects",
+  "group": "projects",
+  "action": "unarchive",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_project_planning",
+  "group": "projects",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_project_planning",
+  "group": "projects",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_project_planning",
+  "group": "projects",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_timesheets",
+  "group": "projects",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_timesheets",
+  "group": "projects",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_timesheets",
+  "group": "projects",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_files",
+  "group": "files",
+  "action": "upload",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_files",
+  "group": "files",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_files",
+  "group": "files",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_master_data",
+  "group": "misc",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_master_data",
+  "group": "misc",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_master_data",
+  "group": "misc",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_notes",
+  "group": "misc",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_notes",
+  "group": "misc",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_notes",
+  "group": "misc",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_tasks",
+  "group": "misc",
+  "action": "create",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_tasks",
+  "group": "misc",
+  "action": "update",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_tasks",
+  "group": "misc",
+  "action": "delete",
+  "cls": "delete",
+  "gate": "confirm"
+ },
+ {
+  "tool": "bexio_users",
+  "group": "misc",
+  "action": "create_fictional",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_users",
+  "group": "misc",
+  "action": "update_fictional",
+  "cls": "write",
+  "gate": "–"
+ },
+ {
+  "tool": "bexio_users",
+  "group": "misc",
+  "action": "delete_fictional",
+  "cls": "delete",
+  "gate": "confirm"
+ }
+]

@@ -27,6 +27,7 @@ description: 'Use when any request touches Bexio through a bexio_* connector: lo
 
 ## 3. Gate
 - §3.1 is the only source of the gate. Tool descriptions carry no gate information. Rows are not first-match: the preview-on-request row overrides "any other write".
+- `check_unavailable` in a dry run or `needs_ok` (gated or ungated) → no write, never in `acknowledge_flags`, no question → "Prüfung nicht möglich, bitte später nochmals" (user's language) + connector `message`. Retry later = new call.
 
 | Request | Do |
 |---|---|

@@ -48,7 +48,7 @@ FLAGS = [
  ('Provisorischer Kurs', 'fx_rate_provisional', 'Bexio liefert nur einen Ersatzkurs. Er wird trotzdem verwendet.'),
  ('Kurs weicht ab', 'fx_rate_deviation', 'Der angegebene Kurs weicht mehr als 2 % vom Bexio-Kurs ab.'),
  ('Felder werden ignoriert', 'non_draft_fields_ignored', 'Änderung an einer schon gebuchten Lieferantenrechnung oder Spese: Bexio übernimmt nur einen Teil.'),
- ('Prüfung nicht möglich', 'check_unavailable', 'Eine Prüfung konnte ihre Daten nicht lesen. Wird nie als "in Ordnung" angenommen.'),
+ ('Prüfung nicht möglich', 'check_unavailable', 'Eine Prüfung konnte ihre Daten nicht lesen. Claude schreibt dann nichts, Du versuchst es später nochmals.'),
 ]
 flag_codes = set(re.findall(r'`([a-z_]+)`', core[core.index('### 3.5'):core.index('## 4')])) if '### 3.5' in core else None
 if flag_codes is not None and not {c for _, c, _ in FLAGS} <= flag_codes:

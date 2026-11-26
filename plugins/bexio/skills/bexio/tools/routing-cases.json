@@ -97,7 +97,7 @@
    "row": [
     "credit note · Gutschrift, Kreditnote"
    ],
-   "note": "§9: no API → Bexio UI"
+   "note": "§9: no API"
   },
   {
    "id": "N09",
@@ -110,7 +110,7 @@
    "row": [
     "supplier credit note · Lieferantengutschrift"
    ],
-   "note": "§9: no endpoint → Bexio UI"
+   "note": "§9: no endpoint"
   },
   {
    "id": "N10",
@@ -135,7 +135,7 @@
    "row": [
     "bank reconciliation: list + proposed postings"
    ],
-   "note": "matching itself = Bexio UI (§9)"
+   "note": "matching itself: no API (§9)"
   },
   {
    "id": "N12",
@@ -257,7 +257,7 @@
    "row": [
     "month-end / year-end / period close check"
    ],
-   "note": "VAT form = Bexio UI (§9)"
+   "note": "VAT form: no API (§9)"
   },
   {
    "id": "N22",
@@ -282,7 +282,7 @@
    "row": [
     "a supplier's IBAN / bank details"
    ],
-   "note": "change: §9 no API → Bexio UI"
+   "note": "change: §9 no API"
   },
   {
    "id": "N24",
@@ -554,7 +554,7 @@
    "row": [
     "customer paid an invoice (customer side only)"
    ],
-   "note": "money in; overpayment → sales ask line (record open amount + excess as manual posting, or Bexio UI)"
+   "note": "money in; overpayment → sales ask line (record open amount + excess as manual posting via bexio-accounting)"
   },
   {
    "id": "N46",
@@ -693,7 +693,7 @@
    "row": [
     "bank reconciliation: list + proposed postings"
    ],
-   "note": "matching itself = Bexio UI (§9)"
+   "note": "matching itself: no API (§9)"
   },
   {
    "id": "B07",
@@ -881,7 +881,7 @@
    "row": [
     "credit note · Gutschrift, Kreditnote"
    ],
-   "note": "§9: no API → Bexio UI"
+   "note": "§9: no API"
   },
   {
    "id": "R07",

@@ -3,15 +3,14 @@ name: bexio
 description: 'Use when any request touches Bexio through a bexio_* connector: load first, before any segment skill. Routes to bexio-contacts, bexio-sales, bexio-purchase, bexio-accounting, bexio-banking, bexio-items, bexio-projects, bexio-files, bexio-admin. Holds the gate for 13 high-risk actions (send, payment, final delete, tax-rate delete: dry run, one preview, one yes; every other write runs directly), connector flags, API conventions, errors, what has no API. Triggers: Bexio, Buchung, buchen, Kreditor, Debitor, Zahlung, Zahlungsauftrag, Mahnung, Abschluss, Monatsabschluss, MWST, Beleg, Offerte, Rechnung, Gutschrift, Lieferant, Lieferantenrechnung, Spesen, Wechselkurs, Kontoauszug.'
 ---
 
-# Bexio core — load first
+# Bexio core: load first
 
 ## 0. Notation
 - `bexio_x.y` = tool `bexio_x`, `action: "y"`.
-- `[D:<opId>]` = https://docs.bexio.com/#operation/<opId> · `[D§<s>]` = https://docs.bexio.com/#section/<s> · `[H:<nr>]` = https://help.bexio.com/s/article/<nr>?language=de.
 - n.d. = not documented → the safe behaviour stated with it; never fill from memory.
 - ask (data) = question for missing data, never an approval.
 - ⚑ = flag line. Connector flag = §3.5 code from a dry run or `needs_ok`. Skill flag = segment pre-check finding; never sent as `acknowledge_flags`.
-- Per-op detail (299 ops: path, tool.action, gate, required fields, enums, scopes, anchor) → segment `reference.md`.
+- Per-op detail → segment `reference.md`.
 - Reply in the user's language.
 
 ## 1. Route first
@@ -19,7 +18,7 @@ description: 'Use when any request touches Bexio through a bexio_* connector: lo
 
 ## 2. Connector
 - Write = create, change, delete, book, pay, send, issue, cancel, copy, archive, upload, remind, mark. Also inside a read request ("check it and mark it paid").
-- Checked before §3: write action missing from the tool's `action` enum → no call (also no `dry_run`), no preview → "<action> not available on this connection" (user's language) + offer the read part. Never work around it: no other connection, direct API call, script, token, browser automation, ready-to-run payload, other channel (e.g. emailing a PDF instead of a Bexio `send`).
+- Checked before §3: write action missing from the tool's `action` enum → no call (also no `dry_run`), no preview → "<action> not available on this connection" (user's language); stop that action; do the read part. Never work around it: no other connection, direct API call, script, token, browser automation, ready-to-run payload, other channel (e.g. emailing a PDF instead of a Bexio `send`).
 - Gated tool without a `dry_run` property in its input schema → its §3.1 actions count as missing (line above). Never send `dry_run` to a tool that does not declare it: the call executes for real.
 - `dry_run` only on §3.1 actions.
 - `bexio_users.me` → signed-in user (`user_id` for creates).
@@ -53,12 +52,12 @@ description: 'Use when any request touches Bexio through a bexio_* connector: lo
 | `bexio_invoice_reminders.delete` | final delete |
 | `bexio_bills.delete` | final delete |
 | `bexio_accounting.delete` | tax rate |
-- Also gated, class payment: `bexio_bills.create` / `bexio_bills.update` with a `payment` object (effect n.d. [D:ApiBills_POST]).
+- Also gated, class payment: `bexio_bills.create` / `bexio_bills.update` with a `payment` object (effect n.d.).
 - Every other write is ungated, also other deletes, cancels and postings.
 
 ### 3.2 Gated flow
 1. Same call + `dry_run: true` → nothing written → `{status: "dry_run", company: {name} | null (+ company_error), would_send, pre_image, flags: [{code, message}], acknowledge_flags, valid_for_s: 900, next}`. Run the segment gate row's pre-checks alongside.
-2. One preview, lines in this order, none skipped (empty → "–"):
+2. One preview, lines in this order, none skipped (empty → "none"):
 
 | Line | Content |
 |---|---|
@@ -68,7 +67,7 @@ description: 'Use when any request touches Bexio through a bexio_* connector: lo
 | Counterparty | name (customer, supplier, receiver) |
 | Amount | amount + currency |
 | Date(s) | document / booking / execution date |
-| Accounts / IBAN | payment order / outgoing payment / bill `payment`: `IBAN: <request / document> · stored: <§3.4 read>` → ⚑ if different or none stored · MANUAL / CASH_DISCOUNT (no receiver IBAN): `IBAN: – (no transfer)`, no ⚑ |
+| Accounts / IBAN | payment order / outgoing payment / bill `payment`: `IBAN: <request / document> · stored: <§3.4 read>` → ⚑ if different or none stored · MANUAL / CASH_DISCOUNT (no receiver IBAN): `IBAN: none (no transfer)`, no ⚑ |
 | Irreversible | what cannot be undone |
 | ⚑ | one per dry-run flag (connector `message`) + one per skill pre-check finding |
 - Changes: `would_send`, before → after. Extra fields: segment gate row.
@@ -92,7 +91,7 @@ description: 'Use when any request touches Bexio through a bexio_* connector: lo
 ### 3.3 Write errors
 | Result | Do |
 |---|---|
-| 429 / timeout / 5xx | connector never retries writes; no blind retry → read back first (may be processed, n.d. [D§API-basics/Rate-Limiting]) |
+| 429 / timeout / 5xx | connector never retries writes; no blind retry → read back first (may be processed, n.d.) |
 | read back: created | report id; no repeat |
 | read back: not created | identical re-send ≤ 15 min only returns the cached result (no Bexio call) → after 15 min or changed payload: gated → step 1 · ungated → call again |
 | result text starts `Deduplicated:` (identical write ≤ 15 min, no Bexio call) | report the earlier result |
@@ -111,7 +110,7 @@ description: 'Use when any request touches Bexio through a bexio_* connector: lo
 - Stored IBAN read, first hit wins:
   1. The supplier's earlier bills (`bexio_bills.list` `filters.supplier_id`, not the bill being paid) → `bexio_outgoing_payments.list` `bill_id` → `receiver_iban`, else `bexio_bills.get` → `payment.iban`.
   2. No earlier bill, or none with an IBAN → `bexio_banking_payments.list` `filter_by: recipient.name:<name>` → `recipient.iban`.
-  3. Nothing → "stored: none". The contact record has no IBAN field [D:v2ShowContact].
+  3. Nothing → "stored: none". The contact record has no IBAN field.
 
 ### 3.5 Connector flags (11)
 - Raised by the connector (dry run or `needs_ok`), explained by its `message` → show it verbatim; never predict or invent a flag.
@@ -136,40 +135,34 @@ description: 'Use when any request touches Bexio through a bexio_* connector: lo
 - Search before create: contacts, items, bills by `vendor_ref` / `document_no`.
 - Status first: bills / expenses outside draft apply only part of an update (`bexio-purchase`). Field unchanged in the response → report it, never claim success.
 - Report Bexio id (+ doc nr) of every object created / changed.
-- Posted → correct by reversal, not delete: manual entry → reversing entry · issued invoice → `cancel` · credit notes: no API [D§FAQ] → Bexio UI. Delete only drafts, or on the user's explicit delete request.
+- Posted → correct by reversal, not delete: manual entry → reversing entry · issued invoice → `cancel` · credit notes: no API. Delete only drafts, or on the user's explicit delete request.
 - `bexio_orders.edit_repetition`: schedule from the request; missing → ask (data).
 
 ## 5. API conventions
-| Family | Areas | Ids | Paging | Search |
-|---|---|---|---|---|
-| 2.0 | contacts, sales docs, positions, items, projects, timesheets, notes, tasks, master data, accounts | integer | `limit` (default 500, max 2000) + `offset` | `search` + `search_criteria` |
-| 3.0 | accounting, currencies, taxes, files, bank accounts, users, purchase orders, milestones | integer (+ `uuid`) | `limit` + `offset` | files, accounts, calendar years |
-| 4.0 purchase | bills, expenses, outgoing payments | UUID | `limit` (bills max 500) + `page` from 1 + `order` + `sort` | bills `search_term` 3–255 chars; filters |
-| 4.0 banking | banking payments | UUID (+ int `id`) | `page` from 0 + `per_page` (max 2000) | `filter_by` `field:value;field:min_max` |
-Sources: [D:v2ListInvoices], [D:ApiBillsList_GET], [D:NewFetchAllPayments], [D§Changelog].
-- `search_criteria` = `[{field, value, criteria}]`, several = AND (docs example). Criteria `=` `!=` `>` `<` `>=` `<=` `like` (default) `not_like` `is_null` `not_null` `in` `not_in` [D§API-basics/Search].
+- For per-version paging, search syntax and wire formats, read `references/api-formats.md`.
+- 2.0 `limit`: default 500, max 2000. 4.0 bills `limit`: max 500; `search_term`: 3 to 255 chars. 4.0 banking `per_page`: max 2000.
 - Numbers + doc numbers: `=` (`like` on `RE-00123` also hits `RE-001234`). Searchable fields per endpoint: tool description / `reference.md`.
 - Full page ≠ done: page until a short page. `[Result truncated …]` → narrow the query.
-- Wire: dates `YYYY-MM-DD` · 2.0 money / qty = decimal strings, max 6 decimals (`"10.0000"`) · 4.0 purchase amounts = numbers, max 2 decimals · manual-entry amounts = numbers, booked gross incl. VAT [H:000001672] · 2.0 datetimes `2019-04-08 13:17:32`, 3.0 / 4.0 ISO 8601 [D:v2CreateInvoice], [D:ApiBills_POST], [D:CreateManualEntry].
+- 2.0 money / qty: max 6 decimals. 4.0 purchase amounts: max 2 decimals. Manual-entry amounts booked gross incl. VAT.
 - To the user: `CHF 1'250.50`, `15 %`, `30.09.2026`.
 - `pdf` actions return base64 inline → name the document, never paste base64.
 
 ## 6. Scopes
-- Token scope AND user right both needed [D§Scopes and user access rights]; `bexio_users.permissions` → module `edit`.
-- Write implies read · `accounting`, `file`: one scope for read + write · stock locations: `stock_edit` even to read · bills / expenses declare only `openid contact_show` → 403 = user's `kb_bill` / `expense` permission [D§Authentication/API-Scopes], [D:ApiBills_POST].
+- Token scope AND user right both needed; `bexio_users.permissions` → module `edit`.
+- Write implies read · `accounting`, `file`: one scope for read + write · stock locations: `stock_edit` even to read · bills / expenses declare only `openid contact_show` → 403 = user's `kb_bill` / `expense` permission.
 
 ## 7. Errors
-| Code | Meaning [D§API-basics/HTTP-Headers] | Do |
+| Code | Meaning | Do |
 |---|---|---|
-| 401 | token invalid / expired | stop → user reconnects the connector |
+| 401 | token invalid / expired | report, stop; user reconnects the connector |
 | 403 | token scope OR user permission missing | "no access to X", never "no data" → `bexio_users.permissions`; never widen a token by hand |
 | 404 | resource unknown | check id type (integer vs UUID) + tool |
-| 409 | conflict; documented only on tax delete (in use / digit 000) [D:DeleteTax] | report, don't force |
+| 409 | conflict; documented only on tax delete (in use / digit 000) | report, don't force |
 | 411 / 415 | missing Content-Length / bad Accept | connector fault → report, stop |
 | 422 | "Could not save the entity" | show message, fix the field → gated: step 1 |
-| 429 | rate limit per company per minute (value n.d.) [D§API-basics/Rate-Limiting] | retry later; write → §3.3 |
+| 429 | rate limit per company per minute (value n.d.) | retry later; write → §3.3 |
 | 500 / 503 | server error / maintenance | stop, report; write → §3.3 |
-- Error body `{"error_code", "message"}` [D§API-basics/Errors].
+- Error body `{"error_code", "message"}`.
 
 ## 8. Router
 1. Split: part = one outcome (read, create, change, book, pay, send, delete) on one object. Two outcomes (read hours + invoice them) = two parts → one skill each, request order. Search, id lookup, upload for an attachment = same part (upload + attach = one part; target decides: manual entry → `bexio_manual_entries.add_file`, bill / expense → `attachment_ids`).
@@ -193,12 +186,12 @@ Sources: [D:v2ListInvoices], [D:ApiBillsList_GET], [D:NewFetchAllPayments], [D§
 ### 8.1 Tie-breaks
 | Request | → Skill | Not |
 |---|---|---|
-| users, who is signed in, rights, 403 · Benutzer, Berechtigung | `bexio-admin` | – |
+| users, who is signed in, rights, 403 · Benutzer, Berechtigung | `bexio-admin` | none |
 | note or task, also on a contact or project · Notiz, Aufgabe, Pendenz | `bexio-admin` | `bexio-contacts`, `bexio-projects` |
 | supplier credit note · Lieferantengutschrift, Gutschrift … <Lieferant> | `bexio-purchase` (§9: no API) | `bexio-sales` |
 | credit note · Gutschrift, Kreditnote | `bexio-sales` (§9: no API) | `bexio-contacts` |
-| salary posting as a manual entry · Lohnbuchung, Lohnaufwand, Lohnkonto | `bexio-accounting` | – |
-| payroll: payslips, salary runs, salary payments, salary certificates · Lohnabrechnung, Lohnlauf, Lohnausweis, Löhne auszahlen | not covered (§9) | – |
+| salary posting as a manual entry · Lohnbuchung, Lohnaufwand, Lohnkonto | `bexio-accounting` | none |
+| payroll: payslips, salary runs, salary payments, salary certificates · Lohnabrechnung, Lohnlauf, Lohnausweis, Löhne auszahlen | not covered (§9) | none |
 | money in from a supplier: refund, repayment · Rückerstattung, Zahlungseingang … <Lieferant> | `bexio-accounting` (manual posting; supplier credit note: §9) | `bexio-sales`, `bexio-purchase` |
 | customer paid an invoice (customer side only), also with cash discount or overpayment · Zahlungseingang, Skonto, Kunde überweist / zahlt, zu viel bezahlt, Überzahlung | `bexio-sales` | `bexio-banking`, `bexio-accounting` |
 | supplier bill or expense: create (also from a PDF / receipt), list open / overdue, book / unbook (verbuchen), pay, delete its payment · Lieferantenrechnung, Kreditorenrechnung, Rechnung von <Lieferant>, offene Kreditoren, Lieferant bezahlen, Rechnung überweisen, Spesen, Spesenbeleg, Spesenabrechnung | `bexio-purchase` | `bexio-sales`, `bexio-files`, `bexio-accounting` |
@@ -206,7 +199,7 @@ Sources: [D:v2ListInvoices], [D:ApiBillsList_GET], [D:NewFetchAllPayments], [D§
 | free posting not tied to a bill, expense or invoice: accrual, reclassification, correction, reversal · Buchung erfassen, manuelle Buchung, Sammelbuchung, Abgrenzung, Umbuchung, Gegenbuchung, Storno-Buchung | `bexio-accounting` | `bexio-purchase`, `bexio-sales` |
 | delete a payment order created from a bill payment (Banking order with `purchase_reference.bill_id`, check via `bexio_banking_payments.get`) · Zahlungsauftrag aus Lieferantenzahlung löschen | `bexio-purchase` (`bexio_outgoing_payments.delete`) | `bexio-banking` |
 | payment order, the company pays (imperative, wir / uns): create, change, list (open / failed), cancel (any order, also from a bill payment), delete (no bill link) · Zahlungsauftrag, Überweisung | `bexio-banking` | `bexio-purchase` |
-| bank reconciliation: list + proposed postings · Bankabstimmung, Abgleichliste, Kontoauszug abgleichen (matching = Bexio UI, §9) | `bexio-banking` | `bexio-accounting` |
+| bank reconciliation: list + proposed postings · Bankabstimmung, Abgleichliste, Kontoauszug abgleichen (§9: no API) | `bexio-banking` | `bexio-accounting` |
 | attach a file to a bill or expense (`attachment_ids`; upload + attach = one part) | `bexio-purchase` | `bexio-files` |
 | attach a receipt to a posting (upload + attach = one part) · Beleg / Quittung zur Buchung <nr> → check <nr>: `bexio_bills.list` / `bexio_expenses.list` `filters.document_no` hit → purchase attach row; no hit → manual entry | `bexio-accounting` | `bexio-files` |
 | upload to the inbox, find / rename / archive / download / delete a file, file usage; no bill, expense or posting to create or attach to · in die Inbox, Beleg hochladen, Quittung hochladen, Kontoauszug hochladen | `bexio-files` | `bexio-purchase`, `bexio-accounting` |
@@ -223,7 +216,7 @@ Sources: [D:v2ListInvoices], [D:ApiBillsList_GET], [D:NewFetchAllPayments], [D§
 | purchase order · Bestellung | `bexio-purchase` | `bexio-sales` |
 | a supplier's IBAN / bank details · Lieferanten-IBAN, IBAN von <Lieferant> (read: core §3.4 stored IBAN read; change: §9) | `bexio-purchase` | `bexio-contacts`, `bexio-banking` |
 | supplier / customer master data: create, change, find, delete · Lieferant anlegen, Kunde anlegen, Kreditor anlegen, Debitor anlegen, Kreditor-Stamm, Debitor-Stamm, Adresse ändern | `bexio-contacts` | `bexio-purchase`, `bexio-sales` |
-| month-end / year-end / period close check, business year / VAT period status, VAT return · Monatsabschluss, Jahresabschluss, Abschluss, Geschäftsjahr, MWST-Periode, MWST-Abrechnung | `bexio-accounting` (§9: close + VAT form = UI) | `bexio-banking` |
+| month-end / year-end / period close check, business year / VAT period status, VAT return · Monatsabschluss, Jahresabschluss, Abschluss, Geschäftsjahr, MWST-Periode, MWST-Abrechnung | `bexio-accounting` (§9: no API) | `bexio-banking` |
 | company name, VAT number · Firmenprofil, MWST-Nr, UID | `bexio-admin` | `bexio-accounting` |
 | the company's own bank accounts: IBAN, QR-IBAN, bank · Bankkonto | `bexio-banking` | `bexio-admin`, `bexio-accounting` |
 
@@ -242,14 +235,12 @@ Sources: [D:v2ListInvoices], [D:ApiBillsList_GET], [D:NewFetchAllPayments], [D§
 - `bexio_master_data` `resource: business_activities` → used by `bexio-projects`, owned by `bexio-admin`.
 - Maintainers: API tag → skill = `TAG_SKILL` in `tools/gen_reference.py` · routing cases `tools/routing-cases.json` · check `tools/check_routing.py`.
 
-## 9. No API (Bexio UI only)
-- Transmit payment orders to e-banking, pain.001 download [H:000002212].
-- Bank-transaction matching ("Transaktionen abgleichen", Bankabstimmung) [H:000001755] → read + propose; user matches.
-- Close / lock / reopen business years [H:000001915] · close VAT periods, VAT form · reopening a settled VAT period needs Bexio support [H:000002234].
-- Balance sheet, P&L, balances → journal lines only (movement, not balance).
-- Credit notes ("currently Credit Notes are not available" [D§FAQ]) · vendor credit notes (no endpoint) · editing regular users (no write endpoint).
-- Contact bank details (a supplier's / customer's IBAN): no contact bank-account operation → store / change in Bexio UI; read → core §3.4 stored IBAN read.
+## 9. No API
+- No API → report and stop the unsupported action. Never work around it.
+- Transmit payment orders to e-banking, pain.001 download.
+- Bank-transaction matching ("Transaktionen abgleichen", Bankabstimmung): no API; read + propose postings.
+- Close / lock / reopen business years · close VAT periods, VAT form · reopening a settled VAT period has no API; stop and say so.
+- Balance sheet, P&L, balances: no endpoint. Journal lines measure movement, not balance.
+- Credit notes ("currently Credit Notes are not available") · vendor credit notes (no endpoint) · editing regular users (no write endpoint).
+- Contact bank details (a supplier's / customer's IBAN): no contact bank-account operation. Stored IBAN lookup: §3.4.
 - Payroll: not covered by this pack; salary postings in the journal = ordinary journal reads.
-
----
-Sources: https://docs.bexio.com/ (OpenAPI 3.0.2 embedded in the page; intro: Authentication, API basics, Rate Limiting, FAQ, Changelog), fetched 2026-09-24, spec sha256 b1555469… · help.bexio.com 000002212, 000001755, 000001915, 000002234, 000001672.

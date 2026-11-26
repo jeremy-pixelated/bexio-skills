@@ -106,13 +106,16 @@ Core `bexio` first. All 26 ops: `reference.md`.
 1. File: `bexio_files.upload` or inbox (`bexio_files.search`) → file `uuid` · `attachment_ids` = file `uuid`s (array of string, format uuid), not integer `id` [D:ApiBills_POST], [D:ApiExpenses_POST].
 2. Supplier: `bexio_contacts.search` → `supplier_id` (+ `contact_partner_id`) · PDF IBAN vs stored IBAN (core §3.4 read) → ⚑ IBAN mismatch.
 3. Accounts: `bexio_accounting` accounts `search` `account_no` `=` · taxes `list` `types: pre_tax`, `scope: active`, `date: <bill_date>`.
+3b. Tax per line from the PDF, never from the supplier or account default: `tax_id` only when the PDF shows a VAT amount or rate AND a VAT number (`CHE-…MWST`/`TVA`/`IVA`) · "nicht MWST-pflichtig", no tax line, or a bare UID without the VAT suffix → no `tax_id` (omit, not `null`) · preview shows PDF tax vs computed tax per line. Reason: a default pre-tax code on a non-VAT supplier claims input tax the receipt does not carry.
 4. `create` DRAFT (ungated) → report id + `document_no` · attachment linked (`get`)? Not linked → report, fix before booking.
 5. `bexio_bills.update_status` → BOOKED (check above; `needs_ok` → core §3).
 6. Pay: user pays in e-banking + matches in Bexio (no API) · or gate row `bexio_outgoing_payments.create` → user transmits in Bexio.
+7. After booking: `get` → `attachment_ids` not empty and tax per line = PDF; else the bill is not done.
 
 ## Gotchas
 1. Silent partial update (non-draft bill → `payment` only; DONE expense → `attachment_ids` only) → check status first, then response.
 2. Paging: bills `page` from 1 (max 500) · banking payments from 0.
+3. Transmitted IBAN / QR payment stays unlinked until a bank-feed line is matched to it (UI, no API); most feed lines carry no payment reference, so auto-match rarely fires. Until linked: no journal line payables → bank, bank balance and payables too high, VAT unaffected. Journal-only readers then report "payment missing" → always read `outgoing_payments.list` per bill before judging a bill's bank line; never create a second payment (double payment).
 
 ---
 Sources: https://docs.bexio.com/ (OpenAPI 3.0.2; ops cited above; full list `reference.md`) · help.bexio.com 000001755, 000001791, 000002212, fetched 2026-09-24.

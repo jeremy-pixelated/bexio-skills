@@ -64,6 +64,9 @@ Core `bexio` first. All 8 ops: `reference.md`.
 2. Reconciliation list:
    - `bexio_bank_accounts.get` → `account_id` → account `uuid` (`bexio_accounting` accounts) → journal `list` for the month on it
    - compare with user's bank statement → unmatched lines, proposed postings (`bexio-accounting`) · matching = Bexio UI (no API)
+   - balance = opening + debit − credit over `base_currency_amount` (not `amount`; FX lines distort it) · per month-end: statement, Bexio, difference, named items, rest; rest ≠ 0 = finding
+3. Bill payments sent from Bexio Banking: list bills with an outgoing payment but no `transaction_id` → user links each in the UI ("Abgleichen" with the existing payment, only on matching QR reference / IBAN and deviation 0.00) · never a new payment.
+4. Feed twins: same date, amount and counterparty twice in the open list → count real debits in the statement (camt.053 `NtryRef`) · once = feed duplicate (user ignores in UI) · twice = real double payment → supplier credit, ask the user.
 
 ## Gotchas
 1. `account_id` here = `uuid`; elsewhere integer `id`.

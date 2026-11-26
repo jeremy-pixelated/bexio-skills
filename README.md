@@ -24,6 +24,10 @@ Claude app (Cowork): add this repository as a plugin marketplace, then install t
 
 Update: pull the marketplace again, then update the plugin.
 
+## License
+
+MIT, see `LICENSE`.
+
 ## Disclaimer
 
 Independent project, not affiliated with or endorsed by bexio AG. "Bexio" is a trademark of its owner.
